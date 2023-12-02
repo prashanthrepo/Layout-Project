@@ -16,10 +16,7 @@ export default function SiteDetails({
 }) {
   return (
     <div className="m-1.5">
-      <ModalAction
-        isOpen={openModal}
-        setIsOpen={setOpenModal}
-        title="Send Feedback">
+      <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
         <div className="grid content-between h-full">
           <div>
             <div className="mb-5 ">
@@ -33,6 +30,7 @@ export default function SiteDetails({
                     <Image
                       className="w-8 h-8 rounded-full"
                       src={flag}
+                      alt="flag"
                       //   width={36}
                       //   height={36}
                       //   alt={job.company}

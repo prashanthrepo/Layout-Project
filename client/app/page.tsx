@@ -2,11 +2,7 @@
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
 import Dashboard from './(default)/dashboard/page';
-export default function DefaultLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DefaultLayout() {
   return (
     <div className="flex h-[100dvh] overflow-hidden">
       {/* Sidebar */}

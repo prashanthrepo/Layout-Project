@@ -16,7 +16,8 @@ export default function Dashboard() {
   const dashboardRender = (type) => {
     switch (type) {
       case 'Buyer':
-        return <MapView />;
+        // return <MapView />;
+        return <></>;
       case 'Seller':
         return <SellerLayouts />;
       case 'Admin':
