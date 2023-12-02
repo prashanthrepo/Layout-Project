@@ -9,7 +9,7 @@ import SidebarLinkGroup from './sidebar-link-group'
 import SidebarLink from './sidebar-link'
 import Logo from './logo'
 import getSelf from '@/api/get-self';
-import useAppStore from '../../common/appStore';
+import { useAppStore } from '../../common/utils';
 import React from 'react';
 
 export default function Sidebar() {
