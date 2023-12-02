@@ -17,7 +17,7 @@ export default function Dashboard() {
     switch (type) {
       case 'Buyer':
         // return <MapView />;
-        return <span></span>;
+        return <span>test</span>;
       case 'Seller':
         return <SellerLayouts />;
       case 'Admin':
