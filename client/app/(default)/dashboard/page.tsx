@@ -5,7 +5,7 @@ import { useState } from 'react';
 //   description: 'Plots around bangalore',
 // };
 import AddNewLayout from './AddNewLayout';
-import useAppStore from '../../../common/appStore';
+import { useAppStore } from '../../../common/utils';
 import MapView from './buyer-dashboard/map-view';
 import SellerLayouts from './seller-dashboard/seller-layouts';
 import AllLayouts from './admin-dashboard/all-layouts';
@@ -16,8 +16,7 @@ export default function Dashboard() {
   const dashboardRender = (type) => {
     switch (type) {
       case 'Buyer':
-        // return <MapView />;
-        return <span>test</span>;
+        return <MapView />;
       case 'Seller':
         return <SellerLayouts />;
       case 'Admin':

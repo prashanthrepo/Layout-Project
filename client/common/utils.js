@@ -1,3 +1,5 @@
+import { create } from 'zustand';
+import zukeeper from 'zukeeper';
 const statusColors = (status) => {
   const statusLowerCase = status?.toLowerCase();
   const replaceUnderrscore = statusLowerCase?.replace(/_/g, ' ');
@@ -26,4 +28,16 @@ const siteTypeColor = (type) => {
   }
 };
 
-export { statusColors, siteTypeColor };
+const useAppStore = create(
+  zukeeper((set, get) => ({
+    user: null,
+    setUser: (user) => {
+      set({ user });
+    },
+  }))
+);
+if (typeof window !== 'undefined') {
+  window.store = useAppStore;
+}
+
+export { statusColors, siteTypeColor, useAppStore };
