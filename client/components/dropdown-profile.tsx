@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 import UserAvatar from '@/public/images/user-avatar-32.png'
-import useAppStore from '@/common/appStore';
+import useAppStore from '../common/appStore';
 
 export default function DropdownProfile({
   align,
