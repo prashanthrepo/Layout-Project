@@ -23,6 +23,7 @@ jobs:
       
     - name: 🔨 Build Project
       run: |
+        pwd
         npm install
         npm run build && npm run export
     
