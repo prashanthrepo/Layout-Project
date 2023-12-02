@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-flatpickr": "^3.10.13",
+    "sharp": "^0.33.0",
     "typescript": "^5.2.2",
     "zukeeper": "^1.0.2",
     "zustand": "^4.4.6"
