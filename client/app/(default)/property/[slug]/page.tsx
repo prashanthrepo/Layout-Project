@@ -1,37 +1,33 @@
 'use client';
 import React from 'react';
 import { useEffect } from 'react';
-import layoutData from '@/stores/mockdata.js';
+import { layoutData } from '@/common/mockdata.js';
+import SiteDetails from './site-details';
+import { siteTypeColor } from '@/common/utils';
 export default function Page({ params }: { params: { slug: string } }) {
   const [data, setData] = React.useState(layoutData);
-  const onSiteClick = (layout) => {
-    if (layout?.type == 'road') return;
-    const layoutNumber = layout?.number;
-    alert(layoutNumber);
-    const newData = data.map((item) => {
-      if (item?.number === layoutNumber) {
-        return {
-          ...item,
-          status: !layout?.status,
-        };
+  const [openModal, setOpenModal] = React.useState(false);
+  const [seletedSite, setSelectedSite] = React.useState(null);
+  const onSiteClick = (site: any) => {
+    if (site?.type == 'road') return;
+    const siteNumber = site;
+    siteNumber && setSelectedSite(siteNumber);
+    siteNumber && setOpenModal(true);
+  };
+
+  const onSiteStatusChange = (number, type) => {
+    const newData = data?.map((item) => {
+      if (item?.number === number) {
+        item.status = type;
       }
       return item;
     });
     setData(newData);
+    // setOpenModal(false);
   };
-  useEffect(() => {
-    const newData = layoutData.map((layout) => {
-      return {
-        ...layout,
-        status: true,
-      };
-    });
 
-    setData(newData);
-  }, [layoutData]);
   return (
     <div>
-      {/* My Post: {params.slug} */}
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
         <div className="flex">
           <div className="w-full">
@@ -46,32 +42,58 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <polygon
                       className=" cursor-pointer hover:opacity-60"
                       points={layout.points}
-                      fill={layout?.status ? '#d9f99d' : '#f9d9d9'}
+                      fill={siteTypeColor(layout?.status)}
                       stroke="#000"
                       strokeWidth="0.1"
                     />
                   ) : (
-                    <polygon points={layout.points} fill="#e5e7eb" />
+                    <polygon
+                      points={layout.points}
+                      fill="#6b7280"
+                      stroke="#6b7280"
+                      strokeWidth="1"
+                    />
                   )}
-
-                  {layout?.info?.map((text, key) => (
-                    <text
-                      key={key}
-                      transform={text?.transform}
-                      fill="#000"
-                      fontSize="10"
-                      fontWeight="normal">
-                      {text?.type === 'number'
-                        ? text?.text
-                        : `${text?.text}' Feet Wide Road`}
-                    </text>
-                  ))}
+                  {layout?.info?.map((item, key) => {
+                    if (item?.type === 'number') {
+                      return (
+                        <text
+                          key={key}
+                          transform={item?.transform}
+                          className=" cursor-pointer"
+                          fill="#000"
+                          fontSize="10"
+                          fontWeight="normal">
+                          {item?.text}
+                        </text>
+                      );
+                    } else if (item?.type === 'road') {
+                      return (
+                        <text
+                          key={key}
+                          transform={item?.transform}
+                          fill="#fff"
+                          fontSize="10"
+                          fontWeight="normal">
+                          {`${item?.text}' Feet Wide Road`}
+                        </text>
+                      );
+                    }
+                  })}
                 </g>
               ))}
             </svg>
           </div>
         </div>
       </div>
+      {seletedSite && (
+        <SiteDetails
+          selectedSite={seletedSite}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          onSiteStatusChange={onSiteStatusChange}
+        />
+      )}
     </div>
   );
 }

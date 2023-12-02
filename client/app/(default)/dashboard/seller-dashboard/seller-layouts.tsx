@@ -13,12 +13,17 @@ export default function SellerLayouts() {
         <div className="col-span-full xl:col-span-6">
           <div className="flex flex-col ">
             <div className="w-full">
+              <div className="sm:flex sm:justify-between sm:items-center mb-5">
+                <div className="mb-4 sm:mb-0 w-4/12">
+                  <h1 className="text-1xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold">
+                    All Property's
+                  </h1>
+                </div>
+              </div>
               <div className="space-y-2">
                 {layouts?.map((layout, key) => (
                   <Link href={`/property/${layout?._id}`} key={key}>
-                    <div
-                      className={`shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700
-          }`}>
+                    <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
                       <div className="md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2">
                         <div className="flex items-start space-x-3 md:space-x-4">
                           <div className="w-20 h-20 shrink-0 mt-1">
@@ -36,9 +41,7 @@ export default function SellerLayouts() {
                             </span>
                             <div className="text-sm">{layout?._id}</div>
                             <div className="text-sm">{layout?.description}</div>
-                            <div
-                              className={`text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 my-1 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400'
-                  }`}>
+                            <div className="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 my-1 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">
                               Available
                             </div>
                           </div>
@@ -50,7 +53,7 @@ export default function SellerLayouts() {
               </div>
             </div>
           </div>
-        </div>{' '}
+        </div>
       </div>
     </div>
   );

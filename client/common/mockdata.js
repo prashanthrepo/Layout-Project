@@ -626,7 +626,7 @@ const layoutData = [
     number: '03',
     status: 'Available',
     points:
-      '52.67,662.24 156.28,659.37 309.39,655.39 436.97,651.8 461.6,651.16 464.81,719.18 56.37,730.17 ',
+      '52.67,662.24 156.28,659.37 309.39,655.39 436.97,651.8 481.6,651.16 464.81,719.18 56.37,730.17 ',
     info: [
       {
         text: '40',
@@ -650,5 +650,9 @@ const layoutData = [
     ],
   },
 ];
-
-export default layoutData;
+const siteStatus = [
+  { type: 'Available', color: '#00FF00' },
+  { type: 'Sold', color: '#FF0000' },
+  { type: 'Token', color: '#FFFF00' },
+];
+export { layoutData, siteStatus };
