@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose"
+import slugify from "slugify"
 
 interface Location {
     lat: number
@@ -10,6 +11,7 @@ interface Layout extends Document {
     description: string
     image?: string
     location: Location
+    slug: string
 }
 
 const locationSchema = new Schema<Location>({
@@ -19,13 +21,20 @@ const locationSchema = new Schema<Location>({
 
 const layoutSchema = new Schema<Layout>(
     {
-        name: { type: String, required: true },
+        name: { type: String, required: true, unique: true },
         description: { type: String, required: true },
         location: { type: locationSchema, required: true },
         image: { type: String, required: true },
+        slug: { type: String, unique: true },
     },
     { timestamps: true }
 )
+
+layoutSchema.pre("save", function (next) {
+    const uniqueIdentifier = Date.now().toString()
+    this.slug = slugify(`${this.name}-${uniqueIdentifier}`, { lower: true })
+    next()
+})
 
 const LayoutModel = mongoose.model("Layout", layoutSchema)
 
