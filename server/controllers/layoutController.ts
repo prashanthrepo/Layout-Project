@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import mongoose from "mongoose"
 import { z } from "zod"
 import Layout from "../models/layoutModel"
 
@@ -38,4 +39,32 @@ export const getSingleLayout = async (req: Request, res: Response) => {
     const { id } = req.params
     const layout = await Layout.findOne({ _id: id })
     return res.status(200).json(layout)
+}
+export const deleteLayout = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const layout = await Layout.findOneAndDelete({ _id: id })
+
+    if (!layout) {
+        return res.status(404).json({ error: "no such layout" })
+    }
+    return res.status(200).json(layout)
+}
+
+export const updateLayout = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "no such layout" })
+    }
+
+    const layout = await Layout.findOneAndUpdate(
+        { _id: id },
+        { ...req.body },
+        { new: true }
+    )
+    if (!layout) {
+        return res.status(404).json({ error: "no such layout" })
+    }
+
+    return res.status(200).json({ layout })
 }
