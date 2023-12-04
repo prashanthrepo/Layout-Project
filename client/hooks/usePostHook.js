@@ -8,7 +8,7 @@ const usePostHook = (url, postData) => {
     const postDataAsync = async () => {
       try {
         const response = await fetch(
-          'https://speedritual.com' + url,
+          'http://13.232.88.16:3000' + url,
           {
             method: 'POST',
             headers: {
