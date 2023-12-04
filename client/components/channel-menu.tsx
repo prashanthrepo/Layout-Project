@@ -33,11 +33,21 @@ export default function ChannelMenu() {
     <>
       <Menu as="div" className="relative">
         <Menu.Button className="grow flex items-center truncate">
-          <Image className="w-8 h-8 rounded-full mr-2" src={options[selected].image} width={32} height={32} alt="Group 01" />
+          <Image
+            className="w-8 h-8 rounded-full mr-2"
+            src={options[selected].image}
+            width={32}
+            height={32}
+            alt="Group 01"
+          />
           <div className="truncate">
-            <span className="font-semibold text-slate-800 dark:text-slate-100">#{options[selected].channel}</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">
+              #{options[selected].channel}
+            </span>
           </div>
-          <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
+          <svg
+            className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
+            viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
         </Menu.Button>
@@ -48,22 +58,38 @@ export default function ChannelMenu() {
           enterTo="opacity-100 translate-y-0"
           leave="transition ease-out duration-200"
           leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
+          leaveTo="opacity-0">
           <Menu.Items as="ul" className="focus:outline-none">
             {options.map((option, optionIndex) => (
               <Menu.Item key={optionIndex} as="li">
                 {({ active }) => (
                   <button
-                    className={`w-full font-medium text-sm block py-1.5 px-3 ${active ? 'text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-300'}`}
-                    onClick={() => { setSelected(option.id) }}
-                  >
+                    className={`w-full font-medium text-sm block py-1.5 px-3 ${
+                      active
+                        ? 'text-slate-800 dark:text-slate-200'
+                        : 'text-slate-600 dark:text-slate-300'
+                    }`}
+                    onClick={() => {
+                      setSelected(option.id);
+                    }}>
                     <div className="flex items-center justify-between">
                       <div className="grow flex items-center truncate">
-                        <Image className="w-7 h-7 rounded-full mr-2" src={option.image} width={28} height={28} alt="Channel 01" />
-                        <div className="truncate">#{option.channel}</div>
+                        <Image
+                          className="w-7 h-7 rounded-full mr-2"
+                          src={option.image}
+                          width={28}
+                          height={28}
+                          alt="Channel 01"
+                        />
+                        <div className="truncate bg-red-500">
+                          #{option.channel}
+                        </div>
                       </div>
-                      <svg className={`w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1 ${option.id !== selected && 'invisible'}`} viewBox="0 0 12 12">
+                      <svg
+                        className={`w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1  bg-yellow-500 ${
+                          option.id !== selected && 'invisible'
+                        }`}
+                        viewBox="0 0 12 12">
                         <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                       </svg>
                     </div>
@@ -75,5 +101,5 @@ export default function ChannelMenu() {
         </Transition>
       </Menu>
     </>
-  )
+  );
 }
