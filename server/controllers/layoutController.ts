@@ -33,3 +33,9 @@ export const getLayouts = async (req: Request, res: Response) => {
     const layouts = await Layout.find({})
     return res.status(200).json(layouts)
 }
+
+export const getSingleLayout = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const layout = await Layout.findOne({ _id: id })
+    return res.status(200).json(layout)
+}
