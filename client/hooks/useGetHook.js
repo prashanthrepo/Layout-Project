@@ -8,7 +8,7 @@ const useDataFetching = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://speedritual.com' + url, {
+        const response = await fetch('http://13.232.88.16:3000' + url, {
           next: { tags: ['layouts'] },
         });
         const result = await response.json();

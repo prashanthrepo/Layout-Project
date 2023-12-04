@@ -1,8 +1,8 @@
 {
   "name": "layoutproject",
-  "homepage": "https://speedritual.com/",
+  "homepage": "https://inspiringthing.com/",
   "version": "0.1.0",
-  "proxy": "https://speedritual.com/",
+  "proxy": "https://inspiringthing.com/",
   "private": true,
   "scripts": {
     "dev": "next dev",
