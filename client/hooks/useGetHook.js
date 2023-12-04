@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-
+const prefix = process.env.NEXT_PUBLIC_API_URL;
+console.log('prefix :>> ', prefix);
 const useDataFetching = (url) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -8,7 +9,7 @@ const useDataFetching = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://13.232.88.16:3000' + url, {
+        const response = await fetch(`${prefix}` + url, {
           next: { tags: ['layouts'] },
         });
         const result = await response.json();
