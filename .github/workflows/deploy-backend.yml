@@ -3,7 +3,7 @@ name: Deploy Backend
 on:
     push:
         branches:
-            - "main"
+            - "TASK/Sachin/BE-deployment"
 
 jobs:
     deploy:
