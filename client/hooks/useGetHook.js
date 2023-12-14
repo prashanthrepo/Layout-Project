@@ -27,4 +27,5 @@ const useDataFetching = (url) => {
   return { response, loading, error };
 };
 
+
 export default useDataFetching;
