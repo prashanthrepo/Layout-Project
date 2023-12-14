@@ -6,7 +6,7 @@ interface Location {
     long: number
 }
 
-interface Layout extends Document {
+export interface Layout extends Document {
     name: string
     description: string
     image?: string
