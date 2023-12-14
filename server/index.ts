@@ -3,13 +3,17 @@ import dotenv from "dotenv"
 import express, { Express, Request, Response } from "express"
 import mongoose from "mongoose"
 import { router as layoutRoutes } from "./routes/layoutRoutes"
+import { router as siteRoutes } from "./routes/siteRoutes"
 
 dotenv.config()
 const app: Express = express()
 const port: string = process.env.PORT as string | "4000"
 app.use(cors())
 app.use(express.json())
+
+// routes
 app.use("/layouts", layoutRoutes)
+app.use("/sites", siteRoutes)
 
 app.post("/me", (req: Request, res: Response) => {
     const { user } = req.body
