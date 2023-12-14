@@ -3,7 +3,7 @@ name: Deploy Backend
 on:
     push:
         branches:
-            - "main"
+            - "*"
 
 jobs:
     deploy:
@@ -13,7 +13,20 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
+            - name: Check if changes are in "server" directory
+              id: check_changes
+              run: |
+                  CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+
+                  # Check if any of the changed files are in the "server" directory
+                  if echo "$CHANGED_FILES" | grep -qE '^server/|^server-*/'; then
+                    echo "::set-output name=changes::true"
+                  else
+                    echo "::set-output name=changes::false"
+                  fi
+
             - name: SSH and deploy
+              if: steps.check_changes.outputs.changes == 'true'
               env:
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               run: |
