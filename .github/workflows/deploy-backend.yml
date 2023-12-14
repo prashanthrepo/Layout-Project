@@ -5,7 +5,7 @@ on:
         paths:
             - "server/**"
         branches:
-            - "*"
+            - "TASK/Sachin/LP-21-update-gh-action-trigger-for-BE-changes"
 
 jobs:
     deploy:
