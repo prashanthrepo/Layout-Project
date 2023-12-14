@@ -2,10 +2,10 @@ name: Deploy Backend
 
 on:
     push:
-        paths:
-            - "server/**"
+        paths-ignore:
+            - "**/*" # Ignore changes in all paths by default
         branches:
-            - "*"
+            - "*" # Trigger for all branches
 
 jobs:
     deploy:
@@ -15,12 +15,20 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
+            - name: Check if changes are in "server" directory
+              id: check_server_changes
+              run: echo "::set-output name=changes::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^server/')"
+
             - name: SSH and deploy
               env:
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               run: |
-                  echo "$SSH_PRIVATE_KEY" > keyfile
-                  chmod 600 keyfile
-                  mkdir -p ~/.ssh
-                  cp known_hosts ~/.ssh/known_hosts
-                  ssh -t -i keyfile ubuntu@13.232.88.16 "bash ~/deploy.sh"
+                  if [[ "${{ steps.check_server_changes.outputs.changes }}" != "" ]]; then
+                    echo "$SSH_PRIVATE_KEY" > keyfile
+                    chmod 600 keyfile
+                    mkdir -p ~/.ssh
+                    cp known_hosts ~/.ssh/known_hosts
+                    ssh -t -i keyfile ubuntu@13.232.88.16 "bash ~/deploy.sh"
+                  else
+                    echo "No changes in 'server' directory. Skipping deployment."
+                  fi
