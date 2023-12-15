@@ -8,13 +8,13 @@ interface SiteInfo extends Document {
 }
 
 interface Lead extends Document {
-    // id: string
     name: string
     phone: string
     email: string
 }
 
-interface Site extends Document {
+export interface Site extends Document {
+    _id: Types.ObjectId
     layout: Types.ObjectId | Layout
     number: string
     status: string
@@ -39,7 +39,7 @@ const leadSchema = new Schema<Lead>({
     email: { type: String, required: true },
 })
 
-const siteSchema = new Schema<Site>({
+export const siteSchema = new Schema<Site>({
     layout: { type: Schema.Types.ObjectId, ref: "Layout", required: true },
     number: { type: String, required: true },
     status: { type: String, required: true },

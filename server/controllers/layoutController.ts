@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import mongoose from "mongoose"
 import { z } from "zod"
 import Layout from "../models/layoutModel"
-import siteModel from "../models/siteModel"
+import siteModel, { Site } from "../models/siteModel"
 
 const locationSchema = z.object({
     long: z.number(),
@@ -59,10 +59,15 @@ export const createLayout = async (req: Request, res: Response) => {
             location,
         })
 
-        layoutJSON.forEach(async siteData => {
-            const site = new siteModel({ ...siteData, layout: layout._id })
-            await site.save()
-        })
+        const createdSites = await Promise.all<Site["_id"]>(
+            layoutJSON.map(async siteData => {
+                const site = new siteModel({ ...siteData, layout: layout._id })
+                await site.save()
+                return site._id
+            })
+        )
+        layout.sites = createdSites
+        await layout.save()
 
         return res.status(201).json(layout)
     } catch (error) {
@@ -80,7 +85,7 @@ export const getSingleLayout = async (req: Request, res: Response) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such layout" })
     }
-    const layout = await Layout.findOne({ _id: id })
+    const layout = await Layout.findOne({ _id: id }).populate("sites")
     if (!layout) {
         return res.status(404).json({ error: "no such layout" })
     }
