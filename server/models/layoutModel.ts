@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose"
+import mongoose, { Document, Schema, Types } from "mongoose"
 import slugify from "slugify"
 
 interface Location {
@@ -11,6 +11,7 @@ export interface Layout extends Document {
     description: string
     image?: string
     location: Location
+    sites: Types.ObjectId[]
     slug: string
 }
 
@@ -25,6 +26,7 @@ const layoutSchema = new Schema<Layout>(
         description: { type: String, required: true },
         location: { type: locationSchema, required: true },
         image: { type: String, required: true },
+        sites: [{ type: Schema.Types.ObjectId, ref: "Site" }],
         slug: { type: String, unique: true },
     },
     { timestamps: true }
