@@ -592,6 +592,16 @@ const layoutData = [
         transform: 'matrix(1 0 0 1 73.2093 640.127)',
         type: 'number',
       },
+      {
+        text: '40',
+        transform: 'matrix(1 0 0 1 73.2093 640.127)',
+        type: 'north',
+      },
+      {
+        text: '1200',
+        transform: 'matrix(1 0 0 1 73.2093 640.127)',
+        type: 'Dimension',
+      },
     ],
   },
   {

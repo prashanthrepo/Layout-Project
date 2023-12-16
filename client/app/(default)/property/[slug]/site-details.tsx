@@ -1,4 +1,6 @@
 import ModalAction from '@/components/modal-action';
+import getSiteByID from '@/api/get-site-by-id';
+import updateSiteByID from '@/api/update-site-by-id';
 import ModalBasic from '@/components/modal-basic';
 import { siteStatus } from '@/common/mockdata.js';
 import flag from '@/public/images/flag.svg';
@@ -6,7 +8,8 @@ import Image from 'next/image';
 import React, { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import StatusChip from '../../components-library/StatusChip';
-import { statusColors } from '@/common/utils';
+import { findDifferencesBwObjects, statusColors } from '@/common/utils';
+import { on } from 'events';
 
 export default function SiteDetails({
   selectedSite,
@@ -14,6 +17,23 @@ export default function SiteDetails({
   setOpenModal,
   onSiteStatusChange,
 }) {
+  const { site, loading, error } = getSiteByID(selectedSite?._id);
+  const [siteDetails, setSiteDetails] = useState(null);
+  const onUpdateSiteFn = () => {
+    const temp = findDifferencesBwObjects(site, siteDetails);
+    const res = updateSiteByID(selectedSite?._id, temp);
+    res?.then((res) => {
+      console.log('res :>> ', res);
+      if (res) {
+        setSiteDetails(res?.site);
+        onSiteStatusChange(res?.site?.number, res?.site?.status);
+        setOpenModal(false);
+      }
+    });
+  };
+  useEffect(() => {
+    setSiteDetails(site);
+  }, [site]);
   return (
     <div className="m-1.5">
       <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
@@ -25,7 +45,7 @@ export default function SiteDetails({
                   <div
                     className={
                       ' w-12 h-12 rounded-xl flex justify-center items-center ' +
-                      statusColors(selectedSite?.status)
+                      statusColors(siteDetails?.status)
                     }>
                     <Image
                       className="w-8 h-8 rounded-full"
@@ -38,13 +58,13 @@ export default function SiteDetails({
                   </div>
                   <div>
                     <span className="inline-flex font-semibold text-slate-800 dark:text-slate-100">
-                      Site No : {selectedSite?.number}
+                      Site No : {siteDetails?.number}
                     </span>
-                    <div className="text-sm">{selectedSite?.status}</div>
+                    <div className="text-sm">{siteDetails?.status}</div>
                   </div>
                 </div>
                 <div>
-                  <StatusChip status={selectedSite?.status} />
+                  <StatusChip status={siteDetails?.status} />
                 </div>
               </div>
               {/* <div className="text-lg font-semibold text-slate-800 dark:text-slate-100">
@@ -84,15 +104,15 @@ export default function SiteDetails({
                     <div className="m-3" key={key}>
                       <label className="flex items-center">
                         <input
-                          type="radio"
+                          type="checkbox"
                           name="site-status"
                           className="form-radio"
-                          defaultChecked={status?.type == selectedSite?.status}
+                          checked={siteDetails?.status == status?.type}
                           onChange={() =>
-                            onSiteStatusChange(
-                              selectedSite?.number,
-                              status?.type
-                            )
+                            setSiteDetails({
+                              ...siteDetails,
+                              status: status?.type,
+                            })
                           }
                         />
                         <span className="text-sm ml-2">{status?.type}</span>
@@ -130,7 +150,7 @@ export default function SiteDetails({
           <div className="flex w-full flex-wrap justify-around sm:justify-end space-x-4 mt-10">
             <button
               className="py-3 btn bg-blue-500 hover:bg-blue-600 text-white w-40 border-blue-500 rounded-xl"
-              onClick={() => setOpenModal(false)}>
+              onClick={() => onUpdateSiteFn()}>
               Save
             </button>
             <button

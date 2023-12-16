@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import { layoutData } from '@/common/mockdata.js';
 import SiteDetails from './site-details';
 import { siteTypeColor } from '@/common/utils';
+import getLayoutByID from '@/api/get-layout-by-id';
 export default function Page({ params }: { params: { slug: string } }) {
-  const [data, setData] = React.useState(layoutData);
+  const { layout, loading, error } = getLayoutByID(params?.slug);
+  const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
   const onSiteClick = (site: any) => {
@@ -16,15 +18,19 @@ export default function Page({ params }: { params: { slug: string } }) {
   };
 
   const onSiteStatusChange = (number, type) => {
-    const newData = data?.map((item) => {
+    console.log('number, type :>> ', number, type);
+    const newData = data?.sites?.map((item) => {
       if (item?.number === number) {
         item.status = type;
       }
       return item;
     });
-    setData(newData);
-    // setOpenModal(false);
+    setData({ ...data, sites: newData });
   };
+
+  useEffect(() => {
+    setData(layout);
+  }, [layout]);
 
   return (
     <div>
@@ -36,7 +42,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               viewBox="0 0 600 800"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              {data?.map((layout, key) => (
+              {data?.sites?.map((layout, key) => (
                 <g key={key} onClick={() => onSiteClick(layout)}>
                   {layout?.type === 'site' ? (
                     <polygon
