@@ -9,7 +9,7 @@ export default function AddLayoutModal({ openModal, setOpenModal }) {
     <ModalAction
       isOpen={openModal}
       setIsOpen={setOpenModal}
-      size="max-w-md"
+      modalSize="max-w-md"
       title="Add Layout">
       <div className="grid content-between h-full">
         <div>

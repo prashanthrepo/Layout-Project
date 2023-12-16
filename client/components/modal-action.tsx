@@ -1,16 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react'
 
 interface ModalActionProps {
-  children: React.ReactNode
-  isOpen: boolean
-  setIsOpen: (value: boolean) => void
+  children: React.ReactNode;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  modalSize?: string;
+  title?: string;
 }
 
 export default function ModalAction({
   children,
   isOpen,
   setIsOpen,
-  size = 'max-w-3xl',
+  modalSize = 'max-w-3xl',
   title = 'Modal Title',
 }: ModalActionProps) {
   return (
@@ -35,7 +37,7 @@ export default function ModalAction({
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-4">
           <Dialog.Panel
-            className={`bg-white dark:bg-slate-800 rounded-t-3xl  sm:rounded-lg sm:rounded-t-lg shadow-lg overflow-auto w-full max-h-full ${size}`}>
+            className={`bg-white dark:bg-slate-800 rounded-t-3xl  sm:rounded-lg sm:rounded-t-lg shadow-lg overflow-auto w-full max-h-full ${modalSize}`}>
             <div className="p-6 h-full">
               <div className="relative h-full">
                 {/* <div className="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
