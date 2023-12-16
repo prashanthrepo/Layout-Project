@@ -39,5 +39,25 @@ const useAppStore = create(
 if (typeof window !== 'undefined') {
   window.store = useAppStore;
 }
+const findDifferencesBwObjects = (obj1, obj2) => {
+  const differences = {};
 
-export { statusColors, siteTypeColor, useAppStore };
+  for (const key in obj1) {
+    if (
+      obj1.hasOwnProperty(key) &&
+      obj2.hasOwnProperty(key) &&
+      obj1[key] !== obj2[key]
+    ) {
+      differences[key] = obj2[key];
+    }
+  }
+
+  for (const key in obj2) {
+    if (!obj1.hasOwnProperty(key)) {
+      differences[key] = obj2[key];
+    }
+  }
+
+  return differences;
+};
+export { statusColors, siteTypeColor, useAppStore, findDifferencesBwObjects };

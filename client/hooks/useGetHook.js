@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 const prefix = process.env.NEXT_PUBLIC_API_URL;
-console.log('prefix :>> ', prefix);
-const useDataFetching = (url) => {
+const useGetHook = (url) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,4 +26,4 @@ const useDataFetching = (url) => {
   return { response, loading, error };
 };
 
-export default useDataFetching;
+export default useGetHook;
