@@ -23,7 +23,6 @@ export default function SiteDetails({
     const temp = findDifferencesBwObjects(site, siteDetails);
     const res = updateSiteByID(selectedSite?._id, temp);
     res?.then((res) => {
-      console.log('res :>> ', res);
       if (res) {
         setSiteDetails(res?.site);
         onSiteStatusChange(res?.site?.number, res?.site?.status);
