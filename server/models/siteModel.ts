@@ -17,6 +17,7 @@ export interface Site extends Document {
     _id: Types.ObjectId
     layout: Types.ObjectId | Layout
     number: string
+    type: string
     status: string
     points: string
     info: [SiteInfo]
@@ -42,6 +43,7 @@ const leadSchema = new Schema<Lead>({
 export const siteSchema = new Schema<Site>({
     layout: { type: Schema.Types.ObjectId, ref: "Layout", required: true },
     number: { type: String, required: true },
+    type: { type: String, required: true },
     status: { type: String, required: true },
     points: { type: String, required: true },
     customPrice: { type: String, required: false },
