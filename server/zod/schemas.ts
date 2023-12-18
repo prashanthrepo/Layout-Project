@@ -11,11 +11,30 @@ const infoSchema = z.object({
     type: z.string(),
 })
 
-const leadSchema = z.object({
-    name: z.string(),
-    phone: z.string(),
-    email: z.string().email(),
-})
+const leadSchema = z
+    .object({
+        siteId: z.string().optional(),
+        layoutId: z.string().optional(),
+        name: z.string(),
+        phone: z.string().optional(),
+        email: z.string().email().optional(),
+        buyerOffer: z.number().optional(),
+        sellerOffer: z.number().optional(),
+        notes: z.string().optional(),
+        status: z.string().optional(),
+    })
+    .refine(
+        data => {
+            return (
+                (data.siteId !== undefined && data.siteId !== "") !==
+                (data.layoutId !== undefined && data.layoutId !== "")
+            )
+        },
+        {
+            message:
+                "Either 'siteId' or 'layoutId' should be present, but not both.",
+        }
+    )
 
 const siteSchema = z.object({
     type: z.string(),

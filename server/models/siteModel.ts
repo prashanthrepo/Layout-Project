@@ -10,7 +10,7 @@ interface SiteInfo extends Document {
 interface Lead extends Document {
     name: string
     phone: string
-    email: string
+    email?: string
 }
 
 export interface Site extends Document {
@@ -23,7 +23,7 @@ export interface Site extends Document {
     info: [SiteInfo]
     customPrice: string
     defaultPrice: string
-    leads: [Lead]
+    leads: Lead[]
     dimensions: string
     area: string
 }
@@ -55,7 +55,7 @@ export const siteSchema = new Schema<Site>({
             type: siteInfoSchema,
         },
     ],
-    leads: [{ type: leadSchema }],
+    leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
 })
 
 const siteModel = mongoose.model("Site", siteSchema)
