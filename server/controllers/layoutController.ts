@@ -44,7 +44,7 @@ export const createLayout = async (req: Request, res: Response) => {
 }
 
 export const getLayouts = async (req: Request, res: Response) => {
-    const layouts = await Layout.find({})
+    const layouts = await Layout.find({}).select("-sites -location._id")
     return res.status(200).json(layouts)
 }
 
