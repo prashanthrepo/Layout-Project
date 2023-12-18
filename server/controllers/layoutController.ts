@@ -84,6 +84,7 @@ export const updateLayout = async (req: Request, res: Response) => {
         { ...req.body },
         { new: true }
     )
+    await layout?.save()
     if (!layout) {
         return res.status(404).json({ error: "no such layout" })
     }

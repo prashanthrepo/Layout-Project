@@ -14,3 +14,6 @@ router.get("/", getLayouts)
 router.get("/:id", getSingleLayout)
 router.delete("/:id", deleteLayout)
 router.patch("/:id", updateLayout)
+
+router.get("/:id/leads", () => {})
+router.get("/:id/leads/all", () => {})
