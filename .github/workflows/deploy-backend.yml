@@ -23,4 +23,4 @@ jobs:
                   chmod 600 keyfile
                   mkdir -p ~/.ssh
                   cp known_hosts ~/.ssh/known_hosts
-                  ssh -t -i keyfile ubuntu@13.232.88.16 "bash ~/deploy.sh"
+                  ssh -t -i keyfile ubuntu@43.204.52.49 "bash ~/deploy.sh"
