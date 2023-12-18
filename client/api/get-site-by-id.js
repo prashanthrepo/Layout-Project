@@ -1,7 +1,10 @@
 'use client';
-import useGetHook from '../hooks/useGetHook';
-const getSiteByID = (id) => {
-  const { response, loading, error } = useGetHook('/sites/' + id);
-  return { site: response, loading, error };
+const prefix = process.env.NEXT_PUBLIC_API_URL;
+const getSiteByID = async (id) => {
+  const response = await fetch(`${prefix}` + '/sites/' + id, {
+    method: 'get',
+  });
+  const result = await response.json();
+  return result;
 };
 export default getSiteByID;

@@ -44,16 +44,18 @@ const leads = [
 ];
 export default function LeadsTab() {
   return (
-    <div className="mb-4 space-y-2">
+    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md shadow-inner">
       {leads?.map((lead, key) => (
-        <label className="relative block cursor-pointer text-left w-full">
+        <label
+          className="relative block cursor-pointer text-left w-full bg-white"
+          key={key}>
           <input
             type="radio"
             name="radio-buttons"
             className="peer sr-only"
             defaultChecked
           />
-          <div className="p-4 rounded dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
+          <div className="px-4 py-2.5 rounded dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
             <div className="grid grid-cols-12 items-center gap-x-2">
               {/* Card */}
               <div className="col-span-6 order-1 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
@@ -69,12 +71,12 @@ export default function LeadsTab() {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="white"
                     className="w-4 h-4">
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                     />
                   </svg>
@@ -86,7 +88,11 @@ export default function LeadsTab() {
               </div>
               <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
                 <div className="text-xs font-semibold">
-                  {`${lead?.buyeroffer}sq ft  / ${lead?.selleroffer}sq ft`}
+                  <span>{lead?.buyeroffer}</span>
+                  <span className="text-slate-500"> sqft</span>
+                  <span> / </span>
+                  <span>{lead?.selleroffer}</span>
+                  <span className="text-slate-500"> sqft</span>
                 </div>
               </div>
               <div className="col-span-4 order-2 sm:order-none sm:col-span-2 text-right lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
