@@ -28,6 +28,13 @@ app.post("/me", (req: Request, res: Response) => {
     res.json(response)
 })
 
+app.get("/",(req:Request,res:Response)=>{
+
+    res.status(200).json({message:"hello"})
+
+
+})
+
 mongoose
     .connect(process.env.MONGO_URI as string, {})
     .then(() => {

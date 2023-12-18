@@ -1,9 +1,12 @@
-import express from "express"
-import { getSingleSite, updateSite } from "../controllers/siteController"
+import { Router } from "express"
+import {
+    getSingleSite,
+    getSiteLeads,
+    updateSite,
+} from "../controllers/siteController"
 
-export const router = express.Router()
+export const router = Router()
 
 router.get("/:id", getSingleSite)
 router.patch("/:id", updateSite)
-
-router.get("/:id/leads", ()=>{})
+router.get("/:id/leads", getSiteLeads)
