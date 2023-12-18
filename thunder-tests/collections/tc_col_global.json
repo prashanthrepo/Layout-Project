@@ -29,11 +29,11 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Get Layouts",
-            "url": "https://combatrims.com/layouts",
+            "url": "http://localhost:3001/layouts",
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-11-23T10:20:44.383Z",
-            "modified": "2023-12-04T14:16:44.025Z",
+            "modified": "2023-12-18T07:09:57.325Z",
             "headers": [],
             "params": [],
             "tests": []
