@@ -10,8 +10,29 @@ const statusColors = (status) => {
       return 'bg-red-500 text-white';
     case 'token':
       return 'bg-yellow-500 text-white';
+    case 'hot':
+      return 'bg-emerald-400 text-white';
+    case 'cold':
+      return 'bg-blue-400 text-white';
+    case 'dead':
+      return 'bg-gray-400 text-white';
     default:
       return 'bg-gray-500 text-white';
+  }
+};
+
+const leadsBgColor = (status) => {
+  const statusLowerCase = status?.toLowerCase();
+  const replaceUnderrscore = statusLowerCase?.replace(/_/g, ' ');
+  switch (replaceUnderrscore) {
+    case 'hot':
+      return 'bg-emerald-50  border-emerald-100 ';
+    case 'cold':
+      return 'bg-blue-50 border-blue-100';
+    case 'dead':
+      return 'bg-slate-50 border-slate-100';
+    default:
+      return 'bg-gray-100 border-gray-200';
   }
 };
 
@@ -60,4 +81,10 @@ const findDifferencesBwObjects = (obj1, obj2) => {
 
   return differences;
 };
-export { statusColors, siteTypeColor, useAppStore, findDifferencesBwObjects };
+export {
+  statusColors,
+  siteTypeColor,
+  useAppStore,
+  findDifferencesBwObjects,
+  leadsBgColor,
+};

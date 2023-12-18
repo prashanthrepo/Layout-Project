@@ -81,7 +81,7 @@ export default function ChannelMenu() {
                           height={28}
                           alt="Channel 01"
                         />
-                        <div className="truncate bg-red-500">
+                        <div className="truncate bg-red-500 bg-gray-400 text-slate-600 bg-emerald-50 bg-emerald-400 bg-blue-50 bg-blue-400 border-blue-100 border-emerald-100 border-gray-100">
                           #{option.channel}
                         </div>
                       </div>

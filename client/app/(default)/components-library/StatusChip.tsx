@@ -1,10 +1,13 @@
 import React from 'react';
 import { statusColors } from '@/common/utils';
-export default function StatusChip({ status }) {
+export default function StatusChip({ status, size = 'md' }) {
   return (
     <span
       className={
-        'px-4 py-2 text-sm rounded-full text-center ' + statusColors(status)
+        ' rounded-full text-center ' +
+        statusColors(status) +
+        ' ' +
+        (size === 'sm' ? 'px-2 py-1 text-xs' : 'px-4 py-2 text-sm')
       }>
       {status}
     </span>

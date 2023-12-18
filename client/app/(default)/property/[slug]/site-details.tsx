@@ -2,7 +2,7 @@ import ModalAction from '@/components/modal-action';
 import getSiteByID from '@/api/get-site-by-id';
 import updateSiteByID from '@/api/update-site-by-id';
 import ModalBasic from '@/components/modal-basic';
-import { siteStatus } from '@/common/mockdata.js';
+
 import flag from '@/public/images/flag.svg';
 import Image from 'next/image';
 import React, { use, useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import Link from 'next/link';
 import StatusChip from '../../components-library/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
 import { on } from 'events';
+import SiteTabs from './site-tabs';
 
 export default function SiteDetails({
   selectedSite,
@@ -50,9 +51,6 @@ export default function SiteDetails({
                       className="w-8 h-8 rounded-full"
                       src={flag}
                       alt="flag"
-                      //   width={36}
-                      //   height={36}
-                      //   alt={job.company}
                     />
                   </div>
                   <div>
@@ -66,12 +64,9 @@ export default function SiteDetails({
                   <StatusChip status={siteDetails?.status} />
                 </div>
               </div>
-              {/* <div className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-            Connect Mosaic with your Cruip account
-          </div> */}
             </div>
-            {/* Modal content */}
             <div className="text-sm mb-3">
+              <hr className=" border-b-0 mb-3 border-gray-200" />
               <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
                 Site Details
               </div>
@@ -93,36 +88,13 @@ export default function SiteDetails({
                   <div>Area : 1200sqft</div>
                 </li>
               </ul>
-              <hr className=" border-b-0 mb-3 border-gray-200" />
-              <div className="mb-4">
-                <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
-                  Change status to
-                </div>
-                <div className="flex flex-wrap items-center -m-3">
-                  {siteStatus?.map((status, key) => (
-                    <div className="m-3" key={key}>
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="site-status"
-                          className="form-radio"
-                          checked={siteDetails?.status == status?.type}
-                          onChange={() =>
-                            setSiteDetails({
-                              ...siteDetails,
-                              status: status?.type,
-                            })
-                          }
-                        />
-                        <span className="text-sm ml-2">{status?.type}</span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
             <hr className=" border-b-0 mb-3 border-gray-200" />
-            <div className="mb-4">
+            <SiteTabs
+              siteDetails={siteDetails}
+              setSiteDetails={setSiteDetails}
+            />
+            {/* <div className="mb-4">
               <div className=" pb-1">
                 <Link
                   className="text-sm font-bold text-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
@@ -144,7 +116,7 @@ export default function SiteDetails({
                   Share details
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="flex w-full flex-wrap justify-around sm:justify-end space-x-4 mt-10">
             <button
