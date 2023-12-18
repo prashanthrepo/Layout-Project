@@ -15,9 +15,12 @@ export default function Page({ params }: { params: { slug: string } }) {
   const [seletedSite, setSelectedSite] = React.useState(null);
   const onSiteClick = (site: any) => {
     if (site?.type == 'road') return;
-    const siteNumber = site;
-    siteNumber && setSelectedSite(siteNumber);
-    siteNumber && setOpenModal(true);
+    const tempSite = data?.sites?.find((item) => item?.number == site?.number);
+    site && setSelectedSite(tempSite);
+    site && setOpenModal(true);
+    // const siteNumber = site;
+    // siteNumber && setSelectedSite(siteNumber);
+    // siteNumber && setOpenModal(true);
   };
 
   const onSiteStatusChange = (number, type) => {
@@ -44,25 +47,25 @@ export default function Page({ params }: { params: { slug: string } }) {
               viewBox="0 0 600 800"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              {data?.sites?.map((layout, key) => (
-                <g key={key} onClick={() => onSiteClick(layout)}>
-                  {layout?.type === 'site' ? (
+              {data?.sites?.map((site, key) => (
+                <g key={key} onClick={() => onSiteClick(site)}>
+                  {site?.type === 'site' ? (
                     <polygon
                       className=" cursor-pointer hover:opacity-60"
-                      points={layout.points}
-                      fill={siteTypeColor(layout?.status)}
+                      points={site.points}
+                      fill={siteTypeColor(site?.status)}
                       stroke="#000"
                       strokeWidth="0.1"
                     />
                   ) : (
                     <polygon
-                      points={layout.points}
+                      points={site.points}
                       fill="#6b7280"
                       stroke="#6b7280"
                       strokeWidth="1"
                     />
                   )}
-                  {layout?.info?.map((item, key) => {
+                  {site?.info?.map((item, key) => {
                     if (item?.type === 'number') {
                       return (
                         <text

@@ -10,6 +10,8 @@ const statusColors = (status) => {
       return 'bg-red-500 text-white';
     case 'token':
       return 'bg-yellow-500 text-white';
+    case 'blocked':
+      return 'bg-gray-500 text-white';
     case 'hot':
       return 'bg-emerald-400 text-white';
     case 'cold':

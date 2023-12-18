@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 const tabs = [
-  { name: 'Details', href: '#', current: true },
+  //   { name: 'Details', href: '#', current: true },
   { name: 'Leads', href: '#', current: false },
   { name: 'History', href: '#', current: false },
 ];
@@ -33,7 +33,7 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
-          <Tab.Panel
+          {/* <Tab.Panel
             className={classNames(
               'rounded-xl bg-white p-3',
               'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
@@ -101,7 +101,7 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
                 </div>
               </div>
             </div>
-          </Tab.Panel>
+          </Tab.Panel> */}
           <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
             <LeadsTab />
           </Tab.Panel>
