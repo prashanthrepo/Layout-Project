@@ -12,7 +12,7 @@ const tabs = [
   { name: 'History', href: '#', current: false },
 ];
 
-export default function SiteTabs({ siteDetails = {}, setSiteDetails }) {
+export default function SiteTabs({ siteDetails, setSiteDetails }) {
   return (
     <div className="w-full sm:px-0">
       <Tab.Group>
