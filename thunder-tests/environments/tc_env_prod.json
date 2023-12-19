@@ -1,0 +1,14 @@
+{
+    "_id": "dddcb0dd-3cfe-4503-b963-c61c013aac69",
+    "name": "prod",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-12-19T05:02:57.159Z",
+    "modified": "2023-12-19T05:02:57.159Z",
+    "data": [
+        {
+            "name": "BASE_URL",
+            "value": "https://combatrims.com"
+        }
+    ]
+}
