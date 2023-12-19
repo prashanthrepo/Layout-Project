@@ -39,7 +39,6 @@ export default function SellerLayouts() {
                             <span className="inline-flex font-semibold text-slate-800 dark:text-slate-100">
                               {layout?.name}
                             </span>
-                            <div className="text-sm">{layout?._id}</div>
                             <div className="text-sm">{layout?.description}</div>
                             <div className="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 my-1 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">
                               Available
