@@ -1,10 +1,13 @@
 import { Request, Response } from "express"
-import mongoose from "mongoose"
-import Layout from "../models/layoutModel"
+import mongoose, { Types } from "mongoose"
+import {
+    default as Layout,
+    default as layoutModel,
+} from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
 import { layoutSchema } from "../zod/schemas"
 
-export const createLayout = async (req: Request, res: Response) => {
+const createLayout = async (req: Request, res: Response) => {
     try {
         const parsedData = layoutSchema.safeParse(req.body)
 
@@ -43,12 +46,12 @@ export const createLayout = async (req: Request, res: Response) => {
     }
 }
 
-export const getLayouts = async (req: Request, res: Response) => {
+const getLayouts = async (req: Request, res: Response) => {
     const layouts = await Layout.find({}).select("-sites -location._id")
     return res.status(200).json(layouts)
 }
 
-export const getSingleLayout = async (req: Request, res: Response) => {
+const getSingleLayout = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such layout" })
@@ -59,7 +62,7 @@ export const getSingleLayout = async (req: Request, res: Response) => {
     }
     return res.status(200).json(layout)
 }
-export const deleteLayout = async (req: Request, res: Response) => {
+const deleteLayout = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such layout" })
@@ -72,7 +75,7 @@ export const deleteLayout = async (req: Request, res: Response) => {
     return res.status(200).json(layout)
 }
 
-export const updateLayout = async (req: Request, res: Response) => {
+const updateLayout = async (req: Request, res: Response) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -90,4 +93,59 @@ export const updateLayout = async (req: Request, res: Response) => {
     }
 
     return res.status(200).json({ layout })
+}
+
+const getLayoutLeads = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "no such layout" })
+    }
+
+    const layout = await Layout.findById(id).populate("leads")
+    if (layout) {
+        const leads = layout.leads
+        return res.status(200).json({ leads })
+    } else {
+        return res.status(404).json({ error: "no such layout" })
+    }
+}
+
+const getAllLeads = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    if (!Types.ObjectId.isValid(id)) {
+    }
+    const layout = await layoutModel
+        .findById(id)
+        .populate({
+            path: "sites",
+            populate: {
+                path: "leads",
+                model: "Lead",
+            },
+        })
+        .populate("leads")
+
+    let allLeads = []
+
+    if (layout) {
+        layout.sites.forEach(site => {
+            allLeads = [...allLeads, ...site.leads]
+        })
+
+        allLeads = [...allLeads, ...layout?.leads]
+    }
+
+    return res.status(200).json({ allLeads })
+}
+
+export {
+    createLayout,
+    deleteLayout,
+    getAllLeads,
+    getLayoutLeads,
+    getLayouts,
+    getSingleLayout,
+    updateLayout,
 }

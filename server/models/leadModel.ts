@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-interface LeadDocument extends Document {
+export interface LeadDocument extends Document {
     name: string
     phone: string
-    email: string
-    buyerOffer: number
-    sellerOffer: number
-    notes: string
-    status: string
+    email?: string
+    buyerOffer?: number
+    sellerOffer?: number
+    notes?: string
+    status?: string
 }
 
 const leadSchema = new Schema<LeadDocument>({

@@ -2,6 +2,8 @@ import express from "express"
 import {
     createLayout,
     deleteLayout,
+    getAllLeads,
+    getLayoutLeads,
     getLayouts,
     getSingleLayout,
     updateLayout,
@@ -15,5 +17,5 @@ router.get("/:id", getSingleLayout)
 router.delete("/:id", deleteLayout)
 router.patch("/:id", updateLayout)
 
-router.get("/:id/leads", () => {})
-router.get("/:id/leads/all", () => {})
+router.get("/:id/leads", getLayoutLeads)
+router.get("/:id/leads/all", getAllLeads)

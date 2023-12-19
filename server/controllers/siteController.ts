@@ -7,7 +7,7 @@ const getSingleSite = async (req: Request, res: Response) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such site" })
     }
-    const site = await siteModel.findOne({ _id: id })
+    const site = await siteModel.findOne({ _id: id }).select("-leads")
     if (!site) {
         return res.status(404).json({ error: "no such site" })
     }
