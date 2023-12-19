@@ -111,41 +111,42 @@ const getLayoutLeads = async (req: Request, res: Response) => {
     }
 }
 
-const getAllLeads = async (req: Request, res: Response) => {
-    const { id } = req.params
+// const getAllLeads = async (req: Request, res: Response) => {
+//     const { id } = req.params
 
-    if (!Types.ObjectId.isValid(id)) {
-    }
-    const layout = await layoutModel
-        .findById(id)
-        .populate({
-            path: "sites",
-            populate: {
-                path: "leads",
-                model: "Lead",
-            },
-        })
-        .populate("leads")
+//     if (!Types.ObjectId.isValid(id)) {
+//     }
+//     const layout = await layoutModel
+//         .findById(id)
+//         .populate({
+//             path: "sites",
+//             populate: {
+//                 path: "leads",
+//                 model: "Lead",
+//             },
+//         })
+//         .populate("leads")
 
-    let allLeads = []
+//     let allLeads = []
+    
+//     if (layout) {
+//         layout.sites.forEach(site => {
+//             allLeads = [...allLeads, ...site.leads]
+//         })
 
-    if (layout) {
-        layout.sites.forEach(site => {
-            allLeads = [...allLeads, ...site.leads]
-        })
+//         allLeads = [...allLeads, ...layout?.leads]
+//     }
 
-        allLeads = [...allLeads, ...layout?.leads]
-    }
-
-    return res.status(200).json({ allLeads })
-}
+//     return res.status(200).json({ allLeads })
+// }
 
 export {
     createLayout,
     deleteLayout,
-    getAllLeads,
+    // getAllLeads,
     getLayoutLeads,
     getLayouts,
     getSingleLayout,
-    updateLayout,
+    updateLayout
 }
+

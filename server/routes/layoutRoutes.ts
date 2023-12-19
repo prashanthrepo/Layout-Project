@@ -2,7 +2,7 @@ import express from "express"
 import {
     createLayout,
     deleteLayout,
-    getAllLeads,
+    // getAllLeads,
     getLayoutLeads,
     getLayouts,
     getSingleLayout,
@@ -18,4 +18,4 @@ router.delete("/:id", deleteLayout)
 router.patch("/:id", updateLayout)
 
 router.get("/:id/leads", getLayoutLeads)
-router.get("/:id/leads/all", getAllLeads)
+// router.get("/:id/leads/all", getAllLeads)
