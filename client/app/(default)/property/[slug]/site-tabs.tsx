@@ -3,6 +3,7 @@ import { Tab } from '@headlessui/react';
 import Link from 'next/link';
 import LeadsTab from './leads-tab';
 import { siteStatus } from '@/common/mockdata.js';
+import HistoryTab from './history-tab';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -105,33 +106,9 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
           <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
             <LeadsTab />
           </Tab.Panel>
-          <Tab.Panel
-            className={classNames(
-              'rounded-xl bg-white p-3',
-              'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-            )}>
+          <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
             <div className="mb-4">
-              <div className=" pb-1">
-                <Link
-                  className="text-sm font-bold text-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
-                  href="#0">
-                  Add new lead 3
-                </Link>
-              </div>
-              <div className=" pb-1">
-                <Link
-                  className="text-sm font-bold text-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
-                  href="#0">
-                  Set custom price
-                </Link>
-              </div>
-              <div className=" pb-1">
-                <Link
-                  className="text-sm font-bold text-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
-                  href="#0">
-                  Share details
-                </Link>
-              </div>
+              <HistoryTab />
             </div>
           </Tab.Panel>
         </Tab.Panels>
