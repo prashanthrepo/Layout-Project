@@ -32,7 +32,7 @@ const createLead = async (req: Request, res: Response) => {
 const deleteLead = async (req: Request, res: Response) => {
     const { id } = req.params
     await Lead.findOneAndDelete({ _id: id })
-    return res.status(200).json({})
+    return res.status(200).json({message:"Deleted successfully"})
 }
 
 const updateLead = async (req: Request, res: Response) => {
