@@ -3,6 +3,7 @@ import { Types } from "mongoose"
 import Lead from "../models/leadModel"
 import Site from "../models/siteModel"
 import { leadSchema } from "../zod/schemas"
+import LayoutModel from "../models/layoutModel"
 
 const createLead = async (req: Request, res: Response) => {
     const parsedData = leadSchema.safeParse(req.body)
@@ -18,6 +19,12 @@ const createLead = async (req: Request, res: Response) => {
         const site = await Site.findOne({ _id: siteId })
         site?.leads.push(lead._id)
         await site?.save()
+        return res.status(200).json({ lead })
+    }
+    if (layoutId) {
+        const layout = await LayoutModel.findOne({ _id: layoutId })
+        layout?.leads.push(lead._id)
+        await layout?.save()
         return res.status(200).json({ lead })
     }
 }

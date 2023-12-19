@@ -12,6 +12,7 @@ export interface Layout extends Document {
     image?: string
     location: Location
     sites: Types.ObjectId[]
+    leads: Types.ObjectId[]
     slug: string
 }
 
@@ -27,6 +28,7 @@ const layoutSchema = new Schema<Layout>(
         location: { type: locationSchema, required: true },
         image: { type: String, required: true },
         sites: [{ type: Schema.Types.ObjectId, ref: "Site" }],
+        leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
         slug: { type: String, unique: true },
     },
     { timestamps: true }
@@ -38,6 +40,4 @@ layoutSchema.pre("save", function (next) {
     next()
 })
 
-const LayoutModel = mongoose.model("Layout", layoutSchema)
-
-export default LayoutModel
+export default mongoose.model("Layout", layoutSchema)
