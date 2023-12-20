@@ -39,7 +39,6 @@ export default function SiteDetails({
   const [siteDetails, setSiteDetails] = useState(null);
   const [tempSiteDetails, setTempSiteDetails] = useState(null);
   const [edit, setEdit] = useState(false);
-  // const [selected, setSelected] = useState<number>(2);
   const onUpdateSiteFn = () => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
     const res = updateSiteByID(siteDetails?._id, temp);
@@ -251,14 +250,14 @@ export default function SiteDetails({
             {edit && (
               <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
                 <button
-                  className="py-1.5 sm:py-3 btn bg-blue-500 hover:bg-blue-600 text-white w-20 sm:w-40 border-blue-500 rounded-lg"
-                  onClick={() => onUpdateSiteFn()}>
-                  Save
-                </button>
-                <button
                   className="py-1.5 sm:py-3 btn bg-slate-50 hover:bg-slate-100 text-black w-20  sm:w-40 border border-gray-300 rounded-lg"
                   onClick={() => setEdit(false)}>
                   Cancel
+                </button>
+                <button
+                  className="py-1.5 sm:py-3 btn bg-blue-500 hover:bg-blue-600 text-white w-20 sm:w-40 border-blue-500 rounded-lg"
+                  onClick={() => onUpdateSiteFn()}>
+                  Save
                 </button>
               </div>
             )}
