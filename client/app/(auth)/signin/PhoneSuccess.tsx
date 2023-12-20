@@ -17,17 +17,28 @@ export default function PhoneSuccess() {
           <div className=" h-70v my-10 grid gap-4 content-around">
             <Image src={verified} className="w-40  mx-auto" alt="OTP screen" />
             <div className="text-center">
-              <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
-                Verified
-              </h1>
+              <div className="btn w-full dark:bg-slate-800  text-slate-600 dark:text-slate-300">
+                <span className="text-2xl text-green-500 dark:text-slate-100 font-bold">
+                  Verified
+                </span>
+                <div
+                  className="ml-2 rounded-full bg-green-500"
+                  aria-hidden="true">
+                  <svg
+                    className="w-5 h-5 fill-current text-white"
+                    viewBox="0 0 20 20">
+                    <path d="M14.4 8.4L13 7l-4 4-2-2-1.4 1.4L9 13.8z" />
+                  </svg>
+                </div>
+              </div>
               <h4 className="text-sm font-medium">
-                You will be referred to the next page
+                You will be redirected to the Dashboard.
               </h4>
             </div>
 
             <div className="flex items-center justify-between my-10">
               <Link
-                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold"
+                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl"
                 // onClick={() => onVerify()}
                 href="/">
                 Okay

@@ -38,7 +38,7 @@ export default function PhoneSignin({ onVerify }) {
             </div>
             <div className="flex items-center justify-between my-10">
               <Link
-                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold"
+                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl"
                 onClick={() => onVerify()}
                 href="#">
                 VERIFY
