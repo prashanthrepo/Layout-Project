@@ -6,6 +6,7 @@ export interface LeadDocument extends Document {
     email?: string
     buyerOffer?: number
     sellerOffer?: number
+    finalPrice?: number
     notes?: string
     status?: string
 }
@@ -16,6 +17,7 @@ const leadSchema = new Schema<LeadDocument>({
     email: { type: String, required: false },
     buyerOffer: { type: Number, required: false },
     sellerOffer: { type: Number, required: false },
+    finalPrice: { type: Number, required: false },
     notes: { type: String, required: false },
     status: { type: String, required: false },
 })

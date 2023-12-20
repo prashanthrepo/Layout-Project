@@ -20,6 +20,7 @@ const leadSchema = z
         email: z.string().email().optional(),
         buyerOffer: z.number().optional(),
         sellerOffer: z.number().optional(),
+        finalPrice: z.number().optional(),
         notes: z.string().optional(),
         status: z.string().optional(),
     })
