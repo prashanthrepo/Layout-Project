@@ -46,6 +46,8 @@ const siteTypeColor = (type) => {
       return '#f87171';
     case 'Token':
       return '#fde047';
+    case 'Blocked':
+      return '#718096';
     default:
       return '#fff';
   }

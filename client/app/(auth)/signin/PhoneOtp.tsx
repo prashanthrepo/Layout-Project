@@ -49,7 +49,7 @@ export default function PhoneOtp({ onOtp }) {
             <div className="text-sm text-center font-bold">
               Din't recieve the OTP? {` `}
               <Link
-                className=" text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className=" text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 "
                 href="#">
                 RESEND OTP
               </Link>

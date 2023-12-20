@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // export const metadata = {
 //   title: 'Layout - Plots',
 //   description: 'Plots around bangalore',
@@ -12,18 +12,23 @@ import AllLayouts from './admin-dashboard/all-layouts';
 
 export default function Dashboard() {
   const { user } = useAppStore((state) => state);
+  const [userDetails, setDetailsUser] = useState(null);
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setDetailsUser(JSON.parse(user));
+  }, []);
 
   const dashboardRender = (type) => {
     switch (type) {
-      case 'Buyer':
+      case 'buyer':
         return <MapView />;
-      case 'Seller':
+      case 'seller':
         return <SellerLayouts />;
-      case 'Admin':
+      case 'admin':
         return <AllLayouts />;
       default:
-        return <AllLayouts />;
+        return <MapView />;
     }
   };
-  return <>{dashboardRender(user?.role)}</>;
+  return <>{dashboardRender(userDetails?.role)}</>;
 }
