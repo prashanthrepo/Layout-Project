@@ -42,30 +42,27 @@ export default function HistoryTab() {
               )}
               <div
                 className={
-                  'absolute left-0 rounded-full ' + statusColors(item?.status)
+                  'absolute left-0 rounded-full opacity-80 ' +
+                  statusColors(item?.status)
                 }
                 aria-hidden="true">
-                <svg className="w-5 h-5 fill-curren" viewBox="0 0 20 20">
-                  <path d="M14.4 8.4L13 7l-4 4-2-2-1.4 1.4L9 13.8z" />
-                </svg>
+                <svg className="w-5 h-5 fill-curren" viewBox="0 0 20 20"></svg>
               </div>
-              <div className="flex w-full justify-between  pl-9">
+              <div className="flex w-full justify-between pl-9 align-bottom">
                 <span className="text-base font-medium text-slate-800 dark:text-slate-100">
                   {item?.status}
                 </span>
-                <span className="text-xs font-medium">
-                  {moment(item?.datetime).format('dddd, Do MMMM YYYY hh:mm A')}
+                <span className="text-xs font-medium text-slate-400">
+                  {moment(item?.datetime).format('Do MMM YYYY, hh:mm A')}
                 </span>
               </div>
             </div>
-            <div className="pl-9 text-sm">
+            <div className="pl-9 text-xs">
               <span>
-                To - <span className=" font-semibold ">{item?.name}</span>{' '}
+                <span className="text-blue-500">{item?.name}</span>{' '}
               </span>
               <span>
-                {' '}
-                at price -{' '}
-                <span className=" font-semibold ">{item?.price}</span>
+                at price - <span>{item?.price}</span>
                 sqft
               </span>
             </div>
