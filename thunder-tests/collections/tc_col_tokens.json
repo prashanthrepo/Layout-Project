@@ -1,0 +1,28 @@
+{
+    "_id": "da2c142b-4f25-4725-be95-925a6a67bb94",
+    "colName": "Tokens",
+    "created": "2023-12-20T08:43:24.658Z",
+    "sortNum": 40000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "9f0bcd7b-9d4c-4757-844f-b5b222f7db15",
+            "colId": "da2c142b-4f25-4725-be95-925a6a67bb94",
+            "containerId": "",
+            "name": "create token",
+            "url": "{{BASE_URL}}/tokens",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-20T08:46:09.884Z",
+            "modified": "2023-12-20T08:54:47.484Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"site\":\"657d19ab95ee05f9d7f3655b\",\n  \"lead\":\"6582aad94277c65db1f43598\",\n  \"tokenAmount\":123,\n  \"validity\":30\n}\n\n\n\n",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

@@ -57,4 +57,18 @@ const layoutSchema = z.object({
     layoutJSON: z.array(siteSchema),
 })
 
-export { infoSchema, layoutSchema, leadSchema, locationSchema, siteSchema }
+const tokenSchema = z.object({
+    site: z.string(),
+    lead: z.string(),
+    tokenAmount: z.number(),
+    validity: z.number().optional(),
+})
+
+export {
+    infoSchema,
+    layoutSchema,
+    leadSchema,
+    locationSchema,
+    siteSchema,
+    tokenSchema,
+}

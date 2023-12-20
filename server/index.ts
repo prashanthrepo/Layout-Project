@@ -1,8 +1,14 @@
 import cors from "cors"
 import dotenv from "dotenv"
-import express, { Express, Request, Response } from "express"
+import express, { Express } from "express"
 import mongoose from "mongoose"
-import { layoutRoutes, leadRoutes, siteRoutes } from "./routes"
+import {
+    baseRoutes,
+    layoutRoutes,
+    leadRoutes,
+    siteRoutes,
+    tokenRoutes,
+} from "./routes"
 
 dotenv.config()
 const app: Express = express()
@@ -14,26 +20,9 @@ app.use(express.json())
 app.use("/layouts", layoutRoutes)
 app.use("/sites", siteRoutes)
 app.use("/leads", leadRoutes)
-
-app.post("/me", (req: Request, res: Response) => {
-    const { user } = req.body
-
-    const response = {
-        id: `${user}_583c3ac3f38e84297c002546`,
-        email: `${user}-email@gmail.com`,
-        name: `${user}-name`,
-        role: user.charAt(0).toUpperCase() + user.slice(1),
-    }
-
-    res.json(response)
-})
-
-app.get("/",(req:Request,res:Response)=>{
-
-    res.status(200).json({message:"hello"})
-
-
-})
+app.use("/leads", leadRoutes)
+app.use("/tokens", tokenRoutes )
+app.use("/", baseRoutes)
 
 mongoose
     .connect(process.env.MONGO_URI as string, {})
