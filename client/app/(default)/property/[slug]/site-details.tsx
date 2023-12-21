@@ -1,35 +1,15 @@
 import ModalAction from '@/components/modal-action';
 import getSiteByID from '@/api/get-site-by-id';
 import updateSiteByID from '@/api/update-site-by-id';
-import ModalBasic from '@/components/modal-basic';
 import { Menu, Transition } from '@headlessui/react';
 import flag from '@/public/images/flag.svg';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useCallback, useEffect, useState } from 'react';
 import StatusChip from '../../components-library/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
-import { on } from 'events';
-import SiteTabs from './site-tabs';
+import SiteTabs from './tabs/site-tabs';
 import { siteStatus } from '@/common/mockdata';
-const options = [
-  {
-    id: 0,
-    period: 'Available',
-  },
-  {
-    id: 1,
-    period: 'Sold',
-  },
-  {
-    id: 2,
-    period: 'Token',
-  },
-  {
-    id: 3,
-    period: 'Blocked',
-  },
-];
+
 export default function SiteDetails({
   selectedSite,
   openModal,
@@ -39,7 +19,7 @@ export default function SiteDetails({
   const [siteDetails, setSiteDetails] = useState(null);
   const [tempSiteDetails, setTempSiteDetails] = useState(null);
   const [edit, setEdit] = useState(false);
-  const onUpdateSiteFn = () => {
+  const onUpdateSiteFn = useCallback(() => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
     const res = updateSiteByID(siteDetails?._id, temp);
     res?.then((res) => {
@@ -49,9 +29,10 @@ export default function SiteDetails({
         setOpenModal(false);
       }
     });
-  };
-  useEffect(() => {
-    if (selectedSite?._id && openModal) {
+  }, [siteDetails, tempSiteDetails]);
+
+  const getSite = useCallback(() => {
+    if (selectedSite?._id) {
       const res = getSiteByID(selectedSite?._id);
       res?.then((res) => {
         if (res) {
@@ -60,7 +41,11 @@ export default function SiteDetails({
         }
       });
     }
-  }, [selectedSite?._id, openModal]);
+  }, [selectedSite?._id]);
+
+  useEffect(() => {
+    getSite();
+  }, [selectedSite?._id]);
 
   return (
     <div className="m-1.5">
@@ -262,10 +247,12 @@ export default function SiteDetails({
             )}
 
             <hr className=" border-b-0 mb-3 border-gray-200" />
-            <SiteTabs
-              siteDetails={siteDetails}
-              setSiteDetails={setSiteDetails}
-            />
+            {openModal && siteDetails?._id === selectedSite?._id && (
+              <SiteTabs
+                siteDetails={siteDetails}
+                setSiteDetails={setSiteDetails}
+              />
+            )}
           </div>
         </div>
       </ModalAction>
