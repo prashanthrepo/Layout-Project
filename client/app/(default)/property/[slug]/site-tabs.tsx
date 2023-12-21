@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
 import LeadsTab from './leads-tab';
 import { siteStatus } from '@/common/mockdata.js';
 import HistoryTab from './history-tab';
+import getLeadsBySite from '@/api/get-leads-by-site';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -14,6 +15,13 @@ const tabs = [
 ];
 
 export default function SiteTabs({ siteDetails, setSiteDetails }) {
+  console.log('siteDetails :>> ', siteDetails);
+  const [leads, setLeads] = useState([]);
+  useEffect(() => {
+    const leads = getLeadsBySite(siteDetails?._id);
+    leads?.then((leads) => setLeads(leads?.leads || []));
+  }, [siteDetails]);
+
   return (
     <div className="w-full sm:px-0">
       <Tab.Group>
@@ -104,7 +112,7 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
             </div>
           </Tab.Panel> */}
           <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
-            <LeadsTab />
+            <LeadsTab leads={leads} />
           </Tab.Panel>
           <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
             <div className="mb-4">
