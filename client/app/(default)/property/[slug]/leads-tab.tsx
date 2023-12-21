@@ -3,46 +3,8 @@ import UserAvatar from '@/public/images/user-avatar-32.png';
 import Image from 'next/image';
 import StatusChip from '../../components-library/StatusChip';
 import { leadsBgColor } from '@/common/utils';
-const leads = [
-  {
-    name: 'Srikanth Gumireddy',
-    status: 'Hot',
-    phone: '9876543210',
-    buyeroffer: '4000',
-    selleroffer: '4800',
-    datetime: '12/12/2021 10:00 AM',
-    notes:
-      'Full cash offered, but needs 6 months time. Everything will in bank transfer.',
-  },
-  {
-    name: 'Sachin',
-    status: 'Hot',
-    phone: '9876543210',
-    buyeroffer: '4000',
-    selleroffer: '4800',
-    datetime: '12/12/2021 10:00 AM',
-    notes: 'Loan can be easily arranged',
-  },
-  {
-    name: 'Babu Reddy',
-    status: 'Cold',
-    phone: '9876543210',
-    buyeroffer: '4000',
-    selleroffer: '4800',
-    datetime: '12/12/2021 10:00 AM',
-    notes: 'Legal issues',
-  },
-  {
-    name: 'Ramesh Babu',
-    status: 'Dead',
-    phone: '9876543210',
-    buyeroffer: '4000',
-    selleroffer: '4800',
-    datetime: '12/12/2021 10:00 AM',
-    notes: '',
-  },
-];
-export default function LeadsTab() {
+
+export default function LeadsTab({ leads }) {
   return (
     <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md shadow-inner">
       {leads?.map((lead, key) => (
@@ -88,10 +50,10 @@ export default function LeadsTab() {
               </div>
               <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
                 <div className="text-xs font-semibold">
-                  <span>{lead?.buyeroffer}</span>
+                  <span>{lead?.buyerOffer}</span>
                   <span className="text-slate-500"> sqft</span>
                   <span> / </span>
-                  <span>{lead?.selleroffer}</span>
+                  <span>{lead?.sellerOffer}</span>
                   <span className="text-slate-500"> sqft</span>
                 </div>
               </div>

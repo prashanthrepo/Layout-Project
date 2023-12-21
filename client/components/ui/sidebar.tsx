@@ -11,6 +11,7 @@ import Logo from './logo'
 import getSelf from '@/api/get-self';
 import { useAppStore } from '../../common/utils';
 import React from 'react';
+import Link from 'next/link';
 
 export default function Sidebar() {
   const { setUser } = useAppStore((state) => state);
@@ -160,7 +161,7 @@ export default function Sidebar() {
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   segments.includes('signin') && 'bg-slate-900'
                 }`}>
-                <SidebarLink href="/signin">
+                <Link href="/signin">
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <circle
@@ -188,7 +189,7 @@ export default function Sidebar() {
                       Logout
                     </span>
                   </div>
-                </SidebarLink>
+                </Link>
               </li>
               {/* E-Commerce */}
             </ul>

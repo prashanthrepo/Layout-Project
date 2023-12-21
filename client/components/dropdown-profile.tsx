@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { Menu, Transition } from '@headlessui/react'
-import UserAvatar from '@/public/images/user-avatar-32.png'
+import Link from 'next/link';
+import Image from 'next/image';
+import { Menu, Transition } from '@headlessui/react';
+import UserAvatar from '@/public/images/user-avatar-32.png';
 import { useAppStore } from '../common/utils';
 import { useEffect, useState } from 'react';
 
@@ -25,7 +25,7 @@ export default function DropdownProfile({
   useEffect(() => {
     const user = localStorage.getItem('user');
     setDetailsUser(JSON.parse(user));
-  }, [onLogoutClick]);
+  }, []);
 
   return (
     <Menu as="div" className="relative inline-flex">

@@ -29,7 +29,7 @@ export function SingleOTPInputComponent(props: SingleOTPInputProps) {
         ref={inputRef}
         {...rest}
         className={
-          'w-full h-full text-white font-semibold flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-0 text-xl bg-indigo-100 focus:bg-indigo-500  ' +
+          'w-full h-full text-white focus:text-indigo-100 font-semibold flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-0 border-indigo-100 text-xl bg-indigo-100 focus:bg-indigo-200  ' +
           (props?.value != '' ? 'bg-indigo-500' : 'bg-indigo-50')
         }
         type="text"

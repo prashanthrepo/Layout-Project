@@ -99,7 +99,6 @@ export default function SiteDetails({
                 <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
                   Site Details
                 </div>
-
                 {!edit && (
                   <a
                     className="font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
