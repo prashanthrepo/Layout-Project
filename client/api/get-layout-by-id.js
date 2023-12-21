@@ -1,7 +1,10 @@
 'use client';
-import useGetHook from '../hooks/useGetHook';
-const getLayoutByID = (id) => {
-  const { response, loading, error } = useGetHook('/layouts/' + id);
-  return { layout: response, loading, error };
+const prefix = process.env.NEXT_PUBLIC_API_URL;
+const getLayoutByID = async (id) => {
+  const response = await fetch(`${prefix}` + '/layouts/' + id, {
+    method: 'get',
+  });
+  const result = await response.json();
+  return result;
 };
 export default getLayoutByID;

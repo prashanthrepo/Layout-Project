@@ -1,29 +1,23 @@
 'use client';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useEffect } from 'react';
-import { layoutData } from '@/common/mockdata.js';
 import SiteDetails from './site-details';
 import { siteTypeColor, useAppStore } from '@/common/utils';
 import getLayoutByID from '@/api/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 export default function Page({ params }: { params: { slug: string } }) {
   const { user } = useAppStore((state) => state);
-  const { layout, loading, error } = getLayoutByID(params?.slug);
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
-  const onSiteClick = (site: any) => {
+  const onSiteClick = useCallback((site: any) => {
     if (site?.type == 'road') return;
-    const tempSite = data?.sites?.find((item) => item?.number == site?.number);
-    site && setSelectedSite(tempSite);
-    site && setOpenModal(true);
-    // const siteNumber = site;
-    // siteNumber && setSelectedSite(siteNumber);
-    // siteNumber && setOpenModal(true);
-  };
+    setSelectedSite(site);
+    setOpenModal(true);
+  }, []);
 
-  const onSiteStatusChange = (number, type) => {
+  const onSiteStatusChange = useCallback((number, type) => {
     const newData = data?.sites?.map((item) => {
       if (item?.number === number) {
         item.status = type;
@@ -31,11 +25,18 @@ export default function Page({ params }: { params: { slug: string } }) {
       return item;
     });
     setData({ ...data, sites: newData });
-  };
+  }, []);
+
+  const getLayout = useCallback(() => {
+    const res = getLayoutByID(params?.slug);
+    res?.then((res) => {
+      setData(res);
+    });
+  }, [params?.slug]);
 
   useEffect(() => {
-    setData(layout);
-  }, [layout]);
+    getLayout();
+  }, []);
 
   return (
     <div className="relative">
@@ -48,10 +49,17 @@ export default function Page({ params }: { params: { slug: string } }) {
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
               {data?.sites?.map((site, key) => (
-                <g key={key} onClick={() => onSiteClick(site)}>
+                <g
+                  key={key}
+                  className={
+                    site?.type === 'site'
+                      ? ' cursor-pointer hover:opacity-70'
+                      : ''
+                  }
+                  onClick={() => onSiteClick(site)}>
                   {site?.type === 'site' ? (
                     <polygon
-                      className=" cursor-pointer hover:opacity-60"
+                      className=""
                       points={site.points}
                       fill={siteTypeColor(site?.status)}
                       stroke="#000"

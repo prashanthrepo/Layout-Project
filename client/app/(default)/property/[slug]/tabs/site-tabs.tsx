@@ -1,45 +1,66 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
-import LeadsTab from './leads-tab';
+import LeadsTab from './leads/leads-tab';
 import { siteStatus } from '@/common/mockdata.js';
-import HistoryTab from './history-tab';
+import HistoryTab from './history/history-tab';
 import getLeadsBySite from '@/api/get-leads-by-site';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 const tabs = [
-  //   { name: 'Details', href: '#', current: true },
   { name: 'Leads', href: '#', current: false },
   { name: 'History', href: '#', current: false },
 ];
 
 export default function SiteTabs({ siteDetails, setSiteDetails }) {
-  console.log('siteDetails :>> ', siteDetails);
   const [leads, setLeads] = useState([]);
-  useEffect(() => {
+  const [loading, setLoading] = useState(false);
+  const [newLead, setNewLead] = useState(false);
+  const getLeads = useCallback(() => {
+    setLoading(true);
     const leads = getLeadsBySite(siteDetails?._id);
-    leads?.then((leads) => setLeads(leads?.leads || []));
-  }, [siteDetails]);
+    leads?.then((leads) => {
+      setLoading(false);
+      setLeads(leads?.leads || []);
+    });
+  }, [siteDetails?._id]);
 
+  useEffect(() => {
+    getLeads();
+  }, [siteDetails?._id]);
   return (
-    <div className="w-full sm:px-0">
+    <div className=" relative w-full sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-600/80 p-1">
-          {tabs.map((tab, idx) => (
-            <Tab
-              key={idx}
-              className={({ selected }) =>
-                classNames(
-                  'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
-                  selected
-                    ? 'bg-white text-blue-600 shadow'
-                    : 'text-white hover:bg-white/[0.12] hover:text-white'
-                )
-              }>
-              {tab?.name}
-            </Tab>
-          ))}
+        <Tab.List className=" flex justify-between">
+          <div className=" space-x-1 ">
+            {tabs.map((tab, idx) => (
+              <Tab
+                key={idx}
+                className={({ selected }) =>
+                  classNames(
+                    ' rounded-md px-5 py-2 text-sm font-medium leading-5',
+                    selected
+                      ? 'bg-indigo-500 text-white dark:text-blue-100 dark:bg-indigo-500'
+                      : 'bg-slate-200 text-slate-600 dark:text-blue-100 dark:bg-slate-500 '
+                  )
+                }>
+                {tab?.name}
+              </Tab>
+            ))}
+          </div>
+          {!newLead && (
+            <button
+              className="inline-flex float-right rounded-md px-5 py-2 text-sm font-medium leading-5 bg-indigo-500 text-white dark:text-blue-100 dark:bg-indigo-500"
+              onClick={() => setNewLead(true)}>
+              <svg
+                className="w-4 h-4 fill-current opacity-50 shrink-0"
+                viewBox="0 0 16 16">
+                <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+              </svg>
+              <span className="ml-2">Add Lead</span>
+            </button>
+          )}
         </Tab.List>
         <Tab.Panels className="mt-2">
           {/* <Tab.Panel
@@ -111,10 +132,15 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
               </div>
             </div>
           </Tab.Panel> */}
-          <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
-            <LeadsTab leads={leads} />
+          <Tab.Panel className={classNames('rounded-xl ')}>
+            <LeadsTab
+              leads={leads}
+              loading={loading}
+              newLead={newLead}
+              setNewLead={setNewLead}
+            />
           </Tab.Panel>
-          <Tab.Panel className={classNames('rounded-xl bg-white p-1')}>
+          <Tab.Panel className={classNames('rounded-xl ')}>
             <div className="mb-4">
               <HistoryTab />
             </div>

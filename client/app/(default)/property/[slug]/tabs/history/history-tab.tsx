@@ -1,7 +1,7 @@
 import React from 'react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
 import Image from 'next/image';
-import StatusChip from '../../components-library/StatusChip';
+import StatusChip from '../../../../components-library/StatusChip';
 import { leadsBgColor, statusColors } from '@/common/utils';
 import moment from 'moment';
 const history = [
@@ -30,7 +30,7 @@ const history = [
 ];
 export default function HistoryTab() {
   return (
-    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md shadow-inner">
+    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200  rounded-md shadow-inner">
       <ul className="bg-white p-4 h-full">
         {history?.map((item, key) => (
           <li className="relative py-2" key={key}>
