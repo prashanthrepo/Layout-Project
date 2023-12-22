@@ -14,12 +14,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-20T08:46:09.884Z",
-            "modified": "2023-12-20T08:54:47.484Z",
+            "modified": "2023-12-22T06:17:59.992Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"site\":\"657d19ab95ee05f9d7f3655b\",\n  \"lead\":\"6582aad94277c65db1f43598\",\n  \"tokenAmount\":123,\n  \"validity\":30\n}\n\n\n\n",
+                "raw": "{\n  \"site\":\"657d19ab95ee05f9d7f3655b\",\n  \"lead\":\"6582aad94277c65db1f43598\",\n  \"tokenAmount\":5000,\n  \"validity\":2\n}\n\n\n\n",
                 "form": []
             },
             "tests": []
