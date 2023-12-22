@@ -239,7 +239,7 @@ export default function SiteDetails({
                   Cancel
                 </button>
                 <button
-                  className="py-1.5 sm:py-3 btn bg-blue-500 hover:bg-blue-600 text-white w-20 sm:w-40 border-blue-500 rounded-lg"
+                  className="py-1.5 sm:py-3 btn bg-indigo-500 hover:bg-indigo-600 text-white w-20 sm:w-40 border-indigo-500 rounded-lg"
                   onClick={() => onUpdateSiteFn()}>
                   Save
                 </button>
