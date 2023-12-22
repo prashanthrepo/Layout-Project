@@ -85,7 +85,8 @@ export default function NewLead({ setNewLead }) {
         </button>
         <button
           className="py-1.5 sm:py-3 btn bg-indigo-500 hover:bg-indigo-600 text-white w-20 sm:w-40 border-indigo-500 rounded-lg"
-          onClick={() => onUpdateSiteFn()}>
+          //   onClick={ () => onUpdateSiteFn() }
+        >
           Save
         </button>
       </div>
