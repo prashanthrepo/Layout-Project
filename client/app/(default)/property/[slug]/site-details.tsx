@@ -177,7 +177,7 @@ export default function SiteDetails({
                         id="name"
                         className="form-input ml-2 py-1"
                         type="text"
-                        value="30ft x 40ft"
+                        defaultValue="30ft x 40ft"
                       />
                     ) : (
                       <span className="pl-1">30ft x 40ft</span>
@@ -193,7 +193,7 @@ export default function SiteDetails({
                       id="name"
                       className="form-input ml-2 py-1"
                       type="text"
-                      value="1200sqft"
+                      defaultValue="1200sqft"
                     />
                   ) : (
                     <span className="pl-1">1200sqft</span>
@@ -208,7 +208,7 @@ export default function SiteDetails({
                       id="name"
                       className="form-input ml-2 py-1"
                       type="text"
-                      value="4000"
+                      defaultValue="4000"
                     />
                   ) : (
                     <span className="pl-1">4000</span>
@@ -223,7 +223,7 @@ export default function SiteDetails({
                       id="name"
                       className="form-input ml-2 py-1"
                       type="text"
-                      value="4000"
+                      defaultValue="4000"
                     />
                   ) : (
                     <span className="pl-1">4000</span>

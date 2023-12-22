@@ -17,15 +17,18 @@ export default function Page({ params }: { params: { slug: string } }) {
     setOpenModal(true);
   }, []);
 
-  const onSiteStatusChange = useCallback((number, type) => {
-    const newData = data?.sites?.map((item) => {
-      if (item?.number === number) {
-        item.status = type;
-      }
-      return item;
-    });
-    setData({ ...data, sites: newData });
-  }, []);
+  const onSiteStatusChange = useCallback(
+    (number, type) => {
+      const newData = data?.sites?.map((item) => {
+        if (item?.number === number) {
+          item.status = type;
+        }
+        return item;
+      });
+      setData({ ...data, sites: newData });
+    },
+    [data?.sites]
+  );
 
   const getLayout = useCallback(() => {
     const res = getLayoutByID(params?.slug);
