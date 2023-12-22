@@ -4,13 +4,14 @@ import Image from 'next/image';
 import StatusChip from '../../../../components-library/StatusChip';
 import { leadsBgColor } from '@/common/utils';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import NewLead from './new-lead';
 
 export default function LeadsTab({ leads, loading, newLead, setNewLead }) {
   return (
     <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md  shadow-inner">
       {newLead ? (
         <div className="w-full bg-white">
-          <p>New lead</p>
+          <NewLead setNewLead={setNewLead} />
         </div>
       ) : (
         <SkeletonLoader
