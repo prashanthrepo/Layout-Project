@@ -63,7 +63,7 @@ export default function Site({
           <EditSite
             siteDetails={siteDetails}
             setSiteDetails={setSiteDetails}
-            onUpdate={() => onUpdateSiteFn}
+            onUpdate={() => onUpdateSiteFn()}
           />
         );
       case 'addlead':
@@ -119,6 +119,7 @@ export default function Site({
 
   useEffect(() => {
     getSite();
+    setUiStatus('sitedetails');
   }, [selectedSite?._id]);
 
   return (
