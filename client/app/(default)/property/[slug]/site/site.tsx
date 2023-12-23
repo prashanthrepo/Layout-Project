@@ -12,6 +12,7 @@ import { siteStatus } from '@/common/mockdata';
 import EditSite from './site-details/edit-site';
 import SiteDetails from './site-details/details';
 import NewLead from './site-details/new-lead';
+import getLeadsBySite from '@/api/get-leads-by-site';
 
 export default function Site({
   selectedSite,
@@ -22,6 +23,8 @@ export default function Site({
   const [siteDetails, setSiteDetails] = useState(null);
   const [tempSiteDetails, setTempSiteDetails] = useState(null);
   const [uiStatus, setUiStatus] = useState('sitedetails');
+  const [leadsLoading, setLeadsLoading] = useState(false);
+  const [leads, setLeads] = useState([]);
   const onUpdateSiteFn = useCallback(() => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
     const res = updateSiteByID(siteDetails?._id, temp);
@@ -41,9 +44,18 @@ export default function Site({
         if (res) {
           setSiteDetails(res);
           setTempSiteDetails(res);
+          getLeads();
         }
       });
     }
+  }, [selectedSite?._id]);
+  const getLeads = useCallback(() => {
+    setLeadsLoading(true);
+    const leads = getLeadsBySite(selectedSite?._id);
+    leads?.then((leads) => {
+      setLeadsLoading(false);
+      setLeads(leads?.leads || []);
+    });
   }, [selectedSite?._id]);
 
   const renderUi = (statustype) => {
@@ -59,7 +71,13 @@ export default function Site({
           />
         );
       case 'addlead':
-        return <NewLead setUiStatus={setUiStatus} />;
+        return (
+          <NewLead
+            setUiStatus={setUiStatus}
+            siteDetails={siteDetails}
+            fetchLeads={getLeads}
+          />
+        );
       default:
         return <SiteDetails siteDetails={siteDetails} />;
     }
@@ -159,6 +177,8 @@ export default function Site({
               <SiteTabs
                 siteDetails={siteDetails}
                 setSiteDetails={setSiteDetails}
+                leads={leads}
+                loading={leadsLoading}
               />
             )}
           </div>

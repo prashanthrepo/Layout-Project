@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import createLead from '@/api/create-lead';
-export default function NewLead({ setUiStatus }) {
+export default function NewLead({ siteDetails, setUiStatus, fetchLeads }) {
   const [newLead, setNewLead] = useState({
-    siteId: '657d6c7e84d846d23423c79e',
-    name: '',
-    phone: '',
-    buyerPrice: 0,
-    sellerPrice: 0,
-    finalPrice: 0,
-    notes: '',
+    siteId: siteDetails?._id,
+    name: 'prashanth',
+    phone: '909123123',
+    email: 'prashanth@gmail.com',
+    buyerOffer: 4000,
+    sellerOffer: 3800,
+    finalPrice: 3500,
+    notes: 'Will pay token on 25th',
     status: 'hot',
   });
 
@@ -17,6 +18,7 @@ export default function NewLead({ setUiStatus }) {
     res?.then((res) => {
       if (res) {
         setUiStatus('sitedetails');
+        fetchLeads();
       }
     });
   };
@@ -37,7 +39,7 @@ export default function NewLead({ setUiStatus }) {
             className="form-input w-full"
             type="text"
             placeholder="prashanth"
-            defaultValue={newLead.name}
+            defaultValue={newLead?.name}
             onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
           />
         </div>
@@ -52,7 +54,7 @@ export default function NewLead({ setUiStatus }) {
             className="form-input w-full"
             type="text"
             placeholder="+91 9876543210"
-            defaultValue={newLead.phone}
+            defaultValue={newLead?.phone}
             onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
           />
         </div>
@@ -70,9 +72,9 @@ export default function NewLead({ setUiStatus }) {
             className="form-input w-full text-right"
             type="number"
             placeholder="0"
-            defaultValue={newLead.buyerPrice}
+            defaultValue={newLead?.buyerOffer}
             onChange={(e) =>
-              setNewLead({ ...newLead, buyerPrice: +e.target.value })
+              setNewLead({ ...newLead, buyerOffer: +e.target.value })
             }
           />
         </div>
@@ -87,9 +89,9 @@ export default function NewLead({ setUiStatus }) {
             className="form-input w-full text-right"
             type="number"
             placeholder="0"
-            defaultValue={newLead.sellerPrice}
+            defaultValue={newLead?.sellerOffer}
             onChange={(e) =>
-              setNewLead({ ...newLead, sellerPrice: +e.target.value })
+              setNewLead({ ...newLead, sellerOffer: +e.target.value })
             }
           />
         </div>
@@ -105,7 +107,7 @@ export default function NewLead({ setUiStatus }) {
           id="lead-notes"
           className="form-input w-full"
           placeholder="..."
-          defaultValue={newLead.notes}
+          defaultValue={newLead?.notes}
           onChange={(e) => setNewLead({ ...newLead, notes: e.target.value })}
         />
       </div>
