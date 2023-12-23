@@ -2,10 +2,10 @@
 import React, { useCallback } from 'react';
 
 import { useEffect } from 'react';
-import SiteDetails from './site-details';
 import { siteTypeColor, useAppStore } from '@/common/utils';
 import getLayoutByID from '@/api/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
+import Site from './site/site';
 export default function Page({ params }: { params: { slug: string } }) {
   const { user } = useAppStore((state) => state);
   const [data, setData] = React.useState(null);
@@ -110,7 +110,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
       {user?.role == 'Admin' && <LayoutSettingsButton />}
       {seletedSite && (
-        <SiteDetails
+        <Site
           selectedSite={seletedSite}
           openModal={openModal}
           setOpenModal={setOpenModal}

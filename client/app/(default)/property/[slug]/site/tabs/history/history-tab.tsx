@@ -1,7 +1,7 @@
 import React from 'react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
 import Image from 'next/image';
-import StatusChip from '../../../../components-library/StatusChip';
+import StatusChip from '../../../../../components-library/StatusChip';
 import { leadsBgColor, statusColors } from '@/common/utils';
 import moment from 'moment';
 const history = [
