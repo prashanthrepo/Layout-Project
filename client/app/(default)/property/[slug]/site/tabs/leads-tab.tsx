@@ -8,7 +8,7 @@ import NewLead from '../site-details/new-lead';
 
 export default function LeadsTab({ leads, loading }) {
   return (
-    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md  shadow-inner">
+    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md ">
       <SkeletonLoader
         type="LeadsList"
         length={3}
