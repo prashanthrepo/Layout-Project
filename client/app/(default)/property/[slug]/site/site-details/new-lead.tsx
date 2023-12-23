@@ -72,7 +72,7 @@ export default function NewLead({ setUiStatus }) {
             placeholder="0"
             defaultValue={newLead.buyerPrice}
             onChange={(e) =>
-              setNewLead({ ...newLead, buyerPrice: e.target.value })
+              setNewLead({ ...newLead, buyerPrice: +e.target.value })
             }
           />
         </div>
@@ -89,7 +89,7 @@ export default function NewLead({ setUiStatus }) {
             placeholder="0"
             defaultValue={newLead.sellerPrice}
             onChange={(e) =>
-              setNewLead({ ...newLead, sellerPrice: e.target.value })
+              setNewLead({ ...newLead, sellerPrice: +e.target.value })
             }
           />
         </div>

@@ -114,12 +114,7 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
             </div>
           </Tab.Panel> */}
           <Tab.Panel className={classNames('rounded-xl ')}>
-            <LeadsTab
-              leads={leads}
-              loading={loading}
-              newLead={newLead}
-              setNewLead={setNewLead}
-            />
+            <LeadsTab leads={leads} loading={loading} />
           </Tab.Panel>
           <Tab.Panel className={classNames('rounded-xl ')}>
             <div className="mb-4">
