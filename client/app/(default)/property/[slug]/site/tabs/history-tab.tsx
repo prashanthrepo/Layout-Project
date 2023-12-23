@@ -30,44 +30,9 @@ const history = [
 ];
 export default function HistoryTab() {
   return (
-    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200  rounded-md shadow-inner">
-      {/* <ul className="bg-white p-4 h-full">
-        {history?.map((item, key) => (
-          <li className="relative py-2" key={key}>
-            <div className="flex items-center mb-1">
-              {key !== history.length - 1 && (
-                <div
-                  className="absolute left-0 h-full w-0.5 bg-slate-200 dark:bg-slate-700 self-start ml-2.5 -translate-x-1/2 translate-y-3"
-                  aria-hidden="true"></div>
-              )}
-              <div
-                className={' left-0 w-20 flex justify-end'}
-                aria-hidden="true">
-                <StatusChip status={item?.status} size="sm" />
-              </div>
-              <div className="flex w-full justify-between pl-2 align-bottom">
-                <span className="text-base font-medium text-slate-800 dark:text-slate-100">
-                  {item?.status}
-                </span>
-                <span className="text-xs font-medium text-slate-400">
-                  {moment(item?.datetime).format('Do MMM YYYY, hh:mm A')}
-                </span>
-              </div>
-            </div>
-            <div className="pl-9 text-xs">
-              <span>
-                <span className="text-blue-500">{item?.name}</span>{' '}
-              </span>
-              <span>
-                at price - <span>{item?.price}</span>
-                sqft
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul> */}
+    <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200  rounded-md ">
       <div className="bg-white py-4">
-        <div className="mx-auto max-w-lg px-4">
+        <div className=" max-w-lg px-4">
           <div className="flow-root">
             <ul role="list" className="">
               {history?.map((item, key) => (
@@ -88,14 +53,14 @@ export default function HistoryTab() {
                       </div>
                       <div className="w-full">
                         <div>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-xm text-gray-500">
                             Applied to{' '}
                             <a href="#" className="font-medium text-gray-900">
                               Front End Developer
                             </a>
                           </p>
                         </div>
-                        <div className="whitespace-nowrap text-left text-sm text-gray-500">
+                        <div className="whitespace-nowrap text-left text-xs text-gray-500">
                           {moment(item?.datetime).format(
                             'Do MMM YYYY, hh:mm A'
                           )}
