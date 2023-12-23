@@ -1,10 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
-import Link from 'next/link';
-import LeadsTab from './leads/leads-tab';
-import { siteStatus } from '@/common/mockdata.js';
-import HistoryTab from './history/history-tab';
-import getLeadsBySite from '@/api/get-leads-by-site';
+import LeadsTab from './leads-tab';
+import HistoryTab from './history-tab';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
