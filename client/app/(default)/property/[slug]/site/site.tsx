@@ -1,14 +1,10 @@
 import ModalAction from '@/components/modal-action';
 import getSiteByID from '@/api/get-site-by-id';
 import updateSiteByID from '@/api/update-site-by-id';
-import { Menu, Transition } from '@headlessui/react';
-import flag from '@/public/images/flag.svg';
-import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 import StatusChip from '../../../components-library/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
 import SiteTabs from './tabs/site-tabs';
-import { siteStatus } from '@/common/mockdata';
 import EditSite from './site-details/edit-site';
 import SiteDetails from './site-details/details';
 import NewLead from './site-details/new-lead';

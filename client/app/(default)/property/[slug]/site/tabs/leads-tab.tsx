@@ -1,10 +1,10 @@
 import React from 'react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
 import Image from 'next/image';
-import StatusChip from '../../../../../components-library/StatusChip';
+import StatusChip from '../../../../components-library/StatusChip';
 import { leadsBgColor } from '@/common/utils';
 import SkeletonLoader from '@/components/SkeletonLoader';
-import NewLead from '../../site-details/new-lead';
+import NewLead from '../site-details/new-lead';
 
 export default function LeadsTab({ leads, loading }) {
   return (
