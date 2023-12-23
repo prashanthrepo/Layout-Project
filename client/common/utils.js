@@ -5,13 +5,13 @@ const statusColors = (status) => {
   const replaceUnderrscore = statusLowerCase?.replace(/_/g, ' ');
   switch (replaceUnderrscore) {
     case 'available':
-      return 'bg-blue-500 text-white';
+      return 'status_available';
     case 'sold':
-      return 'bg-red-500 text-white';
+      return 'status_sold';
     case 'token':
-      return 'bg-yellow-500 text-white';
+      return 'status_token';
     case 'blocked':
-      return 'bg-gray-500 text-white';
+      return 'status_blocked';
     case 'hot':
       return 'bg-emerald-400 text-white';
     case 'cold':

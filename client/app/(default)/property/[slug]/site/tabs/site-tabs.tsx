@@ -32,35 +32,16 @@ export default function SiteTabs({ siteDetails, setSiteDetails }) {
   return (
     <div className=" relative w-full sm:px-0">
       <Tab.Group>
-        <Tab.List className=" flex justify-between">
-          <div className=" space-x-1 ">
-            {tabs.map((tab, idx) => (
-              <Tab
-                key={idx}
-                className={({ selected }) =>
-                  classNames(
-                    ' rounded-md px-5 py-2 text-sm font-medium leading-5',
-                    selected
-                      ? 'bg-indigo-500 text-white dark:text-blue-100 dark:bg-indigo-500'
-                      : 'bg-slate-200 text-slate-600 dark:text-blue-100 dark:bg-slate-500 '
-                  )
-                }>
-                {tab?.name}
-              </Tab>
-            ))}
-          </div>
-          {!newLead && (
-            <button
-              className="inline-flex float-right rounded-md px-5 py-2 text-sm font-medium leading-5 bg-indigo-500 text-white dark:text-blue-100 dark:bg-indigo-500"
-              onClick={() => setNewLead(true)}>
-              <svg
-                className="w-4 h-4 fill-current opacity-50 shrink-0"
-                viewBox="0 0 16 16">
-                <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-              </svg>
-              <span className="ml-2">Add Lead</span>
-            </button>
-          )}
+        <Tab.List className=" flex space-x-1">
+          {tabs.map((tab, idx) => (
+            <Tab
+              key={idx}
+              className={({ selected }) =>
+                classNames(selected ? 'btnprimary' : 'btnsecondary')
+              }>
+              {tab?.name}
+            </Tab>
+          ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
           {/* <Tab.Panel
