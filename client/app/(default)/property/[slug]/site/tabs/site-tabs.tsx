@@ -13,22 +13,12 @@ const tabs = [
   { name: 'History', href: '#', current: false },
 ];
 
-export default function SiteTabs({ siteDetails, setSiteDetails }) {
-  const [leads, setLeads] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [newLead, setNewLead] = useState(false);
-  const getLeads = useCallback(() => {
-    setLoading(true);
-    const leads = getLeadsBySite(siteDetails?._id);
-    leads?.then((leads) => {
-      setLoading(false);
-      setLeads(leads?.leads || []);
-    });
-  }, [siteDetails?._id]);
-
-  useEffect(() => {
-    getLeads();
-  }, [siteDetails?._id]);
+export default function SiteTabs({
+  siteDetails,
+  setSiteDetails,
+  leads,
+  loading,
+}) {
   return (
     <div className=" relative w-full sm:px-0">
       <Tab.Group>
