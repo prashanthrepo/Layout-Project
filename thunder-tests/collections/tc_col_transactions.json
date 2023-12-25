@@ -1,0 +1,47 @@
+{
+    "_id": "ecd74209-bb20-4a2f-a4ff-408d1fb21069",
+    "colName": "Transactions",
+    "created": "2023-12-24T06:18:55.874Z",
+    "sortNum": 50000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "5a11c560-f313-41ad-bd0c-5631e5f519f9",
+            "colId": "ecd74209-bb20-4a2f-a4ff-408d1fb21069",
+            "containerId": "",
+            "name": "create transaction - status change",
+            "url": "{{BASE_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-24T06:19:02.335Z",
+            "modified": "2023-12-24T07:37:51.814Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"site\": \"657d19ab95ee05f9d7f3655b\",\n  \"type\": \"STATUS_CHANGE\",\n  \"metadata\": {\n    \"prevStatus\": \"Available\",\n    \"currentStatus\": \"Token\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "47137f63-945f-4258-86ed-5e4944aa2c95",
+            "colId": "ecd74209-bb20-4a2f-a4ff-408d1fb21069",
+            "containerId": "",
+            "name": "get transactions",
+            "url": "{{BASE_URL}}/transactions",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-24T07:31:59.647Z",
+            "modified": "2023-12-24T07:32:18.500Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"site\": \"657d19ab95ee05f9d7f3655b\",\n  \"type\": \"TOKEN_GIVEN\",\n  \"metadata\": {\n    \"token\": \"6582abd9f862fbacfc7515b7\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
