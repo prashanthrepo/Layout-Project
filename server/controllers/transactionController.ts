@@ -11,13 +11,16 @@ const createTransaction = async (req: Request, res: Response) => {
         return res.status(500).json(parsedData.error)
 
         // console.log("parsedData.data ===",parsedData.data)
-    } else {
+    }
+
+    try {
         const txn = await Transaction.create({ ...parsedData.data })
         await txn.save()
         // console.log({...parsedData.data})
         return res.status(200).json(txn)
+    } catch (error) {
+        res.status(500).json(error)
     }
 }
-
 
 export { createTransaction }
