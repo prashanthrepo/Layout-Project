@@ -14,7 +14,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-24T06:19:02.335Z",
-            "modified": "2023-12-24T07:37:51.814Z",
+            "modified": "2023-12-25T04:51:56.127Z",
             "headers": [],
             "params": [],
             "body": {
@@ -39,6 +39,25 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"site\": \"657d19ab95ee05f9d7f3655b\",\n  \"type\": \"TOKEN_GIVEN\",\n  \"metadata\": {\n    \"token\": \"6582abd9f862fbacfc7515b7\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a806bc6b-fa5a-4c8f-ac10-6e0bc71563b0",
+            "colId": "ecd74209-bb20-4a2f-a4ff-408d1fb21069",
+            "containerId": "",
+            "name": "create transaction - token given",
+            "url": "{{BASE_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2023-12-25T04:52:20.111Z",
+            "modified": "2023-12-25T04:54:35.091Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"site\": \"657d19ab95ee05f9d7f3655b\",\n  \"type\": \"TOKEN_GIVEN\",\n  \"metadata\": {\n    \"token\":\"6582abd9f862fbacfc7515b7\"\n  }\n}",
                 "form": []
             },
             "tests": []
