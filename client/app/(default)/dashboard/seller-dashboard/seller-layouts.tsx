@@ -1,12 +1,25 @@
-import getLayouts from '@/api/get-layouts';
+import getAllLayouts from '@/api/get-all-layouts';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import mapImage from '@/public/images/google-maps.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 export default function SellerLayouts() {
-  const { layouts, loading, error } = getLayouts();
+  const [layouts, setLayouts] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const getLayouts = useCallback(() => {
+    setLoading(true);
+    const res = getAllLayouts();
+    res?.then((res) => {
+      setLoading(false);
+      setLayouts(res || []);
+    });
+  }, []);
+
+  useEffect(() => {
+    getLayouts();
+  }, []);
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
       <div className="grid grid-cols-12 gap-6">

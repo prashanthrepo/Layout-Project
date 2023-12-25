@@ -1,7 +1,9 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 import ModalAction from '@/components/modal-action';
 import getSiteByID from '@/api/get-site-by-id';
 import updateSiteByID from '@/api/update-site-by-id';
-import React, { useCallback, useEffect, useState } from 'react';
 import StatusChip from '../../../components-library/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
 import SiteTabs from './tabs/site-tabs';
@@ -10,6 +12,7 @@ import SiteDetails from './site-details/details';
 import NewLead from './site-details/new-lead';
 import getLeadsBySite from '@/api/get-leads-by-site';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import ShareButton from '@/app/(default)/components-library/ShareButton';
 
 export default function Site({
   selectedSite,
@@ -34,7 +37,24 @@ export default function Site({
       }
     });
   }, [siteDetails, tempSiteDetails]);
-
+  const onShare = async () => {
+    const temp = {
+      title: siteDetails?.number,
+      text: siteDetails?.status,
+      url: window.location.href,
+      dialogTitle: `Share site no ${siteDetails?.number} with friends`,
+    };
+    console.log('temp :>> ', temp);
+    await Share.share(temp);
+  };
+  // const share = async () => {
+  //   await Share.share({
+  //     title: 'Simons YT Channel',
+  //     text: 'Learn to build awesome mobile apps!',
+  //     url: 'https://www.youtube.com/simongrimmdev_',
+  //     dialogTitle: 'Share with friends',
+  //   });
+  // };
   const getSite = useCallback(() => {
     if (selectedSite?._id) {
       setLoading(true);
@@ -164,8 +184,11 @@ export default function Site({
                       <span className={'text-xm'}>{siteDetails?.status}</span>
                     </div>
                   </div>
-                  <div>
+                  <div className="flex space-x-2">
                     <StatusChip status={siteDetails?.status} />
+                    {Capacitor.isNativePlatform() && (
+                      <ShareButton onClick={() => onShare()} />
+                    )}
                   </div>
                 </div>
               </div>

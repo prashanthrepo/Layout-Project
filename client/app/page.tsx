@@ -2,7 +2,12 @@
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
 import Dashboard from './(default)/dashboard/page';
-export default function DefaultLayout() {
+import MobileNav from './(default)/components-library/MobileNav';
+export default function DefaultLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex h-[100dvh] overflow-hidden">
       {/* Sidebar */}
@@ -13,9 +18,8 @@ export default function DefaultLayout() {
         {/*  Site header */}
         <Header />
 
-        <main className="grow [&>*:first-child]:scroll-mt-16">
-          <Dashboard />
-        </main>
+        <Dashboard />
+        <MobileNav />
       </div>
     </div>
   );

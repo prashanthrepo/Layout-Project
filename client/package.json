@@ -9,9 +9,15 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ionic:build": "npm run build",
+    "ionic:serve": "npm run dev"
   },
   "dependencies": {
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/ios": "^5.6.0",
+    "@capacitor/share": "^5.0.6",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@react-google-maps/api": "^2.19.2",
@@ -20,8 +26,8 @@
     "@types/react-dom": "^18.2.15",
     "chart.js": "^4.4.0",
     "chartjs-adapter-moment": "^1.0.1",
+    "date-fns": "3.0.6",
     "eslint-config-next": "^14.0.2",
-    "moment": "^2.29.4",
     "next": "^14.0.2",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
@@ -33,6 +39,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.6.0",
     "@tailwindcss/forms": "^0.5.6",
     "@types/react-flatpickr": "^3.8.9",
     "autoprefixer": "^10.4.16",

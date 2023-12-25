@@ -1,6 +1,7 @@
 'use client';
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
+import MobileNav from './components-library/MobileNav';
 export default function DefaultLayout({
   children,
 }: {
@@ -17,6 +18,7 @@ export default function DefaultLayout({
         <Header />
 
         <main className="grow [&>*:first-child]:scroll-mt-16">{children}</main>
+        <MobileNav />
       </div>
     </div>
   );
