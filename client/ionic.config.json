@@ -1,0 +1,7 @@
+{
+  "name": "layoutproject",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
