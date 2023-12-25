@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose"
 import { Layout } from "./layoutModel"
+import { Transaction } from "./transaction"
 
 interface SiteInfo extends Document {
     text: string
@@ -24,6 +25,7 @@ export interface Site extends Document {
     customPrice: string
     defaultPrice: string
     leads: Lead[]
+    transactions: Transaction[]
     dimensions: string
     area: string
 }
@@ -56,6 +58,7 @@ export const siteSchema = new Schema<Site>({
         },
     ],
     leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
+    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }],
 })
 
 const siteModel = mongoose.model("Site", siteSchema)
