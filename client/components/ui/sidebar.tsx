@@ -34,6 +34,7 @@ export default function Sidebar() {
   //   }
   // }, [response]);
   // close on click outside
+
   useEffect(() => {
     const clickHandler = ({ target }: { target: EventTarget | null }): void => {
       if (!sidebar.current) return;
