@@ -54,9 +54,9 @@ export default function HistoryTab() {
                       <div className="w-full">
                         <div>
                           <p className="text-xm text-gray-500">
-                            Applied to{' '}
+                            {item?.status} to{' '}
                             <a href="#" className="font-medium text-gray-900">
-                              Front End Developer
+                              {item?.name}
                             </a>
                           </p>
                         </div>

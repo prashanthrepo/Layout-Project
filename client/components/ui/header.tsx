@@ -35,7 +35,7 @@ export default function Header() {
               </svg>
             </button> */}
             <button
-              className="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 "
+              className="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800  lg:hidden"
               onClick={() => {
                 history.back();
               }}>
