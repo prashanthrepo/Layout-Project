@@ -2,6 +2,7 @@
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
 import MobileNav from './components-library/MobileNav';
+
 export default function DefaultLayout({
   children,
 }: {
@@ -13,12 +14,14 @@ export default function DefaultLayout({
       <Sidebar />
 
       {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="relative flex flex-col flex-1">
         {/*  Site header */}
         <Header />
 
         <main className="grow [&>*:first-child]:scroll-mt-16">{children}</main>
-        <MobileNav />
+        <div className="sm:hidden">
+          <MobileNav />
+        </div>
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ export default function Dashboard() {
       case 'admin':
         return <AllLayouts />;
       default:
-        return <MapView />;
+        return <></>;
     }
   };
   return <>{dashboardRender(userDetails?.role)}</>;
