@@ -21,6 +21,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: 'cover',
+
   // Also supported by less commonly used
   // interactiveWidget: 'resizes-visual',
 };
@@ -33,7 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 touch-none`}>
+        className={`${inter.variable} font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400`}
+        style={{
+          paddingTop: 'env(safe-area-inset-top)',
+        }}>
         <Theme>
           <AppProvider>{children}</AppProvider>
         </Theme>

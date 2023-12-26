@@ -17,8 +17,8 @@ export default function Header() {
           {/* Header: Left side */}
           <div className="flex">
             {/* Hamburger button */}
-            <button
-              className="text-slate-500 hover:text-slate-600 lg:hidden"
+            {/* <button
+              className="text-slate-500 hover:text-slate-600 lg:hidden "
               aria-controls="sidebar"
               aria-expanded={sidebarOpen}
               onClick={() => {
@@ -32,6 +32,15 @@ export default function Header() {
                 <rect x="4" y="5" width="16" height="2" />
                 <rect x="4" y="11" width="16" height="2" />
                 <rect x="4" y="17" width="16" height="2" />
+              </svg>
+            </button> */}
+            <button
+              className="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 "
+              onClick={() => {
+                history.back();
+              }}>
+              <svg className="w-6 h-6 fill-current" viewBox="0 0 16 16">
+                <path d="m10 13.4 1.4-1.4-4-4 4-4L10 2.6 4.6 8z" />
               </svg>
             </button>
           </div>
