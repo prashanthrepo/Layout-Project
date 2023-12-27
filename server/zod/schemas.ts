@@ -63,6 +63,11 @@ const tokenSchema = z.object({
     tokenAmount: z.number(),
     validity: z.number().optional(),
 })
+const transactionSchema = z.object({
+    site: z.string(),
+    type: z.string(),
+    metadata: z.any(),
+})
 
 export {
     infoSchema,
@@ -71,4 +76,5 @@ export {
     locationSchema,
     siteSchema,
     tokenSchema,
+    transactionSchema,
 }
