@@ -13,7 +13,7 @@ type TokenGivenMetadataType = {
 export interface Transaction {
     site: Types.ObjectId
     type: string
-    date: Date
+    date?: Date
     metadata: Object
 }
 
@@ -21,7 +21,14 @@ const transactionSchema = new Schema<Transaction & Document>({
     site: { type: mongoose.Schema.Types.ObjectId, ref: "Site" },
     type: { type: String, required: true, enum: TRANSACTION_TYPES },
     date: { type: Date, required: false, default: Date.now() },
-    metadata: { type: Object, default: {} },
+    metadata: {
+        token: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Token",
+        },
+        prevStatus: { type: String, required: false },
+        currentStatus: { type: String, required: false },
+    },
 })
 
 export default mongoose.model("Transaction", transactionSchema)

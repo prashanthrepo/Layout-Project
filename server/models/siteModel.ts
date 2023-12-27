@@ -25,7 +25,7 @@ export interface Site extends Document {
     customPrice: string
     defaultPrice: string
     leads: Lead[]
-    transactions: Transaction[]
+    transactions: Types.ObjectId[]
     dimensions: string
     area: string
 }
