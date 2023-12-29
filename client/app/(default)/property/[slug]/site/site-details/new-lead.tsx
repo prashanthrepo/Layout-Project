@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import createLead from '@/api/create-lead';
-export default function NewLead({ siteDetails, setUiStatus, fetchLeads }) {
+export default function NewLead({
+  siteDetails,
+  setUiStatus,
+  fetchLeads,
+  onClose,
+}) {
   const [newLead, setNewLead] = useState({
     siteId: siteDetails?._id,
     name: 'prashanth',
@@ -113,6 +118,9 @@ export default function NewLead({ siteDetails, setUiStatus, fetchLeads }) {
       </div>
 
       <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+        <button className="btnsecondary" onClick={() => onClose()}>
+          Close
+        </button>
         <button className="btnprimary" onClick={() => onNewLeadSave()}>
           Save
         </button>

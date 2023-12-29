@@ -3,7 +3,12 @@ import { siteStatus } from '@/common/mockdata';
 import { Menu, Transition } from '@headlessui/react';
 import React from 'react';
 
-export default function EditSite({ setSiteDetails, siteDetails, onUpdate }) {
+export default function EditSite({
+  setSiteDetails,
+  siteDetails,
+  onUpdate,
+  onClose,
+}) {
   return (
     <div>
       <ul className="space-y-2 mb-5">
@@ -122,6 +127,9 @@ export default function EditSite({ setSiteDetails, siteDetails, onUpdate }) {
         </li>
       </ul>
       <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+        <button className="btnsecondary" onClick={() => onClose()}>
+          Close
+        </button>
         <button className="btnprimary" onClick={() => onUpdate()}>
           Save
         </button>
