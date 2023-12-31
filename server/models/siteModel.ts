@@ -25,7 +25,7 @@ export interface Site extends Document {
     customPrice: string
     defaultPrice: string
     leads: Lead[]
-    transactions: Types.ObjectId[]
+    transactions: Array<Types.ObjectId|Transaction>
     dimensions: string
     area: string
 }
@@ -58,7 +58,7 @@ export const siteSchema = new Schema<Site>({
         },
     ],
     leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
-    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }],
+    transactions: [{ type: Schema.Types.Mixed, ref: "Transaction" }],
 })
 
 const siteModel = mongoose.model("Site", siteSchema)
