@@ -2,11 +2,11 @@ import mongoose, { Schema, Types } from "mongoose"
 
 export let TRANSACTION_TYPES = ["TOKEN_GIVEN", "STATUS_CHANGE"]
 
-type StatusChangeMetadataType = {
+export type StatusChangeMetadataType = {
     prevStatus: string
     currentStatus: string
 }
-type TokenGivenMetadataType = {
+export type TokenGivenMetadataType = {
     token: string
 }
 
@@ -14,7 +14,7 @@ export interface Transaction {
     site: Types.ObjectId
     type: string
     date?: Date
-    metadata: Object
+    metadata: Record<string,any>
 }
 
 const transactionSchema = new Schema<Transaction & Document>({

@@ -8,13 +8,9 @@ import { transactionSchema } from "../zod/schemas"
 
 const createTransaction = async (req: Request, res: Response) => {
     const parsedData = transactionSchema.safeParse(req.body)
-    // console.log("123 ===",123)
-    // console.log("parsedData ===",parsedData)
 
     if (!parsedData.success) {
         return res.status(500).json(parsedData.error)
-
-        // console.log("parsedData.data ===",parsedData.data)
     }
 
     try {
@@ -26,7 +22,6 @@ const createTransaction = async (req: Request, res: Response) => {
         await txn.save()
         site?.transactions.push(txn._id)
         await site?.save()
-        // console.log({...parsedData.data})
         return res.status(200).json(txn)
     } catch (error) {
         res.status(500).json(error)

@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
 import mongoose from "mongoose"
 import siteModel from "../models/siteModel"
+import token from "../models/token"
+import { Transaction } from "../models/transaction"
 
 const getSingleSite = async (req: Request, res: Response) => {
     const { id } = req.params
@@ -52,17 +54,41 @@ const getSiteLeads = async (req: Request, res: Response) => {
 const getSiteTransactions = async (req: Request, res: Response) => {
     const { id } = req.params
 
+    let txnsResponse = []
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such site" })
     }
 
     const site = await siteModel.findById(id).populate("transactions")
     if (site) {
-        const txns = site.transactions
-        return res.status(200).json(txns)
+        for (const txn of site.transactions) {
+            if (isTransaction(txn)) {
+                const tokenId = txn.metadata?.token
+
+                if (tokenId) {
+                    const tokenObj = await fetchTokenDetails(tokenId)
+                    txn.metadata.token = tokenObj
+                }
+
+                txnsResponse.push(txn)
+            }
+        }
+
+        return res.status(200).json(txnsResponse)
     } else {
         return res.status(404).json({ error: "No site found" })
     }
+}
+
+const fetchTokenDetails = async (tokenId: string) => {
+    const tokenObj = await token.findById(tokenId).populate("lead")
+    // console.log("tokenObj ===", tokenObj)
+    return tokenObj
+}
+
+function isTransaction(obj: any): obj is Transaction {
+    return obj && obj.metadata !== undefined
 }
 
 export { getSingleSite, getSiteLeads, getSiteTransactions, updateSite }
