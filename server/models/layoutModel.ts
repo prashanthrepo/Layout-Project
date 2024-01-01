@@ -13,6 +13,7 @@ export interface Layout extends Document {
     location: Location
     sites: Types.ObjectId[]
     leads: Types.ObjectId[]
+    approvals: string[]
     slug: string
 }
 
@@ -29,6 +30,7 @@ const layoutSchema = new Schema<Layout>(
         image: { type: String, required: true },
         sites: [{ type: Schema.Types.ObjectId, ref: "Site" }],
         leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
+        approvals: [{ type: String, required: false }],
         slug: { type: String, unique: true },
     },
     { timestamps: true }

@@ -1,9 +1,6 @@
 import { Request, Response } from "express"
-import mongoose, { Types } from "mongoose"
-import {
-    default as Layout,
-    default as layoutModel,
-} from "../models/layoutModel"
+import mongoose from "mongoose"
+import { default as Layout } from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
 import { layoutSchema } from "../zod/schemas"
 
@@ -20,18 +17,12 @@ const createLayout = async (req: Request, res: Response) => {
             })
         }
 
-        const { name, description, image, location, layoutJSON } =
-            parsedData.data
-
         const layout = await Layout.create({
-            name,
-            description,
-            image,
-            location,
+            ...parsedData.data,
         })
 
         const createdSites = await Promise.all<Site["_id"]>(
-            layoutJSON.map(async siteData => {
+            parsedData.data.layoutJSON.map(async siteData => {
                 const site = new siteModel({ ...siteData, layout: layout._id })
                 await site.save()
                 return site._id
@@ -128,7 +119,7 @@ const getLayoutLeads = async (req: Request, res: Response) => {
 //         .populate("leads")
 
 //     let allLeads = []
-    
+
 //     if (layout) {
 //         layout.sites.forEach(site => {
 //             allLeads = [...allLeads, ...site.leads]
@@ -147,6 +138,5 @@ export {
     getLayoutLeads,
     getLayouts,
     getSingleLayout,
-    updateLayout
+    updateLayout,
 }
-
