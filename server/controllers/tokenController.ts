@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
+import { Types } from "mongoose"
 import token from "../models/token"
 import { tokenSchema } from "../zod/schemas"
+import { logTransaction } from "./transactionController"
 
 const createToken = async (req: Request, res: Response) => {
     const parsedData = tokenSchema.safeParse(req.body)
@@ -16,9 +18,11 @@ const createToken = async (req: Request, res: Response) => {
         const expiryDate = new Date(currentDate)
         expiryDate.setDate(currentDate.getDate() + validity)
         const tokenObj = await token.create({ ...tokenData, expiryDate })
-        console.log("tokenObj ===",tokenObj)
-        
-        
+
+        await logTransaction(tokenObj.site as Types.ObjectId, "TOKEN_GIVEN", {
+            token: tokenObj._id,
+        })
+
         res.status(201).json(tokenObj)
     }
 }

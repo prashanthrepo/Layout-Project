@@ -57,11 +57,11 @@
             "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
             "containerId": "",
             "name": "get site transactions",
-            "url": "{{BASE_URL}}/sites/657d6c7e84d846d23423c786/transactions",
+            "url": "{{BASE_URL}}/sites/657d19ab95ee05f9d7f3655b/transactions",
             "method": "GET",
             "sortNum": 25000,
             "created": "2023-12-25T05:38:37.623Z",
-            "modified": "2023-12-26T11:52:46.603Z",
+            "modified": "2024-01-01T02:03:12.905Z",
             "headers": [],
             "params": [],
             "tests": []

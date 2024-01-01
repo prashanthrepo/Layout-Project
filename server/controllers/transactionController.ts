@@ -43,19 +43,27 @@ const getSingleTransaction = async (req: Request, res: Response) => {
     return res.status(200).json(txn)
 }
 
-const logTransaction = async (siteId: Types.ObjectId, txnType: string) => {
+const logTransaction = async (
+    siteId: Types.ObjectId,
+    txnType: string,
+    metadata: Object
+) => {
     const txnData: TransactionType = {
         site: siteId,
         type: txnType,
-        metadata: {},
+        metadata,
     }
 
     const txn = await Transaction.create({ ...txnData })
     await txn.save()
-
     const site = await siteModel.findById(siteId)
     site?.transactions.push(txn._id)
     await site?.save()
 }
 
-export { createTransaction, getSingleTransaction, getTransactions }
+export {
+    createTransaction,
+    getSingleTransaction,
+    getTransactions,
+    logTransaction,
+}
