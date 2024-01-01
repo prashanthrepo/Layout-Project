@@ -54,6 +54,7 @@ const layoutSchema = z.object({
     description: z.string(),
     image: z.string(),
     location: locationSchema,
+    approvals: z.array(z.string()).optional(),
     layoutJSON: z.array(siteSchema),
 })
 
