@@ -28,7 +28,7 @@ export default function NewLead({
     });
   };
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 bg-indigo-50 p-3 sm:p-5 rounded-lg border border-indigo-100 ">
       <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-3">
         New Lead
       </h3>
