@@ -5,9 +5,9 @@ import { siteTypeColor, useAppStore } from '@/common/utils';
 import getLayoutByID from '@/api/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
-export default function SitePage({ site }) {
+export default function SitePage({ sites }) {
   const { user } = useAppStore((state) => state);
-  const [data, setData] = React.useState(site);
+  const [data, setData] = React.useState(sites);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
   const onSiteClick = useCallback((site: any) => {
@@ -37,8 +37,8 @@ export default function SitePage({ site }) {
   // }, [site?.slug]);
 
   useEffect(() => {
-    setData(site);
-  }, [site]);
+    setData(sites);
+  }, [sites]);
 
   return (
     <div className="relative">
@@ -63,6 +63,9 @@ export default function SitePage({ site }) {
                     <polygon
                       className=""
                       points={site.points}
+                      fill-opacity={
+                        seletedSite?.number === site?.number ? 1 : 1
+                      }
                       fill={siteTypeColor(site?.status)}
                       stroke="#000"
                       strokeWidth="0.1"
