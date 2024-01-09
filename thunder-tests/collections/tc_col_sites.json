@@ -38,16 +38,16 @@
             "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
             "containerId": "",
             "name": "update site ",
-            "url": "{{BASE_URL}}/sites/657d19ab95ee05f9d7f3655b",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
             "method": "PATCH",
             "sortNum": 30000,
             "created": "2023-12-19T05:21:53.051Z",
-            "modified": "2023-12-19T05:43:25.265Z",
+            "modified": "2024-01-09T02:29:32.574Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"number\":\"01\"\n}",
+                "raw": "{\n  \"number\": \"011\",\n  \"statusMetadata\": {\n    \"notes\": \"123\"\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -57,13 +57,127 @@
             "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
             "containerId": "",
             "name": "get site transactions",
-            "url": "{{BASE_URL}}/sites/657d19ab95ee05f9d7f3655b/transactions",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe/transactions",
             "method": "GET",
             "sortNum": 25000,
             "created": "2023-12-25T05:38:37.623Z",
-            "modified": "2024-01-01T02:03:12.905Z",
+            "modified": "2024-01-09T06:22:42.075Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "09131aa7-603a-4aba-b1ba-a8e4d3e0d88e",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"BLOCKED\" [ in reqBody, lead should be lead ID or null ]",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2024-01-09T02:37:24.820Z",
+            "modified": "2024-01-09T02:42:26.627Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\" : \"Blocked\",\n  \"statusMetadata\": {\n    \"lead\":\"659cb22ed1d25b52cdc6312e\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "dacd26c0-4025-4f79-acdb-d86407d40862",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"SOLD\" without lead_id",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 50000,
+            "created": "2024-01-09T02:45:34.909Z",
+            "modified": "2024-01-09T05:54:44.011Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\": \"Sold\",\n  \"lead\": {\n    \"name\": \"buyer-name\",\n    \"phone\": \"09090900909\"\n  },\n  \"statusMetadata\": {\n    \"lead\": null,\n    \"amount\": 2500000,\n    \"registrationDate\": \"25/01/2024\",\n    \"notes\": \"....\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "08242248-07e8-4506-bdae-a7746b5f2317",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"AVAILABLE\" [ empty statusMetadata must be passed in req body ]",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 60000,
+            "created": "2024-01-09T02:50:10.887Z",
+            "modified": "2024-01-09T02:51:22.148Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\": \"Available\",\n  \"statusMetadata\": {}\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3edb8320-b684-45f8-a89c-fba4e70809f2",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"TOKEN\"  with lead_id",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 55000,
+            "created": "2024-01-09T02:52:14.555Z",
+            "modified": "2024-01-09T06:19:15.307Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\": \"Token\",\n  \"token\": {\n    \"lead\": \"6582aad94277c65db1f43598\",\n    \"tokenAmount\": 5000,\n    \"validity\": 2\n  },\n  \"statusMetadata\": {\n    \"amount\": 2500000,\n    \"registrationDate\": \"25/01/2024\",\n    \"notes\": \"....\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "baf36f1b-0448-4914-9fb5-6ab75393630f",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"SOLD\" with lead_id",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 52500,
+            "created": "2024-01-09T05:06:41.836Z",
+            "modified": "2024-01-09T05:06:41.836Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\" : \"Sold\",\n  \"statusMetadata\": {\n    \"lead\":\"659cb22ed1d25b52cdc6312e\",\n    \"amount\":2500000,\n    \"registrationDate\":\"25/01/2024\",\n    \"notes\": \"....\"\n    \n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e0e2053e-1e84-4f2f-8e1c-f0307b1a6501",
+            "colId": "caaf4665-3b8c-4af7-8315-cf6ea4e93440",
+            "containerId": "",
+            "name": "update site to \"TOKEN\"  without lead_id   ",
+            "url": "{{BASE_URL}}/sites/659be2a058efdc45543f20fe",
+            "method": "PATCH",
+            "sortNum": 57500,
+            "created": "2024-01-09T05:24:26.425Z",
+            "modified": "2024-01-09T06:14:42.612Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\": \"Token\",\n  \"lead\": {\n    \"name\": \"john\",\n    \"phone\": \"878878787\"\n  },\n  \"token\": {\n    \"tokenAmount\": 5000,\n    \"validity\": 2\n  },\n  \"statusMetadata\": {\n    \"amount\": 2500000,\n    \"registrationDate\": \"25/01/2024\",\n    \"notes\": \"....\"\n  }\n}",
+                "form": []
+            },
             "tests": []
         }
     ]
