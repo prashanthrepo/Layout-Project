@@ -1,8 +1,10 @@
 import { Request, Response } from "express"
-import mongoose from "mongoose"
+import mongoose, { Types } from "mongoose"
+import leadModel from "../models/leadModel"
 import siteModel from "../models/siteModel"
 import token from "../models/token"
 import { Transaction } from "../models/transaction"
+import { logTransaction } from "./transactionController"
 
 const getSingleSite = async (req: Request, res: Response) => {
     const { id } = req.params
@@ -23,13 +25,53 @@ const updateSite = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "no such site" })
     }
 
-    const site = await siteModel.findOneAndUpdate(
-        { _id: id },
-        { ...req.body },
-        { new: true }
-    )
-    if (!site) {
-        return res.status(404).json({ error: "no such site" })
+    const site = await siteModel.findOne({ _id: id })
+    let prevStatus
+
+    if ("status" in req.body) {
+        prevStatus = site?.status
+
+        if (req.body.status === "Token") {
+            if ("token" in req.body) {
+                let lead
+
+                if ("lead" in req.body) {
+                    lead = await createLead({
+                        ...req.body.lead,
+                        siteId: site?._id,
+                    })
+                }
+
+                const tokenId = await createToken({
+                    lead,
+                    ...req.body.token,
+                    site: id,
+                })
+
+                req.body.statusMetadata.token = tokenId
+            }
+        } else if (req.body.status === "Sold") {
+            if ("lead" in req.body) {
+                const leadId = await createLead({
+                    ...req.body.lead,
+                    siteId: id,
+                })
+
+                req.body.statusMetadata.lead = leadId
+            }
+        }
+    }
+
+    const siteUpdateData = { ...site, ...req.body }
+    const site1 = await siteModel.findByIdAndUpdate(site?._id, siteUpdateData, {
+        new: true,
+    })
+
+    if ("status" in req.body) {
+        await logTransaction(site1?._id as Types.ObjectId, "STATUS_CHANGE", {
+            prevStatus,
+            currentStatus: site1?.status,
+        })
     }
 
     return res.status(200).json({ site })
@@ -83,12 +125,34 @@ const getSiteTransactions = async (req: Request, res: Response) => {
 
 const fetchTokenDetails = async (tokenId: string) => {
     const tokenObj = await token.findById(tokenId).populate("lead")
-    // console.log("tokenObj ===", tokenObj)
     return tokenObj
 }
 
 function isTransaction(obj: any): obj is Transaction {
     return obj && obj.metadata !== undefined
+}
+
+async function createLead(leadData: any) {
+    const lead = await leadModel.create({ ...leadData })
+    await lead.save()
+    return lead._id
+}
+async function createToken(tokenData1: any) {
+    const { validity, ...tokenData } = tokenData1
+
+    const currentDate = new Date()
+
+    if (validity) {
+        const expiryDate = new Date(currentDate)
+        expiryDate.setDate(currentDate.getDate() + validity)
+        const tokenObj = await token.create({ ...tokenData, expiryDate })
+
+        await logTransaction(tokenObj.site as Types.ObjectId, "TOKEN_GIVEN", {
+            token: tokenObj._id,
+        })
+
+        return tokenObj._id
+    }
 }
 
 export { getSingleSite, getSiteLeads, getSiteTransactions, updateSite }
