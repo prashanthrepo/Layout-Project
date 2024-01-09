@@ -20,12 +20,13 @@ export interface Site extends Document {
     number: string
     type: string
     status: string
+    statusMetadata: Record<string, any>
     points: string
     info: [SiteInfo]
     customPrice: string
     defaultPrice: string
     leads: Lead[]
-    transactions: Array<Types.ObjectId|Transaction>
+    transactions: Array<Types.ObjectId | Transaction>
     dimensions: string
     area: string
 }
@@ -47,6 +48,21 @@ export const siteSchema = new Schema<Site>({
     number: { type: String, required: true },
     type: { type: String, required: true },
     status: { type: String, required: true },
+    statusMetadata: {
+        token: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Token",
+            required: false,
+        },
+        lead: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Lead",
+            required: false,
+        },
+        amount: { type: Number, required: false },
+        notes: { type: String, required: false },
+        registrationDate: { type: String, required: false },
+    },
     points: { type: String, required: true },
     customPrice: { type: String, required: false },
     defaultPrice: { type: String, required: false },
