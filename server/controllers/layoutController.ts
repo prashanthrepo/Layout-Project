@@ -38,7 +38,9 @@ const createLayout = async (req: Request, res: Response) => {
 }
 
 const getLayouts = async (req: Request, res: Response) => {
-    const layouts = await Layout.find({}).select("-sites -location._id")
+    const layouts = await Layout.find({})
+        .select("-sites -location._id")
+        .sort({ createdAt: -1 })
     return res.status(200).json(layouts)
 }
 
