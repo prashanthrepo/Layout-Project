@@ -30,7 +30,6 @@ const updateSite = async (req: Request, res: Response) => {
 
     if ("status" in req.body) {
         prevStatus = site?.status
-
         if (req.body.status === "Token") {
             if ("token" in req.body) {
                 let lead
@@ -62,19 +61,28 @@ const updateSite = async (req: Request, res: Response) => {
         }
     }
 
-    const siteUpdateData = { ...site, ...req.body }
-    const site1 = await siteModel.findByIdAndUpdate(site?._id, siteUpdateData, {
-        new: true,
-    })
+    const siteUpdateData = { ...req.body }
+
+    const updatedSite = await siteModel.findByIdAndUpdate(
+        site?._id,
+        siteUpdateData,
+        {
+            new: true,
+        }
+    )
 
     if ("status" in req.body) {
-        await logTransaction(site1?._id as Types.ObjectId, "STATUS_CHANGE", {
-            prevStatus,
-            currentStatus: site1?.status,
-        })
+        await logTransaction(
+            updatedSite?._id as Types.ObjectId,
+            "STATUS_CHANGE",
+            {
+                prevStatus,
+                currentStatus: updatedSite?.status,
+            }
+        )
     }
 
-    return res.status(200).json({ site })
+    return res.status(200).json({ updatedSite })
 }
 
 const getSiteLeads = async (req: Request, res: Response) => {
@@ -137,6 +145,7 @@ async function createLead(leadData: any) {
     await lead.save()
     return lead._id
 }
+
 async function createToken(tokenData1: any) {
     const { validity, ...tokenData } = tokenData1
 
