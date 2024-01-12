@@ -95,7 +95,10 @@ const getLayoutLeads = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "no such layout" })
     }
 
-    const layout = await Layout.findById(id).populate("leads")
+    const layout = await Layout.findById(id).populate({
+        path: "leads",
+        options: { sort: { createdAt: -1 } },
+    })
     if (layout) {
         const leads = layout.leads
         return res.status(200).json({ leads })

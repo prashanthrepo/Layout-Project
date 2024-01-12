@@ -11,7 +11,18 @@ const getSingleSite = async (req: Request, res: Response) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "no such site" })
     }
-    const site = await siteModel.findOne({ _id: id }).select("-leads")
+    const site = await siteModel
+        .findOne({ _id: id })
+        .select("-leads -points -info -transactions")
+        .populate({
+            path: "statusMetadata.token",
+            populate: {
+                path: "lead",
+            },
+        })
+        .populate({
+            path: "statusMetadata.lead",
+        })
     if (!site) {
         return res.status(404).json({ error: "no such site" })
     }
@@ -92,7 +103,10 @@ const getSiteLeads = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "no such site" })
     }
 
-    const site = await siteModel.findById(id).populate("leads")
+    const site = await siteModel.findById(id).populate({
+        path: "leads",
+        options: { sort: { createdAt: -1 } },
+    })
     if (site) {
         const leads = site?.leads
         return res.status(200).json({ leads })
@@ -110,7 +124,10 @@ const getSiteTransactions = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "no such site" })
     }
 
-    const site = await siteModel.findById(id).populate("transactions")
+    const site = await siteModel.findById(id).populate({
+        path: "transactions",
+        options: { sort: { date: -1 } },
+    })
     if (site) {
         for (const txn of site.transactions) {
             if (isTransaction(txn)) {
