@@ -13,6 +13,8 @@ import NewLead from './site-details/new-lead';
 import getLeadsBySite from '@/api/get-leads-by-site';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import ShareButton from '@/app/(default)/components-library/ShareButton';
+import OptionsDropdown from './options-dropdown';
+import StatusChange from './site-details/status-change';
 
 export default function Site({
   selectedSite,
@@ -78,8 +80,26 @@ export default function Site({
     });
   }, [selectedSite?._id]);
 
+  const onRefetchDataFn = (res) => {
+    console.log('res :>> ', res);
+    setUiStatus('sitedetails');
+    onSiteStatusChange(res?.number, res?.status);
+    getSite();
+  };
+
   const renderUi = (statustype) => {
     switch (statustype) {
+      case 'statuschange':
+        return (
+          <StatusChange
+            siteDetails={siteDetails}
+            setUiStatus={setUiStatus}
+            leads={leads}
+            onRefetchDataFn={onRefetchDataFn}
+            // onUpdate={() => onUpdateSiteFn()}
+            onClose={() => setUiStatus('sitedetails')}
+          />
+        );
       case 'sitedetails':
         return <SiteDetails siteDetails={siteDetails} />;
       case 'editdetails':
@@ -100,6 +120,7 @@ export default function Site({
             onClose={() => setUiStatus('sitedetails')}
           />
         );
+
       default:
         return <SiteDetails siteDetails={siteDetails} />;
     }
@@ -110,7 +131,7 @@ export default function Site({
       case 'sitedetails':
         return (
           <React.Fragment>
-            <button
+            {/* <button
               type="button"
               className="btnsecondary"
               onClick={() => setUiStatus('editdetails')}>
@@ -121,7 +142,11 @@ export default function Site({
               className="btnprimary"
               onClick={() => setUiStatus('addlead')}>
               Add lead
-            </button>
+            </button> */}
+            <OptionsDropdown
+              align="left"
+              onOptionClick={(val) => setUiStatus(val)}
+            />
           </React.Fragment>
         );
       case 'editdetails':
@@ -199,15 +224,16 @@ export default function Site({
                 {renderUi(uiStatus)}
               </div>
 
-              <hr className=" border-b-0 mb-3 border-gray-200" />
-              {openModal && siteDetails?._id === selectedSite?._id && (
-                <SiteTabs
-                  siteDetails={siteDetails}
-                  setSiteDetails={setSiteDetails}
-                  leads={leads}
-                  loading={leadsLoading}
-                />
-              )}
+              {openModal &&
+                siteDetails?._id === selectedSite?._id &&
+                uiStatus != 'statuschange' && (
+                  <SiteTabs
+                    siteDetails={siteDetails}
+                    setSiteDetails={setSiteDetails}
+                    leads={leads}
+                    loading={leadsLoading}
+                  />
+                )}
             </div>
           </SkeletonLoader>
         </div>

@@ -39,7 +39,7 @@ export default function SellerLayouts() {
                 isLoading={loading}
                 isData={layouts?.length > 0}
                 noDataText="No properties listed.">
-                <div className="space-y-2">
+                <div className="space-y-2 ">
                   {layouts?.map((layout, key) => (
                     <Link href={`/property/${layout?._id}`} key={key}>
                       <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">

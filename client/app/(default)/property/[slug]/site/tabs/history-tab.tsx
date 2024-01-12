@@ -1,34 +1,25 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
 import Image from 'next/image';
 import StatusChip from '../../../../components-library/StatusChip';
 import { leadsBgColor, statusColors } from '@/common/utils';
 import moment from 'moment';
-const history = [
-  {
-    name: 'Babu Reddy',
-    status: 'Sold',
-    phone: '9876543210',
-    price: '4000',
-    datetime: '12/12/2021 10:00 AM',
-  },
-  {
-    name: 'Sachin',
-    status: 'Token',
-    phone: '9876543210',
-    price: '4000',
-    datetime: '12/12/2021 10:00 AM',
-  },
-  {
-    name: 'Srikanth Gumireddy',
-    status: 'Available',
-    phone: '9876543210',
-    price: '4000',
-    selleroffer: '4800',
-    datetime: '12/12/2021 10:00 AM',
-  },
-];
-export default function HistoryTab() {
+import getTranscationsBySite from '@/api/get-transcations-by-site';
+
+export default function HistoryTab({ siteDetails }) {
+  const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
+  const getTranscations = useCallback(() => {
+    setLoading(true);
+    const transcations = getTranscationsBySite(siteDetails?._id);
+    transcations?.then((transcation) => {
+      setLoading(false);
+      setHistory(transcation || []);
+    });
+  }, [siteDetails?._id]);
+  useEffect(() => {
+    getTranscations();
+  }, [siteDetails?._id]);
   return (
     <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200  rounded-md ">
       <div className="bg-white py-4">
@@ -36,7 +27,7 @@ export default function HistoryTab() {
           <div className="flow-root">
             <ul role="list" className="">
               {history?.map((item, key) => (
-                <li>
+                <li key={key}>
                   <div className="relative pb-5">
                     {key !== history.length - 1 && (
                       <span
@@ -47,7 +38,10 @@ export default function HistoryTab() {
                       <div className="w-20 pl-2">
                         <span className="h-5 w-8 mt-1 rounded-full flex items-center justify-center ring-8 ring-white">
                           <div className={' '} aria-hidden="true">
-                            <StatusChip status={item?.status} size="sm" />
+                            <StatusChip
+                              status={item?.metadata?.currentStatus}
+                              size="sm"
+                            />
                           </div>
                         </span>
                       </div>
@@ -61,9 +55,7 @@ export default function HistoryTab() {
                           </p>
                         </div>
                         <div className="whitespace-nowrap text-left text-xs text-gray-500">
-                          {moment(item?.datetime).format(
-                            'Do MMM YYYY, hh:mm A'
-                          )}
+                          {moment(item?.date).format('Do MMM YYYY, hh:mm A')}
                         </div>
                       </div>
                     </div>

@@ -5,6 +5,7 @@ import getAllLayouts from '@/api/get-all-layouts';
 import getLayoutByID from '@/api/get-layout-by-id';
 import { Transition } from '@headlessui/react';
 import { Metadata } from 'next';
+export const dynamicParams = true;
 export async function generateStaticParams() {
   const layouts = await getAllLayouts().then((res) => res);
   const paths = layouts?.map((layout) => ({

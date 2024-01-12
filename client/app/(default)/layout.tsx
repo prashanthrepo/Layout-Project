@@ -14,7 +14,7 @@ export default function DefaultLayout({
       <Sidebar />
 
       {/* Content area */}
-      <div className="relative flex flex-col flex-1">
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         {/*  Site header */}
         <Header />
 
