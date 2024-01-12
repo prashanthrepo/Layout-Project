@@ -3,7 +3,7 @@ import './css/style.css'
 import { Inter } from 'next/font/google'
 import Theme from './theme-provider'
 import AppProvider from './app-provider'
-import { Viewport } from 'next';
+// import { Viewport } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,16 +16,16 @@ export const metadata = {
   description: 'Layouts and properties',
 };
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: 'cover',
+// export const viewport: Viewport = {
+//   width: 'device-width',
+//   initialScale: 1,
+//   maximumScale: 1,
+//   userScalable: false,
+//   viewportFit: 'cover',
 
-  // Also supported by less commonly used
-  // interactiveWidget: 'resizes-visual',
-};
+//   // Also supported by less commonly used
+//   // interactiveWidget: 'resizes-visual',
+// };
 
 export default function RootLayout({
   children,
