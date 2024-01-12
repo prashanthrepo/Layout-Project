@@ -7,7 +7,8 @@ import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 export default function SitePage({ sites }) {
   const { user } = useAppStore((state) => state);
-  const [data, setData] = React.useState(sites);
+  const [data, setData] = React.useState(null);
+  console.log('data :>> ', data);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
   const onSiteClick = useCallback((site: any) => {
@@ -30,7 +31,7 @@ export default function SitePage({ sites }) {
   );
 
   // const getLayout = useCallback(() => {
-  //   const res = getLayoutByID(site?.slug);
+  //   const res = getLayoutByID(sites?.slug);
   //   res?.then((res) => {
   //     setData(res || {});
   //   });
