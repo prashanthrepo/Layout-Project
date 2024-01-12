@@ -17,7 +17,6 @@ export default function SiteDetails({ siteDetails }) {
             <span className="text-sm text-slate-800 dark:text-slate-100 font-medium">
               Dimensions :
             </span>
-
             <span className="pl-1">30ft x 40ft</span>
           </div>
         </li>

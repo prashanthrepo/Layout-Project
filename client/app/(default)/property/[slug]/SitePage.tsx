@@ -63,9 +63,7 @@ export default function SitePage({ sites }) {
                     <polygon
                       className=""
                       points={site.points}
-                      fill-opacity={
-                        seletedSite?.number === site?.number ? 1 : 1
-                      }
+                      fillOpacity={seletedSite?.number === site?.number ? 1 : 1}
                       fill={siteTypeColor(site?.status)}
                       stroke="#000"
                       strokeWidth="0.1"

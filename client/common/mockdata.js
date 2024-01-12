@@ -662,8 +662,8 @@ const layoutData = [
 ];
 const siteStatus = [
   { type: 'Available', color: '#00FF00' },
-  { type: 'Sold', color: '#FF0000' },
   { type: 'Token', color: '#FFFF00' },
+  { type: 'Sold', color: '#FF0000' },
   { type: 'Blocked', color: '#0000FF' },
 ];
 export { layoutData, siteStatus };

@@ -9,7 +9,10 @@ export default function DefaultLayout() {
     <div className="flex h-[100dvh] overflow-hidden">
       <Sidebar />
 
-      <div className="relative flex flex-col flex-1 ">
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        {/*  Site header */}
+
         <Header />
         <Dashboard />
         <div className="sm:hidden">
