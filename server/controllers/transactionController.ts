@@ -52,6 +52,7 @@ const logTransaction = async (
         site: siteId,
         type: txnType,
         metadata,
+        date: new Date()
     }
 
     const txn = await Transaction.create({ ...txnData })

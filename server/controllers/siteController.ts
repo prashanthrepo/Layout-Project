@@ -89,6 +89,7 @@ const updateSite = async (req: Request, res: Response) => {
             {
                 prevStatus,
                 currentStatus: updatedSite?.status,
+                token: updatedSite?.statusMetadata.token
             }
         )
     }
@@ -172,10 +173,6 @@ async function createToken(tokenData1: any) {
         const expiryDate = new Date(currentDate)
         expiryDate.setDate(currentDate.getDate() + validity)
         const tokenObj = await token.create({ ...tokenData, expiryDate })
-
-        await logTransaction(tokenObj.site as Types.ObjectId, "TOKEN_GIVEN", {
-            token: tokenObj._id,
-        })
 
         return tokenObj._id
     }
