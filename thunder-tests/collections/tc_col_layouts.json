@@ -10,16 +10,16 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Me",
-            "url": "https://combatrims.com/me",
+            "url": "{{BASE_URL}}/me",
             "method": "POST",
             "sortNum": 20000,
             "created": "2023-11-20T15:43:51.811Z",
-            "modified": "2023-12-04T14:16:29.616Z",
+            "modified": "2024-01-14T03:18:52.762Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"user\": \"seller\"\n}",
+                "raw": "{\n  \"user\": \"seller\"\n}\n",
                 "form": []
             },
             "tests": []
@@ -47,12 +47,12 @@
             "method": "POST",
             "sortNum": 40000,
             "created": "2023-11-23T10:25:05.343Z",
-            "modified": "2024-01-08T11:55:10.599Z",
+            "modified": "2024-01-14T05:38:05.892Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\": \"Gunjur micro forest 51170\",\n  \"description\": \"This is a sample layout\",\n  \"image\": \"https://example.com/sample-image.jpg\",\n  \"location\": {\n    \"lat\": 40.7128,\n    \"long\": -74.0060\n  },\n  \"approvals\":[\"BDA\",\"BESCOM\"],\n  \"layoutJSON\": [\n    {\n      \"type\": \"site\",\n      \"number\": \"01\",\n      \"status\": \"Available\",\n      \"points\": \"351.64,653.95 436.97,651.8 434.73,600.77 349.73,602.92\",\n      \"info\": [\n        {\n          \"text\": \"1\",\n          \"transform\": \"matrix(1 0 0 1 387.9951 629.2847)\",\n          \"type\": \"number\"\n        }\n      ]\n    },\n    {\n      \"type\": \"site\",\n      \"number\": \"02\",\n      \"status\": \"Available\",\n      \"points\": \"349.73,602.92 347.41,551.8 432.58,549.65 434.73,600.77\",\n      \"info\": [\n        {\n          \"text\": \"2\",\n          \"transform\": \"matrix(1 0 0 1 388.2436 579.4745)\",\n          \"type\": \"number\"\n        }\n      ]\n    }\n  ]\n}",
+                "raw": "{\n  \"name\": \"Gunjur micro forest 51170912399\",\n  \"description\": \"This is a sample layout\",\n  \"image\": \"https://example.com/sample-image.jpg\",\n  \"location\": {\n    \"lat\": 40.7128,\n    \"long\": -74.0060\n  },\n  \"approvals\":[\"BDA\",\"BESCOM\"],\n  \"layoutJSON\": [\n    {\n      \"type\": \"site\",\n      \"number\": \"01\",\n      \"status\": \"Available\",\n      \"points\": \"351.64,653.95 436.97,651.8 434.73,600.77 349.73,602.92\",\n      \"info\": [\n        {\n          \"text\": \"1\",\n          \"transform\": \"matrix(1 0 0 1 387.9951 629.2847)\",\n          \"type\": \"number\"\n        }\n      ]\n    },\n    {\n      \"type\": \"site\",\n      \"number\": \"02\",\n      \"status\": \"Available\",\n      \"points\": \"349.73,602.92 347.41,551.8 432.58,549.65 434.73,600.77\",\n      \"info\": [\n        {\n          \"text\": \"2\",\n          \"transform\": \"matrix(1 0 0 1 388.2436 579.4745)\",\n          \"type\": \"number\"\n        }\n      ]\n    }\n  ]\n}",
                 "form": []
             },
             "tests": []
@@ -62,11 +62,11 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Get layout",
-            "url": "{{BASE_URL}}/layouts/659d19d9fe66a088f32e0aac",
+            "url": "{{BASE_URL}}/layouts/659be1d424e8193c5fbab8fb",
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-04T14:17:35.027Z",
-            "modified": "2024-01-09T12:08:40.830Z",
+            "modified": "2024-01-14T05:32:35.189Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -76,11 +76,11 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Delete layout",
-            "url": "{{BASE_URL}}/layouts/656dbc268bf20a5d577a3af7",
+            "url": "{{BASE_URL}}/layouts/65a3731758185bfdec518853",
             "method": "DELETE",
             "sortNum": 60000,
             "created": "2023-12-04T14:18:37.297Z",
-            "modified": "2023-12-19T05:06:48.378Z",
+            "modified": "2024-01-14T05:43:48.365Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -90,16 +90,16 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Update layout",
-            "url": "{{BASE_URL}}/layouts/6592331b1704f9a869e6027e",
+            "url": "{{BASE_URL}}/layouts/659be1d424e8193c5fbab8fb",
             "method": "PATCH",
             "sortNum": 55000,
             "created": "2023-12-04T14:19:58.874Z",
-            "modified": "2024-01-01T03:40:49.499Z",
+            "modified": "2024-01-14T04:51:58.796Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"description\":\"new description 123\",\n  \"name\":\"123123123\",\n  \"approvals\":[\"123\"]\n}",
+                "raw": "{\n  \"description\":\"new description 123\",\n  \"name\":\"123123123-updated\",\n  \"approvals\":[\"123\"]\n}",
                 "form": []
             },
             "tests": []
