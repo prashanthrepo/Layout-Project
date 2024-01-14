@@ -76,11 +76,11 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Delete layout",
-            "url": "{{BASE_URL}}/layouts/659be27521776f798583e4c9",
+            "url": "{{BASE_URL}}/layouts/65a3731758185bfdec518853",
             "method": "DELETE",
             "sortNum": 60000,
             "created": "2023-12-04T14:18:37.297Z",
-            "modified": "2024-01-14T04:49:42.811Z",
+            "modified": "2024-01-14T05:43:48.365Z",
             "headers": [],
             "params": [],
             "tests": []
