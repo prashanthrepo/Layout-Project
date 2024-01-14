@@ -9,31 +9,24 @@ const createLayout = async (req: Request, res: Response) => {
         const parsedData = layoutSchema.safeParse(req.body)
 
         if (!parsedData.success) {
-            return res.status(500).json({
-                error: {
-                    message: "Bad Request",
-                    details: parsedData.error.issues,
-                },
-            })
+            res.sendError({ details: parsedData.error.issues }, 400, "Bad Request",)
         }
+        else {
+            const layout = await Layout.create({ ...parsedData.data, })
+            const createdSites = await Promise.all<Site["_id"]>(
+                parsedData.data.layoutJSON.map(async siteData => {
+                    const site = new siteModel({ ...siteData, layout: layout._id })
+                    await site.save()
+                    return site._id
+                })
+            )
+            layout.sites = createdSites
+            await layout.save()
+            res.sendSuccess(layout, 201)
 
-        const layout = await Layout.create({
-            ...parsedData.data,
-        })
-
-        const createdSites = await Promise.all<Site["_id"]>(
-            parsedData.data.layoutJSON.map(async siteData => {
-                const site = new siteModel({ ...siteData, layout: layout._id })
-                await site.save()
-                return site._id
-            })
-        )
-        layout.sites = createdSites
-        await layout.save()
-
-        return res.status(201).json(layout)
+        }
     } catch (error) {
-        return res.status(500).json(error)
+        res.sendError({ error })
     }
 }
 
@@ -41,58 +34,76 @@ const getLayouts = async (req: Request, res: Response) => {
     const layouts = await Layout.find({})
         .select("-sites -location._id")
         .sort({ createdAt: -1 })
-    return res.status(200).json(layouts)
+    res.sendSuccess(layouts)
+
 }
 
 const getSingleLayout = async (req: Request, res: Response) => {
+
     const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such layout" })
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+
+            res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+            return
+        }
+        const layout = await Layout.findOne({ _id: id }).populate("sites")
+        !layout && res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+        layout && res.sendSuccess(layout)
+
+    } catch (error) {
+        res.sendError({ error })
     }
-    const layout = await Layout.findOne({ _id: id }).populate("sites")
-    if (!layout) {
-        return res.status(404).json({ error: "no such layout" })
-    }
-    return res.status(200).json(layout)
+
+
+
 }
+
+
+
 const deleteLayout = async (req: Request, res: Response) => {
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such layout" })
+        res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+        return
     }
     const layout = await Layout.findOneAndDelete({ _id: id })
+    !layout && res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+    res.sendSuccess({}, 200)
 
-    if (!layout) {
-        return res.status(404).json({ error: "no such layout" })
-    }
-    return res.status(200).json(layout)
 }
 
 const updateLayout = async (req: Request, res: Response) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such layout" })
+        res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+        return
     }
 
-    const layout = await Layout.findOneAndUpdate(
-        { _id: id },
-        { ...req.body },
-        { new: true }
-    )
-    await layout?.save()
-    if (!layout) {
-        return res.status(404).json({ error: "no such layout" })
+    try {
+        const layout = await Layout.findOneAndUpdate(
+            { _id: id },
+            { ...req.body },
+            { new: true }
+        )
+        await layout?.save()
+        if (!layout) {
+            res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+        }
+        res.sendSuccess(layout)
+    } catch (error) {
+        res.sendError({ error })
     }
 
-    return res.status(200).json({ layout })
 }
 
 const getLayoutLeads = async (req: Request, res: Response) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such layout" })
+        res.sendError({ error: "Layout not found" }, 404, "Layout not found")
+        return
     }
 
     const layout = await Layout.findById(id).populate({
@@ -101,9 +112,9 @@ const getLayoutLeads = async (req: Request, res: Response) => {
     })
     if (layout) {
         const leads = layout.leads
-        return res.status(200).json({ leads })
+        res.sendSuccess(leads)
     } else {
-        return res.status(404).json({ error: "no such layout" })
+        res.sendError({ error: "Layout not found" }, 404, "Layout not found")
     }
 }
 
@@ -143,5 +154,6 @@ export {
     getLayoutLeads,
     getLayouts,
     getSingleLayout,
-    updateLayout,
+    updateLayout
 }
+
