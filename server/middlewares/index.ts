@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-const mongoose = require('mongoose');
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND } from "../config";
+
 
 
 declare module 'express-serve-static-core' {
     interface Response {
         sendSuccess: (data?: any, status?: number) => Response<any, Record<string, any>>;
-        sendError: (details?: any, status?: number, message?: string,) => Response<any, Record<string, any>>;
+        sendError: (code?: string, details?: any, status?: number, message?: string,) => Response<any, Record<string, any>>;
     }
 }
 
@@ -18,7 +19,28 @@ export const responseHandler = (req: Request, res: Response, next: NextFunction)
         });
     };
 
-    res.sendError = (details = null, status = 500, message = "Internal Server Error",) => {
+    res.sendError = (code = "", details = null, status = 500, message = "Internal Server Error",) => {
+
+        switch (code) {
+            case OBJECT_NOT_FOUND:
+                status = 404
+                message = "Object not found"
+                break;
+            case INTERNAL_SERVER_ERROR:
+                status = 500
+                message = "Internal Server Error"
+                break;
+            case BAD_REQUEST:
+                status = 500
+                message = "Bad Request"
+                break;
+
+            default:
+                break;
+        }
+
+
+
         return res.status(status).json({
             status,
             message,
