@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import mongoose from "mongoose"
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND } from "../config"
+import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import { default as Layout } from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
 import { layoutSchema } from "../zod/schemas"
@@ -27,15 +27,22 @@ const createLayout = async (req: Request, res: Response) => {
 
         }
     } catch (error) {
-        res.sendError(INTERNAL_SERVER_ERROR, { error })
+        res.sendError(SOMETHING_WENT_WRONG, { error })
     }
 }
 
 const getLayouts = async (req: Request, res: Response) => {
-    const layouts = await Layout.find({})
-        .select("-sites -location._id")
-        .sort({ createdAt: -1 })
-    res.sendSuccess(layouts)
+
+    try {
+
+        const layouts = await Layout.find({})
+            .select("-sites -location._id")
+            .sort({ createdAt: -1 })
+        res.sendSuccess(layouts)
+    } catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+
+    }
 
 }
 
@@ -53,7 +60,7 @@ const getSingleLayout = async (req: Request, res: Response) => {
         layout && res.sendSuccess(layout)
 
     } catch (error) {
-        res.sendError(INTERNAL_SERVER_ERROR, { error })
+        res.sendError(SOMETHING_WENT_WRONG, { error })
     }
 
 }
@@ -64,10 +71,15 @@ const deleteLayout = async (req: Request, res: Response) => {
         res.sendError(OBJECT_NOT_FOUND)
         return
     }
-    const layout = await Layout.findOneAndDelete({ _id: id })
-    !layout && res.sendError(OBJECT_NOT_FOUND)
-    res.sendSuccess({}, 200)
 
+    try {
+        const layout = await Layout.findOneAndDelete({ _id: id })
+        !layout && res.sendError(OBJECT_NOT_FOUND)
+        layout && res.sendSuccess({}, 200)
+
+    } catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+    }
 }
 
 const updateLayout = async (req: Request, res: Response) => {
@@ -90,7 +102,7 @@ const updateLayout = async (req: Request, res: Response) => {
         }
         res.sendSuccess(layout)
     } catch (error) {
-        res.sendError(INTERNAL_SERVER_ERROR, { error })
+        res.sendError(SOMETHING_WENT_WRONG, { error })
     }
 
 }
@@ -103,16 +115,19 @@ const getLayoutLeads = async (req: Request, res: Response) => {
         return
     }
 
-    const layout = await Layout.findById(id).populate({
-        path: "leads",
-        options: { sort: { createdAt: -1 } },
-    })
-    if (layout) {
-        const leads = layout.leads
-        res.sendSuccess(leads)
-    } else {
-        res.sendError(OBJECT_NOT_FOUND)
-    }
+    try {
+
+        const layout = await Layout.findById(id).populate({
+            path: "leads",
+            options: { sort: { createdAt: -1 } },
+        })
+        if (layout) {
+            const leads = layout.leads
+            res.sendSuccess(leads)
+        } else {
+            res.sendError(OBJECT_NOT_FOUND)
+        }
+    } catch (error) { res.sendError(SOMETHING_WENT_WRONG, { error }) }
 }
 
 

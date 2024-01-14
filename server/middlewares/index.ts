@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND } from "../config";
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config";
 
 
 
@@ -11,6 +11,8 @@ declare module 'express-serve-static-core' {
 }
 
 export const responseHandler = (req: Request, res: Response, next: NextFunction) => {
+
+
     res.sendSuccess = (data = [], status = 200) => {
         return res.status(status).json({
             status,
@@ -31,8 +33,12 @@ export const responseHandler = (req: Request, res: Response, next: NextFunction)
                 message = "Internal Server Error"
                 break;
             case BAD_REQUEST:
-                status = 500
+                status = 400
                 message = "Bad Request"
+                break;
+            case SOMETHING_WENT_WRONG:
+                status = 400
+                message = "Something went wrong"
                 break;
 
             default:
