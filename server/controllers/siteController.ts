@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import mongoose, { Types } from "mongoose"
+import { Types } from "mongoose"
 import { OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import leadModel from "../models/leadModel"
 import siteModel from "../models/siteModel"
@@ -10,11 +10,6 @@ import { logTransaction } from "./transactionController"
 const getSingleSite = async (req: Request, res: Response) => {
 
     const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     try {
         const site = await siteModel
             .findOne({ _id: id })
@@ -41,10 +36,6 @@ const getSingleSite = async (req: Request, res: Response) => {
 const updateSite = async (req: Request, res: Response) => {
     const { id } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
 
     const site = await siteModel.findOne({ _id: id })
     !site && res.sendError(OBJECT_NOT_FOUND)
@@ -106,10 +97,6 @@ const updateSite = async (req: Request, res: Response) => {
 
 const getSiteLeads = async (req: Request, res: Response) => {
     const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
 
     try {
         const site = await siteModel.findById(id).populate({
@@ -132,14 +119,7 @@ const getSiteLeads = async (req: Request, res: Response) => {
 
 const getSiteTransactions = async (req: Request, res: Response) => {
     const { id } = req.params
-
     let txnsResponse = []
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     const site = await siteModel.findById(id).populate({
         path: "transactions",
         options: { sort: { date: -1 } },
