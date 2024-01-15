@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import mongoose, { Types } from "mongoose"
+import { OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import leadModel from "../models/leadModel"
 import siteModel from "../models/siteModel"
 import token from "../models/token"
@@ -7,36 +8,46 @@ import { Transaction } from "../models/transaction"
 import { logTransaction } from "./transactionController"
 
 const getSingleSite = async (req: Request, res: Response) => {
+
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such site" })
+        res.sendError(OBJECT_NOT_FOUND)
+        return
     }
-    const site = await siteModel
-        .findOne({ _id: id })
-        .select("-leads -points -info -transactions")
-        .populate({
-            path: "statusMetadata.token",
-            populate: {
-                path: "lead",
-            },
-        })
-        .populate({
-            path: "statusMetadata.lead",
-        })
-    if (!site) {
-        return res.status(404).json({ error: "no such site" })
+
+    try {
+        const site = await siteModel
+            .findOne({ _id: id })
+            .select("-leads -points -info -transactions")
+            .populate({
+                path: "statusMetadata.token",
+                populate: {
+                    path: "lead",
+                },
+            })
+            .populate({
+                path: "statusMetadata.lead",
+            })
+        !site && res.sendError(OBJECT_NOT_FOUND)
+        site && res.sendSuccess(site, 200)
     }
-    return res.status(200).json(site)
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+    }
+
 }
+
 
 const updateSite = async (req: Request, res: Response) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such site" })
+        res.sendError(OBJECT_NOT_FOUND)
+        return
     }
 
     const site = await siteModel.findOne({ _id: id })
+    !site && res.sendError(OBJECT_NOT_FOUND)
     let prevStatus
 
     if ("status" in req.body) {
@@ -44,20 +55,17 @@ const updateSite = async (req: Request, res: Response) => {
         if (req.body.status === "Token") {
             if ("token" in req.body) {
                 let lead
-
                 if ("lead" in req.body) {
                     lead = await createLead({
                         ...req.body.lead,
                         siteId: site?._id,
                     })
                 }
-
                 const tokenId = await createToken({
                     lead,
                     ...req.body.token,
                     site: id,
                 })
-
                 req.body.statusMetadata.token = tokenId
             }
         } else if (req.body.status === "Sold") {
@@ -73,7 +81,6 @@ const updateSite = async (req: Request, res: Response) => {
     }
 
     const siteUpdateData = { ...req.body }
-
     const updatedSite = await siteModel.findByIdAndUpdate(
         site?._id,
         siteUpdateData,
@@ -94,26 +101,33 @@ const updateSite = async (req: Request, res: Response) => {
         )
     }
 
-    return res.status(200).json({ updatedSite })
+    res.sendSuccess(updatedSite)
 }
 
 const getSiteLeads = async (req: Request, res: Response) => {
     const { id } = req.params
-
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such site" })
+        res.sendError(OBJECT_NOT_FOUND)
+        return
     }
 
-    const site = await siteModel.findById(id).populate({
-        path: "leads",
-        options: { sort: { createdAt: -1 } },
-    })
-    if (site) {
-        const leads = site?.leads
-        return res.status(200).json({ leads })
-    } else {
-        return res.status(404).json({ error: "No site found" })
+    try {
+        const site = await siteModel.findById(id).populate({
+            path: "leads",
+            options: { sort: { createdAt: -1 } },
+        })
+
+        if (site) {
+            const leads = site?.leads
+            res.sendSuccess(leads)
+        }
+
+        !site && res.sendError(OBJECT_NOT_FOUND)
     }
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+    }
+
 }
 
 const getSiteTransactions = async (req: Request, res: Response) => {
@@ -122,7 +136,8 @@ const getSiteTransactions = async (req: Request, res: Response) => {
     let txnsResponse = []
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such site" })
+        res.sendError(OBJECT_NOT_FOUND)
+        return
     }
 
     const site = await siteModel.findById(id).populate({
@@ -143,11 +158,13 @@ const getSiteTransactions = async (req: Request, res: Response) => {
             }
         }
 
-        return res.status(200).json(txnsResponse)
-    } else {
-        return res.status(404).json({ error: "No site found" })
+        res.sendSuccess(txnsResponse)
     }
+
+    !site && res.sendError(OBJECT_NOT_FOUND)
 }
+
+
 
 const fetchTokenDetails = async (tokenId: string) => {
     const tokenObj = await token.findById(tokenId).populate("lead")

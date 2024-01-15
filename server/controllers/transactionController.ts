@@ -1,47 +1,9 @@
-import { Request, Response } from "express"
 import { Types } from "mongoose"
 import siteModel from "../models/siteModel"
 import Transaction, {
     Transaction as TransactionType,
 } from "../models/transaction"
-import { transactionSchema } from "../zod/schemas"
 
-const createTransaction = async (req: Request, res: Response) => {
-    const parsedData = transactionSchema.safeParse(req.body)
-
-    if (!parsedData.success) {
-        return res.status(500).json(parsedData.error)
-    }
-
-    try {
-        const { site: siteId } = parsedData.data
-
-        const site = await siteModel.findById(siteId)
-
-        const txn = await Transaction.create({ ...parsedData.data })
-        await txn.save()
-        site?.transactions.push(txn._id)
-        await site?.save()
-        return res.status(200).json(txn)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
-const getTransactions = async (req: Request, res: Response) => {
-    const txns = await Transaction.find({}).populate("metadata.token", {
-        model: "Token",
-    })
-    return res.status(200).json(txns)
-}
-
-const getSingleTransaction = async (req: Request, res: Response) => {
-    const { id } = req.params
-    console.log("id ===", id)
-    const txn = await Transaction.findById(id).populate("metadata.token")
-
-    return res.status(200).json(txn)
-}
 
 const logTransaction = async (
     siteId: Types.ObjectId,
@@ -55,7 +17,7 @@ const logTransaction = async (
         date: new Date()
     }
 
-    const txn = await Transaction.create({ ...txnData })
+    const txn = await Transaction.create(txnData)
     await txn.save()
     const site = await siteModel.findById(siteId)
     site?.transactions.push(txn._id)
@@ -63,8 +25,6 @@ const logTransaction = async (
 }
 
 export {
-    createTransaction,
-    getSingleTransaction,
-    getTransactions,
-    logTransaction,
+    logTransaction
 }
+

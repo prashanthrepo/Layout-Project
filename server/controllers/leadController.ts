@@ -1,58 +1,85 @@
 import { Request, Response } from "express"
-import { Types } from "mongoose"
+import mongoose from "mongoose"
+import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
+import LayoutModel from "../models/layoutModel"
 import Lead from "../models/leadModel"
 import Site from "../models/siteModel"
 import { leadSchema } from "../zod/schemas"
-import LayoutModel from "../models/layoutModel"
 
 const createLead = async (req: Request, res: Response) => {
-    const parsedData = leadSchema.safeParse(req.body)
-    if (!parsedData.success) {
-        return res.status(500).json({ error: "Bad Request" })
+
+    try {
+
+        const parsedData = leadSchema.safeParse(req.body)
+        if (!parsedData.success) {
+            res.sendError(BAD_REQUEST, { details: parsedData.error.issues })
+        }
+        else {
+            const { layoutId, siteId, ...leadData } = parsedData.data
+            const lead = await Lead.create(leadData)
+            await lead.save()
+
+            if (siteId) {
+                const site = await Site.findOne({ _id: siteId })
+                site?.leads.push(lead._id)
+                await site?.save()
+            }
+            if (layoutId) {
+                const layout = await LayoutModel.findOne({ _id: layoutId })
+                layout?.leads.push(lead._id)
+                await layout?.save()
+            }
+            res.sendSuccess(lead, 201)
+        }
+    }
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
     }
 
-    const { layoutId, siteId, ...leadData } = parsedData.data
-    const lead = await Lead.create({ ...leadData })
-    await lead.save()
 
-    if (siteId) {
-        const site = await Site.findOne({ _id: siteId })
-        site?.leads.push(lead._id)
-        await site?.save()
-        return res.status(200).json({ lead })
-    }
-    if (layoutId) {
-        const layout = await LayoutModel.findOne({ _id: layoutId })
-        layout?.leads.push(lead._id)
-        await layout?.save()
-        return res.status(200).json({ lead })
-    }
 }
+
 
 const deleteLead = async (req: Request, res: Response) => {
     const { id } = req.params
-    await Lead.findOneAndDelete({ _id: id })
-    return res.status(200).json({message:"Deleted successfully"})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.sendError(OBJECT_NOT_FOUND)
+        return
+    }
+    try {
+        const lead = await Lead.findOneAndDelete({ _id: id })
+        lead && res.sendSuccess({}, 200)
+        !lead && res.sendError(OBJECT_NOT_FOUND)
+    } catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+    }
 }
+
+
 
 const updateLead = async (req: Request, res: Response) => {
     const { id } = req.params
 
-    if (!Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "no such lead." })
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.sendError(OBJECT_NOT_FOUND)
+        return
     }
 
-    const lead = await Lead.findOneAndUpdate(
-        { _id: id },
-        { ...req.body },
-        { new: true }
-    )
-    await lead?.save()
-    if (!lead) {
-        return res.status(404).json({ error: "no such lead.." })
+    try {
+        const lead = await Lead.findOneAndUpdate(
+            { _id: id },
+            { ...req.body },
+            { new: true }
+        )
+        await lead?.save()
+        !lead && res.sendError(OBJECT_NOT_FOUND)
+        lead && res.sendSuccess(lead)
+
+    } catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
     }
 
-    return res.status(200).json({ lead })
+
 }
 
 export { createLead, deleteLead, updateLead }
