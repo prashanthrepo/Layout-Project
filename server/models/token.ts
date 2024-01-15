@@ -7,6 +7,7 @@ interface Token {
     lead: Types.ObjectId | Layout
     tokenAmount: number
     expiryDate: Date
+    status: string
 }
 
 const tokenSchema = new Schema<Token & Document>(
@@ -15,6 +16,7 @@ const tokenSchema = new Schema<Token & Document>(
         lead: { type: Types.ObjectId, ref: "Lead", required: true },
         tokenAmount: { type: Number, required: true },
         expiryDate: { type: Date, required: true },
+        status: { type: String, required: true, default: "active" },
     },
     { timestamps: true }
 )
