@@ -97,10 +97,8 @@ const updateLayout = async (req: Request, res: Response) => {
             { new: true }
         )
         await layout?.save()
-        if (!layout) {
-            res.sendError(OBJECT_NOT_FOUND)
-        }
-        res.sendSuccess(layout)
+        !layout && res.sendError(OBJECT_NOT_FOUND)
+        layout && res.sendSuccess(layout)
     } catch (error) {
         res.sendError(SOMETHING_WENT_WRONG, { error })
     }
