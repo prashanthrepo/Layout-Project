@@ -4,9 +4,10 @@ import {
     deleteLead,
     updateLead,
 } from "../controllers/leadController"
+import { validateId } from "../middlewares"
 
 export const router = Router()
 
 router.post("/", createLead)
-router.delete("/:id", deleteLead)
-router.patch("/:id", updateLead)
+router.delete("/:id",validateId , deleteLead)
+router.patch("/:id",validateId ,updateLead)

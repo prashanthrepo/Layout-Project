@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config";
 
 
@@ -45,8 +46,6 @@ export const responseHandler = (req: Request, res: Response, next: NextFunction)
                 break;
         }
 
-
-
         return res.status(status).json({
             status,
             message,
@@ -57,6 +56,24 @@ export const responseHandler = (req: Request, res: Response, next: NextFunction)
     next();
 }
 
+
+
+export const validateId = (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+
+        return res.status(404).json({
+            "status": 404,
+            "message": "Object not found."
+        })
+
+    }
+
+    next()
+
+
+}
 
 
 

@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import mongoose from "mongoose"
 import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import LayoutModel from "../models/layoutModel"
 import Lead from "../models/leadModel"
@@ -42,10 +41,6 @@ const createLead = async (req: Request, res: Response) => {
 
 const deleteLead = async (req: Request, res: Response) => {
     const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
     try {
         const lead = await Lead.findOneAndDelete({ _id: id })
         lead && res.sendSuccess({}, 200)
@@ -59,12 +54,6 @@ const deleteLead = async (req: Request, res: Response) => {
 
 const updateLead = async (req: Request, res: Response) => {
     const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     try {
         const lead = await Lead.findOneAndUpdate(
             { _id: id },

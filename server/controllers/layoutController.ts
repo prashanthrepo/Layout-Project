@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import mongoose from "mongoose"
 import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import { default as Layout } from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
@@ -50,11 +49,6 @@ const getSingleLayout = async (req: Request, res: Response) => {
 
     const { id } = req.params
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-
-            res.sendError(OBJECT_NOT_FOUND)
-            return
-        }
         const layout = await Layout.findOne({ _id: id }).populate("sites")
         !layout && res.sendError(OBJECT_NOT_FOUND)
         layout && res.sendSuccess(layout)
@@ -67,11 +61,6 @@ const getSingleLayout = async (req: Request, res: Response) => {
 
 const deleteLayout = async (req: Request, res: Response) => {
     const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     try {
         const layout = await Layout.findOneAndDelete({ _id: id })
         !layout && res.sendError(OBJECT_NOT_FOUND)
@@ -84,12 +73,6 @@ const deleteLayout = async (req: Request, res: Response) => {
 
 const updateLayout = async (req: Request, res: Response) => {
     const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     try {
         const layout = await Layout.findOneAndUpdate(
             { _id: id },
@@ -107,14 +90,7 @@ const updateLayout = async (req: Request, res: Response) => {
 
 const getLayoutLeads = async (req: Request, res: Response) => {
     const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.sendError(OBJECT_NOT_FOUND)
-        return
-    }
-
     try {
-
         const layout = await Layout.findById(id).populate({
             path: "leads",
             options: { sort: { createdAt: -1 } },
