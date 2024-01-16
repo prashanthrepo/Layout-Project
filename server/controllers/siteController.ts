@@ -4,7 +4,7 @@ import { OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import leadModel from "../models/leadModel"
 import siteModel from "../models/siteModel"
 import token from "../models/token"
-import { Transaction } from "../models/transaction"
+import { TransactionDocument } from "../models/transaction"
 import { logTransaction } from "./transactionController"
 
 const getSingleSite = async (req: Request, res: Response) => {
@@ -152,7 +152,7 @@ const fetchTokenDetails = async (tokenId: string) => {
     return tokenObj
 }
 
-function isTransaction(obj: any): obj is Transaction {
+function isTransaction(obj: any): obj is TransactionDocument {
     return obj && obj.metadata !== undefined
 }
 
