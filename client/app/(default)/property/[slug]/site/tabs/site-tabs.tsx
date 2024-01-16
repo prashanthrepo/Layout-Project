@@ -19,7 +19,7 @@ export default function SiteTabs({
     <div className=" relative w-full sm:px-0">
       <hr className=" border-b-0 mb-3 border-gray-200" />
       <Tab.Group>
-        <Tab.List className=" flex space-x-1">
+        <Tab.List className=" flex space-x-2">
           {tabs.map((tab, idx) => (
             <Tab
               key={idx}
