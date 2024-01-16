@@ -1,7 +1,8 @@
 import { Request, Response } from "express"
 import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
-import { default as Layout } from "../models/layoutModel"
+import layoutModel, { default as Layout } from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
+import { TransactionDocument } from "../models/transaction"
 import { layoutSchema } from "../zod/schemas"
 
 const createLayout = async (req: Request, res: Response) => {
@@ -105,13 +106,83 @@ const getLayoutLeads = async (req: Request, res: Response) => {
 }
 
 
+// const getLayoutTransactions = async (req: Request, res: Response) => {
+
+//     let txns = []
+
+//     const { id } = req.params
+
+//     const layout = await layoutModel.findById(id).populate("sites")
+//     if (layout) {
+
+//         txns = layout.sites.map(async (site) => {
+
+//             const siteTxns = await transaction.find({ site })
+//             return siteTxns
+
+
+
+//         })
+
+//         console.log("txns ===", txns)
+
+//         res.sendSuccess()
+
+
+
+
+
+
+
+//     }
+
+
+
+
+
+
+// }
+
+
+const getLayoutTransactions = async (req: Request, res: Response) => {
+    try {
+        const { id, date } = req.params;
+        // TODO: Add option to filter by date
+
+        const layout = await layoutModel.findById(id).populate("sites");
+
+        if (layout) {
+
+            const sitePromises = layout.sites.map(async (site) => {
+                const siteObj = await siteModel.findById(site).populate("transactions")
+                // const siteObj = await siteModel.findById(site).populate({
+                //     path: "transactions",
+                //     options: { sort: { date: -1 } }
+                // })
+                return siteObj?.transactions
+            });
+
+
+            const resolvedSiteTxns = await Promise.all(sitePromises) as Array<TransactionDocument>[];
+            const allTxns = resolvedSiteTxns.flat()
+            const sortedTxns = allTxns.sort((a, b) => {
+                if (a.date && b.date) {
+                    return b.date.getTime() - a.date.getTime();
+                }
+                return 0;
+            })
+            res.sendSuccess(sortedTxns);
+        }
+    } catch (error) {
+        console.error("Error in getLayoutTransactions:", error);
+        res.sendError(SOMETHING_WENT_WRONG);
+    }
+};
+
 
 export {
-    createLayout,
-    deleteLayout,
-    getLayoutLeads,
-    getLayouts,
-    getSingleLayout,
-    updateLayout
+    createLayout, deleteLayout,
+    getLayoutLeads, getLayoutTransactions, getLayouts,
+    getSingleLayout, updateLayout
 }
 
