@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose"
 import { Layout } from "./layoutModel"
-import { Transaction } from "./transaction"
+import { TransactionDocument } from "./transaction"
 
 interface SiteInfo extends Document {
     text: string
@@ -26,7 +26,7 @@ export interface Site extends Document {
     customPrice: string
     defaultPrice: string
     leads: Lead[]
-    transactions: Array<Types.ObjectId | Transaction>
+    transactions: Array<Types.ObjectId | TransactionDocument>
     dimensions: string
     area: string
 }
