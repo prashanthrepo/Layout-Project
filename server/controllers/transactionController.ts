@@ -1,8 +1,6 @@
 import { Types } from "mongoose"
 import siteModel from "../models/siteModel"
-import Transaction, {
-    Transaction as TransactionType,
-} from "../models/transaction"
+import transaction from "../models/transaction"
 
 
 const logTransaction = async (
@@ -10,14 +8,14 @@ const logTransaction = async (
     txnType: string,
     metadata: Object
 ) => {
-    const txnData: TransactionType = {
+    const txnData = {
         site: siteId,
         type: txnType,
         metadata,
         date: new Date()
     }
 
-    const txn = await Transaction.create(txnData)
+    const txn = await transaction.create(txnData)
     await txn.save()
     const site = await siteModel.findById(siteId)
     site?.transactions.push(txn._id)
