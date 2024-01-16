@@ -8,6 +8,7 @@ import {
     layoutRoutes,
     leadRoutes,
     siteRoutes,
+    tokenRoutes
 } from "./routes"
 
 dotenv.config()
@@ -24,7 +25,7 @@ app.use(responseHandler)
 app.use("/layouts", layoutRoutes)
 app.use("/sites", siteRoutes)
 app.use("/leads", leadRoutes)
-app.use("/leads", leadRoutes)
+app.use("/token", tokenRoutes)
 app.use("/", baseRoutes)
 
 mongoose

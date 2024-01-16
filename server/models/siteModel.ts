@@ -19,7 +19,7 @@ export interface Site extends Document {
     layout: Types.ObjectId | Layout
     number: string
     type: string
-    status: string
+    status: "Available" | "Token" | "Sold" | "Blocked"
     statusMetadata: Record<string, any>
     points: string
     info: [SiteInfo]
@@ -47,7 +47,7 @@ export const siteSchema = new Schema<Site>({
     layout: { type: Schema.Types.ObjectId, ref: "Layout", required: true },
     number: { type: String, required: true },
     type: { type: String, required: true },
-    status: { type: String, required: true },
+    status: { type: String, required: true, enum: ["Available", "Token", "Sold", "Blocked"] },
     statusMetadata: {
         token: {
             type: mongoose.Schema.Types.ObjectId,
