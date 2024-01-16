@@ -23,6 +23,25 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "7a089646-52ac-4d74-801c-600e6a69e0f0",
+            "colId": "da2c142b-4f25-4725-be95-925a6a67bb94",
+            "containerId": "",
+            "name": "delete token",
+            "url": "{{BASE_URL}}/token/cancel/65a5483bb97cc92e3972797f",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-16T02:21:22.787Z",
+            "modified": "2024-01-16T02:32:01.408Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cancellationReason\":\"--cancelling--\"\n}",
+                "form": []
+            },
+            "tests": []
         }
     ]
 }
