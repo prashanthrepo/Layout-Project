@@ -16,6 +16,7 @@ import ShareButton from '@/app/(default)/components-library/ShareButton';
 import OptionsDropdown from './options-dropdown';
 import StatusChange from './site-details/status-change';
 import WarningDailog from '@/components/WarningDailog';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 export default function Site({
   selectedSite,
@@ -141,12 +142,6 @@ export default function Site({
       case 'sitedetails':
         return (
           <React.Fragment>
-            {/* <button
-              type="button"
-              className="btnsecondary"
-              onClick={() => setUiStatus('editdetails')}>
-              Edit
-            </button>*/}
             <button
               type="button"
               className="btnprimary"
@@ -157,6 +152,11 @@ export default function Site({
               align="left"
               onOptionClick={(val) => setUiStatus(val)}
             />
+            <button
+              className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              onClick={() => setOpenModal(false)}>
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
           </React.Fragment>
         );
       case 'editdetails':
@@ -182,9 +182,7 @@ export default function Site({
     <div className="m-1.5">
       <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
         <div className="grid content-between h-full">
-          <WarningDailog
-            open={cancelToken}
-            setOpen={setCancelToken}></WarningDailog>
+          <WarningDailog open={cancelToken} setOpen={setCancelToken} />
           <SkeletonLoader
             type="SiteDetails"
             length={3}
