@@ -4,6 +4,7 @@ import {
     deleteLayout,
     // getAllLeads,
     getLayoutLeads,
+    getLayoutTransactions,
     getLayouts,
     getSingleLayout,
     updateLayout,
@@ -19,4 +20,5 @@ router.delete("/:id", validateId, deleteLayout)
 router.patch("/:id", validateId, updateLayout)
 
 router.get("/:id/leads", validateId, getLayoutLeads)
-// router.get("/:id/leads/all", getAllLeads)
+router.get("/:id/transactions", validateId, getLayoutTransactions)
+

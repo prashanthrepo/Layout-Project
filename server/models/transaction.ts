@@ -10,17 +10,17 @@ export type TokenGivenMetadataType = {
     token: string
 }
 
-export interface Transaction {
+export interface TransactionDocument extends Document {
     site: Types.ObjectId
     type: string
     date?: Date
-    metadata: Record<string,any>
+    metadata: Record<string, any>
 }
 
-const transactionSchema = new Schema<Transaction & Document>({
-    site: { type: mongoose.Schema.Types.ObjectId, ref: "Site" },
+const transactionSchema = new Schema<TransactionDocument>({
+    site: { type: mongoose.Schema.Types.ObjectId, ref: "Site", index: true },
     type: { type: String, required: true, enum: TRANSACTION_TYPES },
-    date: { type: Date, required: false, default: Date.now() },
+    date: { type: Date, required: true, default: Date.now(), index: true },
     metadata: {
         token: {
             type: mongoose.Schema.Types.ObjectId,

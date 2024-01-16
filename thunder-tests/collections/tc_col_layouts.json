@@ -117,6 +117,20 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "c6934a3d-6a8e-4494-8819-135589548a18",
+            "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
+            "containerId": "",
+            "name": "Get layout transactions",
+            "url": "{{BASE_URL}}/layouts/65a418b1199de922289e3841/transactions",
+            "method": "GET",
+            "sortNum": 53750,
+            "created": "2024-01-16T05:19:44.768Z",
+            "modified": "2024-01-16T05:38:41.528Z",
+            "headers": [],
+            "params": [],
+            "tests": []
         }
     ]
 }
