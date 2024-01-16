@@ -67,7 +67,7 @@ export default function StatusChange({
     const res = updateSiteByID(siteDetails?._id, payload);
     res?.then((res) => {
       if (res) {
-        onRefetchDataFn(res?.updatedSite);
+        onRefetchDataFn(res?.data);
 
         // setSiteDetails(res?.site);
         // onSiteStatusChange(res?.site?.number, res?.site?.status);
@@ -79,7 +79,7 @@ export default function StatusChange({
     <div>
       <div className="mb-4">
         <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
-          Change status to
+          Change site status to -
         </div>
         <div className={'flex flex-wrap items-center '}>
           {siteStatus?.map((status, key) => (
@@ -91,7 +91,7 @@ export default function StatusChange({
                   : 'border-2 border-blue-400 rounded-lg')
               }
               key={key}>
-              <label className="flex items-center">
+              <label className="flex items-center  cursor-pointer">
                 <input
                   type="radio"
                   name="site-status"
@@ -301,18 +301,20 @@ export default function StatusChange({
           </div>
         </div>
       )}
-      <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-        <button className="btnsecondary" onClick={() => onClose()}>
-          Close
-        </button>
-        <button
-          className="btnprimary"
-          onClick={() => {
-            onUpdateSiteFn();
-          }}>
-          Save
-        </button>
-      </div>
+      {currentStatus != 'Available' && (
+        <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+          <button className="btnsecondary" onClick={() => onClose()}>
+            Close
+          </button>
+          <button
+            className="btnprimary"
+            onClick={() => {
+              onUpdateSiteFn();
+            }}>
+            Save
+          </button>
+        </div>
+      )}
     </div>
   );
 }

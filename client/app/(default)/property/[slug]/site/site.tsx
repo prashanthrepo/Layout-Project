@@ -28,13 +28,14 @@ export default function Site({
   const [loading, setLoading] = useState(false);
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [leads, setLeads] = useState([]);
+  console.log('leads :>> ', leads);
   const onUpdateSiteFn = useCallback(() => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
     const res = updateSiteByID(siteDetails?._id, temp);
     res?.then((res) => {
       if (res) {
-        setSiteDetails(res?.site);
-        onSiteStatusChange(res?.site?.number, res?.site?.status);
+        setSiteDetails(res?.data?.site);
+        onSiteStatusChange(res?.data?.site?.number, res?.data?.site?.status);
         setOpenModal(false);
       }
     });
@@ -64,8 +65,8 @@ export default function Site({
       res?.then((res) => {
         setLoading(false);
         if (res) {
-          setSiteDetails(res);
-          setTempSiteDetails(res);
+          setSiteDetails(res?.data);
+          setTempSiteDetails(res?.data);
           getLeads();
         }
       });
@@ -74,9 +75,10 @@ export default function Site({
   const getLeads = useCallback(() => {
     setLeadsLoading(true);
     const leads = getLeadsBySite(selectedSite?._id);
-    leads?.then((leads) => {
+    console.log('leads :>> ', leads);
+    leads?.then((res) => {
       setLeadsLoading(false);
-      setLeads(leads?.leads || []);
+      setLeads(res?.data || []);
     });
   }, [selectedSite?._id]);
 
@@ -136,13 +138,13 @@ export default function Site({
               className="btnsecondary"
               onClick={() => setUiStatus('editdetails')}>
               Edit
-            </button>
+            </button>*/}
             <button
               type="button"
               className="btnprimary"
               onClick={() => setUiStatus('addlead')}>
               Add lead
-            </button> */}
+            </button>
             <OptionsDropdown
               align="left"
               onOptionClick={(val) => setUiStatus(val)}
@@ -207,7 +209,8 @@ export default function Site({
                     </div>
                   </div>
                   <div className="flex space-x-2">
-                    <StatusChip status={siteDetails?.status} />
+                    {renderButtons(uiStatus)}
+                    {/* <StatusChip status={siteDetails?.status} /> */}
                     {Capacitor.isNativePlatform() && (
                       <ShareButton onClick={() => onShare()} />
                     )}
@@ -217,9 +220,7 @@ export default function Site({
               <div className="text-sm mb-3">
                 <hr className=" border-b-0 mb-3 border-gray-200" />
                 <div className="flex justify-end absolute right-0">
-                  <div className="sm:ml-6 space-x-2 sm:flex-shrink-0">
-                    {renderButtons(uiStatus)}
-                  </div>
+                  <div className="sm:ml-6 space-x-2 sm:flex-shrink-0"></div>
                 </div>
                 {renderUi(uiStatus)}
               </div>

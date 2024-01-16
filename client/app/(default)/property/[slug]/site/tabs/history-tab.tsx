@@ -12,9 +12,9 @@ export default function HistoryTab({ siteDetails }) {
   const getTranscations = useCallback(() => {
     setLoading(true);
     const transcations = getTranscationsBySite(siteDetails?._id);
-    transcations?.then((transcation) => {
+    transcations?.then((res) => {
       setLoading(false);
-      setHistory(transcation || []);
+      setHistory(res?.data || []);
     });
   }, [siteDetails?._id]);
   useEffect(() => {
@@ -27,8 +27,8 @@ export default function HistoryTab({ siteDetails }) {
           <div className="flow-root">
             <ul role="list" className="">
               {history?.map((item, key) => (
-                <li key={key}>
-                  <div className="relative pb-5">
+                <li key={key} className={key !== history.length - 1 && 'mb-5'}>
+                  <div className="relative">
                     {key !== history.length - 1 && (
                       <span
                         className="absolute left-6 top-6 -ml-px h-full w-0.5 bg-gray-200"
@@ -46,14 +46,42 @@ export default function HistoryTab({ siteDetails }) {
                         </span>
                       </div>
                       <div className="w-full">
-                        <div>
-                          <p className="text-xm text-gray-500">
-                            {item?.status} to{' '}
-                            <a href="#" className="font-medium text-gray-900">
-                              {item?.name}
-                            </a>
-                          </p>
-                        </div>
+                        {item?.metadata?.currentStatus === 'Token' && (
+                          <div>
+                            <p className="text-xm text-gray-900">
+                              By{' '}
+                              <span className="font-semibold">
+                                {item?.metadata?.token?.lead?.name}
+                              </span>{' '}
+                              for{' '}
+                              <span className="font-semibold">
+                                {item?.metadata?.token?.lead?.buyerOffer}
+                              </span>
+                              /sqft
+                              <a href="#" className="font-medium text-gray-900">
+                                {item?.name}
+                              </a>
+                            </p>
+                          </div>
+                        )}
+                        {item?.metadata?.currentStatus === 'Sold' && (
+                          <div>
+                            <p className="text-xm text-gray-500">
+                              By{' '}
+                              <span className="font-semibold">
+                                {item?.metadata?.token?.lead?.name}
+                              </span>{' '}
+                              for{' '}
+                              <span className="font-semibold">
+                                {item?.metadata?.token?.lead?.buyerOffer}
+                              </span>
+                              /sqft
+                              <a href="#" className="font-medium text-gray-900">
+                                {item?.name}
+                              </a>
+                            </p>
+                          </div>
+                        )}
                         <div className="whitespace-nowrap text-left text-xs text-gray-500">
                           {moment(item?.date).format('Do MMM YYYY, hh:mm A')}
                         </div>

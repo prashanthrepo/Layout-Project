@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React, { useCallback, useEffect } from 'react';
 
 export default function SellerLayouts() {
-  const [layouts, setLayouts] = React.useState([]);
+  const [layouts, setLayouts] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const getLayouts = useCallback(() => {
     setLoading(true);
@@ -37,10 +37,10 @@ export default function SellerLayouts() {
                 type="PropertyList"
                 length={3}
                 isLoading={loading}
-                isData={layouts?.length > 0}
+                isData={layouts?.data?.length > 0}
                 noDataText="No properties listed.">
                 <div className="space-y-2 ">
-                  {layouts?.map((layout, key) => (
+                  {layouts?.data?.map((layout, key) => (
                     <Link href={`/property/${layout?._id}`} key={key}>
                       <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
                         <div className="md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2">

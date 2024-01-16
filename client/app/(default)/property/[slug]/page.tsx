@@ -13,8 +13,6 @@ import getLayoutByID from '@/api/get-layout-by-id';
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  console.log('slug :>> ', slug);
   const res = await getLayoutByID(slug);
-  console.log('res :>> ', res);
   return <SitePage sites={res} />;
 }

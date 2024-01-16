@@ -8,7 +8,6 @@ import Site from './site/site';
 export default function SitePage({ sites }) {
   const { user } = useAppStore((state) => state);
   const [data, setData] = React.useState(null);
-  console.log('data :>> ', data);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
   const onSiteClick = useCallback((site: any) => {
@@ -38,7 +37,7 @@ export default function SitePage({ sites }) {
   // }, [site?.slug]);
 
   useEffect(() => {
-    setData(sites);
+    setData(sites?.data);
   }, [sites]);
 
   return (

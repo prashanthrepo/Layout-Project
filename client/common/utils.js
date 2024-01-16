@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import zukeeper from 'zukeeper';
+import { format } from 'date-fns';
 const statusColors = (status) => {
   const statusLowerCase = status?.toLowerCase();
   const replaceUnderrscore = statusLowerCase?.replace(/_/g, ' ');
@@ -85,10 +86,27 @@ const findDifferencesBwObjects = (obj1, obj2) => {
 
   return differences;
 };
+
+//use data-fns to calculate days between 2024-01-27T05:49:35.149Z and today
+const daysBetween = (date) => {
+  const today = new Date();
+  const date2 = new Date(date);
+  const diffTime = Math.abs(date2 - today);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+//use date-fns to convert 2024-01-27T05:49:35.149Z to Monday, January 27, 2024
+const convertDate = (date) => {
+  const date2 = new Date(date);
+  const formattedDate = format(date2, 'EEEE, MMMM d, yyyy');
+  return formattedDate;
+};
 export {
   statusColors,
   siteTypeColor,
   useAppStore,
   findDifferencesBwObjects,
   leadsBgColor,
+  daysBetween,
+  convertDate,
 };
