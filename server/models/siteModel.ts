@@ -61,7 +61,7 @@ export const siteSchema = new Schema<Site>({
         },
         amount: { type: Number, required: false },
         notes: { type: String, required: false },
-        registrationDate: { type: String, required: false },
+        soldDate: { type: String, required: false },
     },
     points: { type: String, required: true },
     customPrice: { type: String, required: false },

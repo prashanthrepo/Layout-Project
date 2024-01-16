@@ -67,6 +67,7 @@ const updateSite = async (req: Request, res: Response) => {
                 })
 
                 req.body.statusMetadata.lead = leadId
+                req.body.statusMetadata.soldDate = new Date()
             }
         }
     }
