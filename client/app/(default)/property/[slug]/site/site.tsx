@@ -15,6 +15,7 @@ import SkeletonLoader from '@/components/SkeletonLoader';
 import ShareButton from '@/app/(default)/components-library/ShareButton';
 import OptionsDropdown from './options-dropdown';
 import StatusChange from './site-details/status-change';
+import WarningDailog from '@/components/WarningDailog';
 
 export default function Site({
   selectedSite,
@@ -28,7 +29,7 @@ export default function Site({
   const [loading, setLoading] = useState(false);
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [leads, setLeads] = useState([]);
-  console.log('leads :>> ', leads);
+  const [cancelToken, setCancelToken] = useState(false);
   const onUpdateSiteFn = useCallback(() => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
     const res = updateSiteByID(siteDetails?._id, temp);
@@ -75,7 +76,6 @@ export default function Site({
   const getLeads = useCallback(() => {
     setLeadsLoading(true);
     const leads = getLeadsBySite(selectedSite?._id);
-    console.log('leads :>> ', leads);
     leads?.then((res) => {
       setLeadsLoading(false);
       setLeads(res?.data || []);
@@ -83,7 +83,6 @@ export default function Site({
   }, [selectedSite?._id]);
 
   const onRefetchDataFn = (res) => {
-    console.log('res :>> ', res);
     setUiStatus('sitedetails');
     onSiteStatusChange(res?.number, res?.status);
     getSite();
@@ -98,12 +97,16 @@ export default function Site({
             setUiStatus={setUiStatus}
             leads={leads}
             onRefetchDataFn={onRefetchDataFn}
-            // onUpdate={() => onUpdateSiteFn()}
             onClose={() => setUiStatus('sitedetails')}
           />
         );
       case 'sitedetails':
-        return <SiteDetails siteDetails={siteDetails} />;
+        return (
+          <SiteDetails
+            siteDetails={siteDetails}
+            setOpenCancelToken={setCancelToken}
+          />
+        );
       case 'editdetails':
         return (
           <EditSite
@@ -124,7 +127,12 @@ export default function Site({
         );
 
       default:
-        return <SiteDetails siteDetails={siteDetails} />;
+        return (
+          <SiteDetails
+            siteDetails={siteDetails}
+            setOpenCancelToken={setCancelToken}
+          />
+        );
     }
   };
 
@@ -174,6 +182,9 @@ export default function Site({
     <div className="m-1.5">
       <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
         <div className="grid content-between h-full">
+          <WarningDailog
+            open={cancelToken}
+            setOpen={setCancelToken}></WarningDailog>
           <SkeletonLoader
             type="SiteDetails"
             length={3}
