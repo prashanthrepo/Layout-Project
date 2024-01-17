@@ -46,24 +46,48 @@ export default function HistoryTab({ siteDetails }) {
                         </span>
                       </div>
                       <div className="w-full">
-                        {item?.metadata?.currentStatus === 'Token' && (
+                        {item?.metadata?.currentStatus === 'Available' && (
                           <div>
                             <p className="text-xm text-gray-900">
-                              By{' '}
-                              <span className="font-semibold">
-                                {item?.metadata?.token?.lead?.name}
-                              </span>{' '}
-                              for{' '}
-                              <span className="font-semibold">
-                                {item?.metadata?.token?.lead?.buyerOffer}
-                              </span>
-                              /sqft
-                              <a href="#" className="font-medium text-gray-900">
-                                {item?.name}
-                              </a>
+                              Status change
                             </p>
                           </div>
                         )}
+                        {item?.metadata?.currentStatus === 'Token' &&
+                          (item?.metadata?.token?.status == 'active' ? (
+                            <div>
+                              <p className="text-xm text-gray-900">
+                                By{' '}
+                                <span className="font-semibold">
+                                  {item?.metadata?.token?.lead?.name}
+                                </span>{' '}
+                                for{' '}
+                                <span className="font-semibold">
+                                  {item?.metadata?.token?.lead?.buyerOffer}
+                                </span>
+                                /sqft
+                                <a
+                                  href="#"
+                                  className="font-medium text-gray-900">
+                                  {item?.name}
+                                </a>
+                              </p>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-xm text-orange-600">
+                                Cancelled on{' '}
+                                <span className="font-semibold">
+                                  {moment(
+                                    item?.metadata?.token?.cancelledDate
+                                  ).format('Do MMM YYYY, hh:mm A')}
+                                </span>{' '}
+                                <span className=" italic">
+                                  ({item?.metadata?.token?.cancellationReason})
+                                </span>
+                              </p>
+                            </div>
+                          ))}
                         {item?.metadata?.currentStatus === 'Sold' && (
                           <div>
                             <p className="text-xm text-gray-500">

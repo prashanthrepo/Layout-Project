@@ -11,6 +11,8 @@ const statusColors = (status) => {
       return 'status_sold';
     case 'token':
       return 'status_token';
+    case 'token_cancelled':
+      return 'status_token_cancelled';
     case 'blocked':
       return 'status_blocked';
     case 'hot':
