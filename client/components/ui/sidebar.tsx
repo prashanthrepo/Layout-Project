@@ -8,7 +8,7 @@ import { getBreakpoint } from '../utils/utils'
 import SidebarLinkGroup from './sidebar-link-group'
 import SidebarLink from './sidebar-link'
 import Logo from './logo'
-import getSelf from '@/api/get-self';
+import getSelf from '@/apicalls/get-self';
 import { useAppStore } from '../../common/utils';
 import React from 'react';
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import SitePage from './SitePage';
-import getAllLayouts from '@/api/get-all-layouts';
-import getLayoutByID from '@/api/get-layout-by-id';
+import getAllLayouts from '@/apicalls/get-all-layouts';
+import getLayoutByID from '@/apicalls/get-layout-by-id';
 // export async function generateStaticParams() {
 //   const layouts = await getAllLayouts().then((res) => res);
 //   const paths = layouts?.map((layout) => ({

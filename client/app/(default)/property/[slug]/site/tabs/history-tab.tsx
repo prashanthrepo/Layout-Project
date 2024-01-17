@@ -4,7 +4,7 @@ import Image from 'next/image';
 import StatusChip from '../../../../components-library/StatusChip';
 import { leadsBgColor, statusColors } from '@/common/utils';
 import moment from 'moment';
-import getTranscationsBySite from '@/api/get-transcations-by-site';
+import getTranscationsBySite from '@/apicalls/get-transcations-by-site';
 
 export default function HistoryTab({ siteDetails }) {
   const [loading, setLoading] = useState(false);

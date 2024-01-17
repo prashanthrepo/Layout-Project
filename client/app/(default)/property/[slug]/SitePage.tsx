@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { siteTypeColor, useAppStore } from '@/common/utils';
-import getLayoutByID from '@/api/get-layout-by-id';
+import getLayoutByID from '@/apicalls/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 export default function SitePage({ sites }) {

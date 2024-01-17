@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { format } from 'date-fns';
-import createLead from '@/api/create-lead';
+import createLead from '@/apicalls/create-lead';
 import { siteStatus } from '@/common/mockdata';
 import StatusChip from '@/app/(default)/components-library/StatusChip';
 import AutocompleteDropdown from '@/app/(default)/components-library/AutocompleteDropdown';
 import DatepickerComponent from '@/app/(default)/components-library/DatepickerComponent';
-import updateSiteByID from '@/api/update-site-by-id';
+import updateSiteByID from '@/apicalls/update-site-by-id';
 export default function StatusChange({
   siteDetails,
   setUiStatus,

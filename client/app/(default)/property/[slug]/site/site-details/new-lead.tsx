@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import createLead from '@/api/create-lead';
+import createLead from '@/apicalls/create-lead';
 export default function NewLead({
   siteDetails,
   setUiStatus,
