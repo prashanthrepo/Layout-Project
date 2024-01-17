@@ -26,8 +26,13 @@ const transactionSchema = new Schema<TransactionDocument>({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Token",
         },
+        lead: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Lead",
+        },
         prevStatus: { type: String, required: false },
         currentStatus: { type: String, required: false },
+        soldDate: { type: Date, required: false },
     },
 })
 

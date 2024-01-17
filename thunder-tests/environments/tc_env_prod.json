@@ -9,6 +9,10 @@
         {
             "name": "BASE_URL",
             "value": "https://combatrims.com"
+        },
+        {
+            "name": "SITE_ID",
+            "value": "659be2a058efdc45543f20fe"
         }
     ]
 }

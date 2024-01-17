@@ -67,15 +67,17 @@ const updateSite = async (req: Request, res: Response) => {
                 })
 
                 req.body.statusMetadata.lead = leadId
-                req.body.statusMetadata.soldDate = new Date()
+
             }
+            req.body.statusMetadata.soldDate = new Date()
+
         }
     }
 
-    const siteUpdateData = { ...req.body }
+
     const updatedSite = await siteModel.findByIdAndUpdate(
         site?._id,
-        siteUpdateData,
+        req.body,
         {
             new: true,
         }
@@ -88,7 +90,9 @@ const updateSite = async (req: Request, res: Response) => {
             {
                 prevStatus,
                 currentStatus: updatedSite?.status,
-                token: updatedSite?.statusMetadata.token
+                token: updatedSite?.statusMetadata?.token,
+                lead: updatedSite?.statusMetadata?.lead,
+                soldDate: updatedSite?.statusMetadata?.soldDate,
             }
         )
     }
@@ -120,7 +124,7 @@ const getSiteLeads = async (req: Request, res: Response) => {
 
 const getSiteTransactions = async (req: Request, res: Response) => {
     const { id } = req.params
-    let txnsResponse = []
+    const txnsResponse = []
     const site = await siteModel.findById(id).populate({
         path: "transactions",
         options: { sort: { date: -1 } },
@@ -129,10 +133,15 @@ const getSiteTransactions = async (req: Request, res: Response) => {
         for (const txn of site.transactions) {
             if (isTransaction(txn)) {
                 const tokenId = txn.metadata?.token
+                const leadId = txn.metadata?.lead
 
                 if (tokenId) {
                     const tokenObj = await fetchTokenDetails(tokenId)
                     txn.metadata.token = tokenObj
+                }
+                if (leadId) {
+                    const leadObj = await fetchLeadDetails(leadId)
+                    txn.metadata.lead = leadObj
                 }
 
                 txnsResponse.push(txn)
@@ -150,6 +159,11 @@ const getSiteTransactions = async (req: Request, res: Response) => {
 const fetchTokenDetails = async (tokenId: string) => {
     const tokenObj = await token.findById(tokenId).populate("lead")
     return tokenObj
+}
+
+const fetchLeadDetails = async (leadId: string) => {
+    const leadObj = await leadModel.findById(leadId)
+    return leadObj
 }
 
 function isTransaction(obj: any): obj is TransactionDocument {
