@@ -3,7 +3,7 @@ import { convertDate, daysBetween } from '@/common/utils';
 import { Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useCallback } from 'react';
-import cancelTokenApi from '@/api/cancel-token';
+import cancelTokenApi from '@/apicalls/cancel-token';
 
 export default function SiteDetails({ siteDetails }) {
   const tokenCancelReasonRef = React.useRef(null);

@@ -4,7 +4,7 @@ import WarningDialog from '@/components/WarningDialog';
 import { Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useCallback } from 'react';
-import cancelTokenApi from '@/api/cancel-token';
+import cancelTokenApi from '@/apicalls/cancel-token';
 import toast from 'react-hot-toast';
 
 export default function TokenDetails({ siteDetails, reFetch }) {

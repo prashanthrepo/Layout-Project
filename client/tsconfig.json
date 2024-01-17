@@ -31,7 +31,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "hooks/usePostData.js",
-    "api/get-self.js",
+    "apicalls/get-self.js",
     "app/(default)/components-library/AutocompleteDropdown.js"
   ],
   "exclude": ["node_modules"]

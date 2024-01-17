@@ -1,4 +1,4 @@
-import getAllLayouts from '@/api/get-all-layouts';
+import getAllLayouts from '@/apicalls/get-all-layouts';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import mapImage from '@/public/images/google-maps.png';
 import Image from 'next/image';
