@@ -21,6 +21,9 @@
 .status_token {
     @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
 }
+.status_token_cancelled {
+    @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
+}
 
 .status_blocked {
     @apply inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600;

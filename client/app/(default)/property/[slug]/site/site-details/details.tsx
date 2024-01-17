@@ -2,10 +2,13 @@ import StatusChip from '@/app/(default)/components-library/StatusChip';
 import { convertDate, daysBetween } from '@/common/utils';
 import { Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
+import cancelTokenApi from '@/api/cancel-token';
 
-export default function SiteDetails({ siteDetails, setOpenCancelToken }) {
+export default function SiteDetails({ siteDetails }) {
+  const tokenCancelReasonRef = React.useRef(null);
   const [cancelToken, setCancelToken] = React.useState(false);
+
   return (
     <div>
       {siteDetails?.status == 'Sold' && (
@@ -153,7 +156,7 @@ export default function SiteDetails({ siteDetails, setOpenCancelToken }) {
               <div className="mt-1">
                 <div className="my-1.5 space-x-2 flex">
                   <button
-                    onClick={() => setOpenCancelToken(true)}
+                    onClick={() => setCancelToken(true)}
                     type="button"
                     className="rounded-md bg-red-100 px-2 py-1.5 text-sm font-medium text-red-800 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-red-50">
                     Cancel token

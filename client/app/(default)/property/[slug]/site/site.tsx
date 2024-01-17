@@ -15,8 +15,8 @@ import SkeletonLoader from '@/components/SkeletonLoader';
 import ShareButton from '@/app/(default)/components-library/ShareButton';
 import OptionsDropdown from './options-dropdown';
 import StatusChange from './site-details/status-change';
-import WarningDailog from '@/components/WarningDailog';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import TokenDetails from './site-details/details/token-details';
 
 export default function Site({
   selectedSite,
@@ -69,6 +69,7 @@ export default function Site({
         if (res) {
           setSiteDetails(res?.data);
           setTempSiteDetails(res?.data);
+          onSiteStatusChange(res?.data?.number, res?.data?.status);
           getLeads();
         }
       });
@@ -102,12 +103,15 @@ export default function Site({
           />
         );
       case 'sitedetails':
-        return (
-          <SiteDetails
-            siteDetails={siteDetails}
-            setOpenCancelToken={setCancelToken}
-          />
-        );
+        switch (siteDetails?.status) {
+          case 'Token':
+            return <TokenDetails siteDetails={siteDetails} reFetch={getSite} />;
+          case 'Sold':
+            return <SiteDetails siteDetails={siteDetails} />;
+          default:
+            return <SiteDetails siteDetails={siteDetails} />;
+        }
+
       case 'editdetails':
         return (
           <EditSite
@@ -128,12 +132,7 @@ export default function Site({
         );
 
       default:
-        return (
-          <SiteDetails
-            siteDetails={siteDetails}
-            setOpenCancelToken={setCancelToken}
-          />
-        );
+        return <></>;
     }
   };
 
@@ -182,7 +181,6 @@ export default function Site({
     <div className="m-1.5">
       <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
         <div className="grid content-between h-full">
-          <WarningDailog open={cancelToken} setOpen={setCancelToken} />
           <SkeletonLoader
             type="SiteDetails"
             length={3}
