@@ -1,0 +1,71 @@
+{
+    "_id": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+    "colName": "Auth",
+    "created": "2024-01-18T11:15:13.020Z",
+    "sortNum": 50000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f840518a-a1c4-42c2-9233-a4cc41015806",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Update Profile",
+            "url": "{{BASE_URL}}/auth/update-profile",
+            "method": "PATCH",
+            "sortNum": 10000,
+            "created": "2024-01-18T11:15:27.630Z",
+            "modified": "2024-01-18T12:27:02.460Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE5MTVkZjE5YzhlZmUxNjA3MmI4MTYiLCJpYXQiOjE3MDU1ODAwMjAsImV4cCI6MTcwNjc4OTYyMH0.UC7DaiK1f_cAU_Et39xoNLqRmvh0HUi4U1dwjhoq7B4"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"first_name\": \"john\",\n  \"last_name\": \"doe\",\n  \"phone_number\":\"8888\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a2c1cf1f-e09c-4749-bd4c-e64ea09e0a99",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Request OTP",
+            "url": "{{BASE_URL}}/auth/request-otp",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-18T11:49:36.669Z",
+            "modified": "2024-01-18T12:13:19.912Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\": \"8888\",\n  \"role\": \"Seller\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4e839572-ea42-414f-a4ca-a64c45520031",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Validate OTP",
+            "url": "{{BASE_URL}}/auth/validate-otp",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-01-18T11:53:12.448Z",
+            "modified": "2024-01-18T12:13:40.673Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\": \"8888\",\n  \"otp\": \"0000\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
