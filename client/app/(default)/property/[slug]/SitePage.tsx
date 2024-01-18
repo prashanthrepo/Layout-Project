@@ -5,8 +5,10 @@ import { siteTypeColor, useAppStore } from '@/common/utils';
 import getLayoutByID from '@/apicalls/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
-export default function SitePage({ sites }) {
+import SkeletonLoader from '@/components/SkeletonLoader';
+export default function SitePage({ slug }) {
   const { user } = useAppStore((state) => state);
+  const [layoutLoading, setLayoutLoading] = React.useState(false);
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
@@ -29,84 +31,99 @@ export default function SitePage({ sites }) {
     [data?.sites]
   );
 
-  // const getLayout = useCallback(() => {
-  //   const res = getLayoutByID(sites?.slug);
-  //   res?.then((res) => {
-  //     setData(res || {});
-  //   });
-  // }, [site?.slug]);
+  const getLayout = useCallback(() => {
+    setLayoutLoading(true);
+    const res = getLayoutByID(slug);
+    res?.then((res) => {
+      if (res?.status == 200) {
+        setLayoutLoading(false);
+        setData(res?.data);
+      } else {
+        setLayoutLoading(false);
+      }
+    });
+  }, [slug]);
 
   useEffect(() => {
-    setData(sites?.data);
-  }, [sites]);
+    getLayout();
+  }, [slug]);
 
   return (
     <div className="relative">
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
-        <div className="flex">
-          <div className="w-full">
-            <svg
-              className="px-4 w-full"
-              viewBox="0 0 600 800"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              {data?.sites?.map((site, key) => (
-                <g
-                  key={key}
-                  className={
-                    site?.type === 'site'
-                      ? ' cursor-pointer hover:opacity-70'
-                      : ''
-                  }
-                  onClick={() => onSiteClick(site)}>
-                  {site?.type === 'site' ? (
-                    <polygon
-                      className=""
-                      points={site.points}
-                      fillOpacity={seletedSite?.number === site?.number ? 1 : 1}
-                      fill={siteTypeColor(site?.status)}
-                      stroke="#000"
-                      strokeWidth="0.1"
-                    />
-                  ) : (
-                    <polygon
-                      points={site.points}
-                      fill="#6b7280"
-                      stroke="#6b7280"
-                      strokeWidth="1"
-                    />
-                  )}
-                  {site?.info?.map((item, key) => {
-                    if (item?.type === 'number') {
-                      return (
-                        <text
-                          key={key}
-                          transform={item?.transform}
-                          className=" cursor-pointer"
-                          fill="#000"
-                          fontSize="10"
-                          fontWeight="normal">
-                          {item?.text}
-                        </text>
-                      );
-                    } else if (item?.type === 'road') {
-                      return (
-                        <text
-                          key={key}
-                          transform={item?.transform}
-                          fill="#fff"
-                          fontSize="10"
-                          fontWeight="normal">
-                          {`${item?.text}' Feet Wide Road`}
-                        </text>
-                      );
+        <SkeletonLoader
+          type=""
+          length={3}
+          isLoading={layoutLoading}
+          isData={data?.sites?.length > 0}
+          noDataText=" No sites in the layout.">
+          <div className="flex">
+            <div className="w-full">
+              <svg
+                className="px-4 w-full"
+                viewBox="0 0 600 800"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                {data?.sites?.map((site, key) => (
+                  <g
+                    key={key}
+                    className={
+                      site?.type === 'site'
+                        ? ' cursor-pointer hover:opacity-70'
+                        : ''
                     }
-                  })}
-                </g>
-              ))}
-            </svg>
+                    onClick={() => onSiteClick(site)}>
+                    {site?.type === 'site' ? (
+                      <polygon
+                        className=""
+                        points={site.points}
+                        fillOpacity={
+                          seletedSite?.number === site?.number ? 1 : 1
+                        }
+                        fill={siteTypeColor(site?.status)}
+                        stroke="#000"
+                        strokeWidth="0.1"
+                      />
+                    ) : (
+                      <polygon
+                        points={site.points}
+                        fill="#6b7280"
+                        stroke="#6b7280"
+                        strokeWidth="1"
+                      />
+                    )}
+                    {site?.info?.map((item, key) => {
+                      if (item?.type === 'number') {
+                        return (
+                          <text
+                            key={key}
+                            transform={item?.transform}
+                            className=" cursor-pointer"
+                            fill="#000"
+                            fontSize="10"
+                            fontWeight="normal">
+                            {item?.text}
+                          </text>
+                        );
+                      } else if (item?.type === 'road') {
+                        return (
+                          <text
+                            key={key}
+                            transform={item?.transform}
+                            fill="#fff"
+                            fontSize="10"
+                            fontWeight="normal">
+                            {`${item?.text}' Feet Wide Road`}
+                          </text>
+                        );
+                      }
+                    })}
+                  </g>
+                ))}
+              </svg>
+            </div>
           </div>
-        </div>
+        </SkeletonLoader>
       </div>
       {user?.role == 'Admin' && <LayoutSettingsButton />}
       {seletedSite && (
