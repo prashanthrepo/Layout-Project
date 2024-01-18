@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config";
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, UNAUTHORISED } from "../config";
+import JWTService from "../services/jwt";
 
 
 
@@ -37,9 +39,9 @@ export const responseHandler = (req: Request, res: Response, next: NextFunction)
                 status = 400
                 message = "Bad Request"
                 break;
-            case SOMETHING_WENT_WRONG:
-                status = 400
-                message = "Something went wrong"
+            case UNAUTHORISED:
+                status = 401
+                message = "Unauthorized"
                 break;
 
             default:
@@ -77,3 +79,25 @@ export const validateId = (req: Request, res: Response, next: NextFunction) => {
 
 
 
+
+
+
+export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const token = req.headers.authorization?.split("Bearer ")[1]
+        console.log("token ===", token)
+        const { userId } = JWTService.verifyToken(token as string) as JwtPayload
+        // TODO : Attach userId to request object
+
+    } catch (error) {
+        return res.status(403).json({
+            "status": 403,
+            "error": "Forbidden."
+        })
+
+    }
+
+    next()
+
+}

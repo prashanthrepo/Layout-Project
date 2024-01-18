@@ -4,6 +4,7 @@ import express, { Express } from "express"
 import mongoose from "mongoose"
 import { responseHandler } from "./middlewares"
 import {
+    authRoutes,
     baseRoutes,
     layoutRoutes,
     leadRoutes,
@@ -22,6 +23,7 @@ app.use(responseHandler)
 
 
 // routes
+app.use("/auth", authRoutes)
 app.use("/layouts", layoutRoutes)
 app.use("/sites", siteRoutes)
 app.use("/leads", leadRoutes)
