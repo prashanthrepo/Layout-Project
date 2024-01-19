@@ -7,8 +7,9 @@ import { useEffect, useState } from 'react';
 import AddNewLayout from './AddNewLayout';
 import { useAppStore } from '../../../common/utils';
 import MapView from './buyer-dashboard/map-view';
-import SellerLayouts from './seller-dashboard/seller-layouts';
+import SellerLayouts from '../all/page';
 import AllLayouts from './admin-dashboard/all-layouts';
+import SellerDashboard from './seller-dashboard';
 
 export default function Dashboard() {
   const { user } = useAppStore((state) => state);
@@ -23,7 +24,8 @@ export default function Dashboard() {
       case 'buyer':
         return <MapView />;
       case 'seller':
-        return <SellerLayouts />;
+        // return <SellerLayouts />;
+        return <SellerDashboard />;
       case 'admin':
         return <AllLayouts />;
       default:

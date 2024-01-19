@@ -1,3 +1,4 @@
+'use client';
 import getAllLayouts from '@/apicalls/get-all-layouts';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import mapImage from '@/public/images/google-maps.png';
