@@ -32,7 +32,7 @@ export default function MobileNav() {
             </span>
           </Link>
           <Link
-            href="/dashboard"
+            href="/all"
             className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
             <svg
               xmlns="http://www.w3.org/2000/svg"

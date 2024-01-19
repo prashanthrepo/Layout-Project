@@ -38,12 +38,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-01-18T11:49:36.669Z",
-            "modified": "2024-01-19T02:14:39.840Z",
+            "modified": "2024-01-19T16:23:25.372Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9001\",\n  \"role\": \"Seller\"\n}",
+                "raw": "{\n  \"phone_number\": \"+919845746365\",\n  \"role\": \"Seller\"\n}",
                 "form": []
             },
             "tests": []
