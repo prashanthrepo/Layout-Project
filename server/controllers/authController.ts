@@ -33,10 +33,11 @@ const requestOTP = async (req: Request, res: Response) => {
         }
 
 
-        const OTP = OTPService.generateOTP()
+        // const OTP = OTPService.generateOTP()
+        const OTP = "0000"
         user.otp = OTP
         await user.save()
-        TwilioService.sendMessage(phone_number,OTP)// TODO : add job to OTP-queue  
+        // TwilioService.sendMessage(phone_number,OTP)  /* TODO : add job to OTP-queue  */
         res.sendSuccess({ message: "OTP sent" })
 
 
