@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+
+dotenv.config()
 export default class OTPService {
     public static generateOTP(): string {
         // Generate a random 4-digit OTP
@@ -5,4 +8,8 @@ export default class OTPService {
         return otp;
     }
 }
+
+
+
+
 
