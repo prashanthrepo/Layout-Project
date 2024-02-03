@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express"
-import TwilioService from "../services/twilio"
 
 export const router = express.Router()
 
