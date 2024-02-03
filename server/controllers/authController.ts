@@ -2,8 +2,8 @@ import { Request, Response } from "express"
 import { OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config"
 import UserModel from "../models/userModel"
 import JWTService from "../services/jwt"
+import MSG91Service from "../services/msg91"
 import OTPService from "../services/otp"
-import TwilioService from "../services/twilio"
 
 
 
@@ -33,11 +33,11 @@ const requestOTP = async (req: Request, res: Response) => {
         }
 
 
-        // const OTP = OTPService.generateOTP()
-        const OTP = "0000"
-        user.otp = OTP
+        // const otp = "0000"
+        const otp = OTPService.generateOTP()
+        user.otp = otp
         await user.save()
-        // TwilioService.sendMessage(phone_number,OTP)  /* TODO : add job to OTP-queue  */
+        await MSG91Service.sendSMS({ name: user.phone_number, otp }) /* TODO : add job to OTP-queue  */
         res.sendSuccess({ message: "OTP sent" })
 
 
