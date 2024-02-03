@@ -13,7 +13,6 @@ class JWTService {
     }
     public static verifyToken(token: string) {
         const data = jwt.verify(token, JWT_SECRET as string)
-        console.log("data ===", data)
         return data
     }
 }

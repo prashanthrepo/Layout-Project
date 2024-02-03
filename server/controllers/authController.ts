@@ -33,11 +33,11 @@ const requestOTP = async (req: Request, res: Response) => {
         }
 
 
-        // const otp = "0000"
+        const name = user.first_name ? user.first_name : user.role
         const otp = OTPService.generateOTP()
         user.otp = otp
         await user.save()
-        await MSG91Service.sendSMS({ name: user.phone_number, otp }) /* TODO : add job to OTP-queue  */
+        await MSG91Service.sendSMS({ name: `${name}-${user.phone_number}`, otp }) /* TODO : add job to OTP-queue  */
         res.sendSuccess({ message: "OTP sent" })
 
 
