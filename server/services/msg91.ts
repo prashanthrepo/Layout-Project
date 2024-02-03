@@ -21,16 +21,15 @@ export default class MSG91Service {
                 authkey: process.env.MSG91_AUTH_KEY as string
             },
             body: JSON.stringify({
-                template_id: '65bd0001d6fc0544600f28a3',
+                template_id: process.env.MSG91_TEMPLATE_ID as string,
                 short_url: '1',
-                // recipients: [{ mobiles: process.env.DUMMY_PHONE_NO as string, name: 'sachin', otp: '0111' }]
                 recipients: [{ mobiles: process.env.DUMMY_PHONE_NO as string, ...userDetails }]
             })
         };
 
         fetch('https://control.msg91.com/api/v5/flow/', options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => { })
             .catch(err => console.error(err));
 
 

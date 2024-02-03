@@ -86,7 +86,6 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const token = req.headers.authorization?.split("Bearer ")[1]
-        console.log("token ===", token)
         const { userId } = JWTService.verifyToken(token as string) as JwtPayload
         // TODO : Attach userId to request object
 
