@@ -1,16 +1,23 @@
 import express, { Request, Response } from "express"
+import { OBJECT_NOT_FOUND } from "../config"
+import { checkAuth } from "../middlewares"
+import UserModel from "../models/userModel"
 
 export const router = express.Router()
 
-router.post("/me", (req: Request, res: Response) => {
-    const { user } = req.body
-    const response = {
-        id: `${user}_583c3ac3f38e84297c002546`,
-        email: `${user}-email@gmail.com`,
-        name: `${user}-name`,
-        role: user.charAt(0).toUpperCase() + user.slice(1),
+
+router.get("/me", checkAuth, async (req: Request, res: Response) => {
+
+    const user = await UserModel.findById(req.userId)
+    if (user) {
+        const { first_name, last_name, phone_number, image } = user
+        const response = { first_name, last_name, phone_number, image }
+        res.sendSuccess(response)
     }
-    res.sendSuccess(response)
+    else {
+        res.sendError(OBJECT_NOT_FOUND)
+    }
+
 })
 
 router.get("/", (req: Request, res: Response) => {
