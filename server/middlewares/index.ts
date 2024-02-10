@@ -5,6 +5,14 @@ import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, UNAUTHORISED } fr
 import JWTService from "../services/jwt";
 
 
+declare global {
+    namespace Express {
+        interface Request {
+            userId?: string;
+        }
+    }
+}
+
 
 declare module 'express-serve-static-core' {
     interface Response {
@@ -87,7 +95,7 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.headers.authorization?.split("Bearer ")[1]
         const { userId } = JWTService.verifyToken(token as string) as JwtPayload
-        // TODO : Attach userId to request object
+        req.userId = userId
 
     } catch (error) {
         return res.status(403).json({
