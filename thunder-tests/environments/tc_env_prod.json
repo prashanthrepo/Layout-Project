@@ -13,6 +13,10 @@
         {
             "name": "SITE_ID",
             "value": "659be2a058efdc45543f20fe"
+        },
+        {
+            "name": "TOKEN",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJkZDM4ZjBmMmI2MzFiYTZhY2JhMDYiLCJpYXQiOjE3MDc1MzEyMjIsImV4cCI6MTcwODc0MDgyMn0.9CFmkcqEzi6p2xVy1qg7reO_YmDnvq5j35VMw_DWiEA"
         }
     ]
 }

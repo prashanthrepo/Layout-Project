@@ -57,12 +57,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-03T05:49:29.540Z",
+            "modified": "2024-02-10T02:13:42.861Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9002\",\n  \"otp\": \"7737\"\n}",
+                "raw": "{\n  \"phone_number\": \"9002\",\n  \"otp\": \"1159\"\n}",
                 "form": []
             },
             "tests": []

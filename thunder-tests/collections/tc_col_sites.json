@@ -14,8 +14,13 @@
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-12-19T05:19:19.976Z",
-            "modified": "2024-01-17T15:32:16.317Z",
-            "headers": [],
+            "modified": "2024-02-10T02:34:24.601Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -28,8 +33,13 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-12-19T05:20:38.322Z",
-            "modified": "2024-01-17T15:32:48.601Z",
-            "headers": [],
+            "modified": "2024-02-10T02:34:42.431Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -42,8 +52,13 @@
             "method": "PATCH",
             "sortNum": 30000,
             "created": "2023-12-19T05:21:53.051Z",
-            "modified": "2024-01-17T15:32:58.484Z",
-            "headers": [],
+            "modified": "2024-02-10T02:35:36.626Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -61,8 +76,13 @@
             "method": "GET",
             "sortNum": 25000,
             "created": "2023-12-25T05:38:37.623Z",
-            "modified": "2024-01-17T15:32:53.762Z",
-            "headers": [],
+            "modified": "2024-02-10T02:34:53.240Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -75,8 +95,13 @@
             "method": "PATCH",
             "sortNum": 40000,
             "created": "2024-01-09T02:37:24.820Z",
-            "modified": "2024-01-17T15:33:01.881Z",
-            "headers": [],
+            "modified": "2024-02-10T02:35:55.107Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -94,8 +119,13 @@
             "method": "PATCH",
             "sortNum": 50000,
             "created": "2024-01-09T02:45:34.909Z",
-            "modified": "2024-01-17T15:33:05.641Z",
-            "headers": [],
+            "modified": "2024-02-10T02:36:07.009Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -113,14 +143,14 @@
             "method": "PATCH",
             "sortNum": 60000,
             "created": "2024-01-09T02:50:10.887Z",
-            "modified": "2024-01-17T15:33:23.398Z",
-            "headers": [],
+            "modified": "2024-02-10T02:36:53.442Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"status\": \"Available\",\n  \"statusMetadata\": {}\n}",
-                "form": []
-            },
             "tests": []
         },
         {
@@ -132,8 +162,13 @@
             "method": "PATCH",
             "sortNum": 55000,
             "created": "2024-01-09T02:52:14.555Z",
-            "modified": "2024-01-17T15:33:14.024Z",
-            "headers": [],
+            "modified": "2024-02-10T02:36:27.512Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -151,8 +186,13 @@
             "method": "PATCH",
             "sortNum": 52500,
             "created": "2024-01-09T05:06:41.836Z",
-            "modified": "2024-01-17T15:33:08.927Z",
-            "headers": [],
+            "modified": "2024-02-10T02:36:14.277Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
