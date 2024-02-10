@@ -92,7 +92,7 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     } catch (error) {
         return res.status(403).json({
             "status": 403,
-            "error": "Forbidden."
+            "error": "Forbidden. Authentication token required."
         })
 
     }
