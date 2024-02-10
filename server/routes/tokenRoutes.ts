@@ -1,8 +1,8 @@
 import { Router } from "express"
 
 import { cancelToken } from "../controllers/tokenController"
-import { validateId } from "../middlewares"
+import { checkAuth, validateId } from "../middlewares"
 
 export const router = Router()
 
-router.post("/cancel/:id", validateId, cancelToken)
+router.post("/cancel/:id", checkAuth, validateId, cancelToken)
