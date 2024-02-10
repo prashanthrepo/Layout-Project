@@ -10,6 +10,7 @@ interface User extends Document {
     image?: string
     otp?: string
     role: UserRole
+    isVerified: boolean
 }
 
 const userSchema = new Schema<User>(
@@ -20,6 +21,7 @@ const userSchema = new Schema<User>(
         dob: { type: String, required: false },
         image: { type: String, required: false },
         otp: { type: String, required: false },
+        isVerified: { type: Boolean, required: true, default: false },
         role: {
             type: String,
             enum: ["Seller", "Buyer", "Admin"],
