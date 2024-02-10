@@ -53,12 +53,15 @@ const validateOTP = async (req: Request, res: Response) => {
     try {
         const user = await UserModel.findOne({ phone_number })
         if (user) {
+
             if (user.otp === otp) {
                 user.otp = ""
-                // TODO : set accountVerified = True ?
+                if (user.first_name && user.last_name) {
+                    user.isVerified = true
+                }
                 await user.save()
-                const token = JWTService.generateToken({ userId: user._id })
-                res.sendSuccess({ token })
+                const token = JWTService.generateToken({ userId: user._id, })
+                res.sendSuccess({ token, accountVerified: user.isVerified })
             }
             else {
                 res.sendError(UNAUTHORISED, {
