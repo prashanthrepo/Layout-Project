@@ -33,8 +33,13 @@
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-11-23T10:20:44.383Z",
-            "modified": "2023-12-19T05:05:57.909Z",
-            "headers": [],
+            "modified": "2024-02-10T02:18:36.154Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -47,8 +52,13 @@
             "method": "POST",
             "sortNum": 40000,
             "created": "2023-11-23T10:25:05.343Z",
-            "modified": "2024-01-14T05:38:05.892Z",
-            "headers": [],
+            "modified": "2024-02-10T02:25:14.669Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -66,8 +76,13 @@
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-04T14:17:35.027Z",
-            "modified": "2024-01-14T05:32:35.189Z",
-            "headers": [],
+            "modified": "2024-02-10T02:19:46.823Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -80,8 +95,13 @@
             "method": "DELETE",
             "sortNum": 60000,
             "created": "2023-12-04T14:18:37.297Z",
-            "modified": "2024-01-14T05:43:48.365Z",
-            "headers": [],
+            "modified": "2024-02-10T02:22:47.712Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -94,8 +114,13 @@
             "method": "PATCH",
             "sortNum": 55000,
             "created": "2023-12-04T14:19:58.874Z",
-            "modified": "2024-01-14T04:51:58.796Z",
-            "headers": [],
+            "modified": "2024-02-10T02:20:11.305Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
@@ -113,8 +138,13 @@
             "method": "GET",
             "sortNum": 52500,
             "created": "2023-12-19T05:27:28.113Z",
-            "modified": "2023-12-19T05:27:43.729Z",
-            "headers": [],
+            "modified": "2024-02-10T02:23:10.121Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -127,8 +157,13 @@
             "method": "GET",
             "sortNum": 53750,
             "created": "2024-01-16T05:19:44.768Z",
-            "modified": "2024-01-16T05:38:41.528Z",
-            "headers": [],
+            "modified": "2024-02-10T02:23:35.334Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         }

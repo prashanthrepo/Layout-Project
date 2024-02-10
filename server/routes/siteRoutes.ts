@@ -5,11 +5,11 @@ import {
     getSiteTransactions,
     updateSite,
 } from "../controllers/siteController"
-import { validateId } from "../middlewares"
+import { checkAuth, validateId } from "../middlewares"
 
 export const router = Router()
 
-router.get("/:id", validateId, getSingleSite)
-router.patch("/:id", validateId, updateSite)
-router.get("/:id/leads", validateId, getSiteLeads)
-router.get("/:id/transactions", validateId, getSiteTransactions)
+router.get("/:id", checkAuth, validateId, getSingleSite)
+router.patch("/:id", checkAuth, validateId, updateSite)
+router.get("/:id/leads", checkAuth, validateId, getSiteLeads)
+router.get("/:id/transactions", checkAuth, validateId, getSiteTransactions)
