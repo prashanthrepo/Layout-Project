@@ -10,8 +10,8 @@ router.get("/me", checkAuth, async (req: Request, res: Response) => {
 
     const user = await UserModel.findById(req.userId)
     if (user) {
-        const { first_name, last_name, phone_number, image } = user
-        const response = { first_name, last_name, phone_number, image }
+        const { first_name, last_name, phone_number, image, isVerified } = user
+        const response = { first_name, last_name, phone_number, image, isVerified }
         res.sendSuccess(response)
     }
     else {
