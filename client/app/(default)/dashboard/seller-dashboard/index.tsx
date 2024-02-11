@@ -47,7 +47,7 @@ export default function SellerDashboard() {
       </div>
 
       {/* Table */}
-      <div className="mx-auto max-w-7xl">
+      <div className="w-full">
         <div>
           <dl className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <div className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">

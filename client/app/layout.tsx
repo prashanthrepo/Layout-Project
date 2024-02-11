@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'Layout App',
+  title: 'Paypersqft',
   description: 'Layouts and properties',
 };
 

@@ -126,14 +126,12 @@ export default function SitePage({ slug }) {
         </SkeletonLoader>
       </div>
       {user?.role == 'Admin' && <LayoutSettingsButton />}
-      {seletedSite && (
-        <Site
-          selectedSite={seletedSite}
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          onSiteStatusChange={onSiteStatusChange}
-        />
-      )}
+      <Site
+        selectedSite={seletedSite}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSiteStatusChange={onSiteStatusChange}
+      />
     </div>
   );
 }
