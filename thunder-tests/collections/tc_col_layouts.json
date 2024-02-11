@@ -6,25 +6,6 @@
     "folders": [],
     "requests": [
         {
-            "_id": "c01810c7-397f-41ae-9bd2-b3210e28118e",
-            "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
-            "containerId": "",
-            "name": "Me",
-            "url": "{{BASE_URL}}/me",
-            "method": "POST",
-            "sortNum": 20000,
-            "created": "2023-11-20T15:43:51.811Z",
-            "modified": "2024-01-14T03:18:52.762Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"user\": \"seller\"\n}\n",
-                "form": []
-            },
-            "tests": []
-        },
-        {
             "_id": "894c2bca-8711-4fb1-a02e-d7f1db4e85c0",
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
@@ -165,30 +146,6 @@
                 }
             ],
             "params": [],
-            "tests": []
-        },
-        {
-            "_id": "eca539cf-e475-4746-97de-40d562db39b8",
-            "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
-            "containerId": "",
-            "name": "Me Copy",
-            "url": "{{BASE_URL}}/me",
-            "method": "GET",
-            "sortNum": 25000,
-            "created": "2024-02-10T15:04:49.064Z",
-            "modified": "2024-02-10T15:38:56.023Z",
-            "headers": [
-                {
-                    "name": "Authorization",
-                    "value": "Bearer {{TOKEN}}"
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{}",
-                "form": []
-            },
             "tests": []
         }
     ]

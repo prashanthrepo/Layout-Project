@@ -1,7 +1,7 @@
 {
     "_id": "dddcb0dd-3cfe-4503-b963-c61c013aac69",
     "name": "prod",
-    "default": false,
+    "default": true,
     "sortNum": 10000,
     "created": "2023-12-19T05:02:57.159Z",
     "modified": "2023-12-19T05:02:57.159Z",
@@ -16,7 +16,7 @@
         },
         {
             "name": "TOKEN",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJkZDM4ZjBmMmI2MzFiYTZhY2JhMDYiLCJpYXQiOjE3MDc1MzEyMjIsImV4cCI6MTcwODc0MDgyMn0.9CFmkcqEzi6p2xVy1qg7reO_YmDnvq5j35VMw_DWiEA"
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJkZDcwZjExMjllMjEzMDZjMmZlMzYiLCJpYXQiOjE3MDc2MTgyNzgsImV4cCI6MTcwODgyNzg3OH0.SlVWdlnh3yCIUiNCB0Vx5mXA9xt79Le8NHZLOVxeUN4"
         }
     ]
 }

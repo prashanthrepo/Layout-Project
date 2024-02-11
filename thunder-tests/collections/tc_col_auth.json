@@ -14,7 +14,7 @@
             "method": "PATCH",
             "sortNum": 10000,
             "created": "2024-01-18T11:15:27.630Z",
-            "modified": "2024-02-10T15:35:40.234Z",
+            "modified": "2024-02-11T02:31:44.141Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -24,7 +24,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"first_name\": \"john\",\n  \"last_name\": \"doe\",\n  \"phone_number\": \"9002\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\"\n}",
+                "raw": "{\n  \"first_name\": \"john9003\",\n  \"last_name\": \"doe9003\",\n  \"phone_number\": \"9003\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\",\n  \"isVerified\":true\n}",
                 "form": []
             },
             "tests": []
@@ -38,12 +38,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-01-18T11:49:36.669Z",
-            "modified": "2024-02-03T05:47:59.155Z",
+            "modified": "2024-02-11T02:24:11.688Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9002\",\n  \"role\": \"Seller\"\n}",
+                "raw": "{\n  \"phone_number\": \"9003\",\n  \"role\": \"Seller\"\n}",
                 "form": []
             },
             "tests": []
@@ -57,12 +57,36 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-10T15:14:55.563Z",
+            "modified": "2024-02-11T02:24:35.357Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9002\",\n  \"otp\": \"3057\"\n}",
+                "raw": "{\n  \"phone_number\": \"9003\",\n  \"otp\": \"6380\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "eca539cf-e475-4746-97de-40d562db39b8",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Me",
+            "url": "{{BASE_URL}}/me",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2024-02-11T02:32:02.129Z",
+            "modified": "2024-02-11T02:32:02.129Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
                 "form": []
             },
             "tests": []
