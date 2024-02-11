@@ -32,3 +32,16 @@
 .react-datepicker-wrapper {
     width: 100%;
 }
+
+input.form-control {
+    width: 100% !important;
+}
+.react-tel-input .flag-dropdown {
+    width: 34px !important;
+    border-radius: 5px 0 0 5px !important;
+    -webkit-border-radius: 5px 0 0 5px !important;
+    -moz-border-radius: 5px 0 0 5px !important;
+    -ms-border-radius: 5px 0 0 5px !important;
+    -o-border-radius: 5px 0 0 5px !important;
+   
+}

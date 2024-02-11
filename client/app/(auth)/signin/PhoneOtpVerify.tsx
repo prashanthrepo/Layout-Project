@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import AuthHeader from '../auth-header';
 import AuthImage from '../auth-image';
@@ -6,8 +6,34 @@ import otpImage from '@/public/images/otp-input.svg';
 import { useState } from 'react';
 import OTPInput from './OTPInput';
 import Image from 'next/image';
+import validateOTP from '@/apicalls/validate-otp';
 
-export default function PhoneOtp({ onOtp }) {
+export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
+  const [loading, setLoading] = useState(false);
+  const [otp, setOtp] = useState(null);
+  const onValidateOtp = () => {
+    setLoading(true);
+    const res = validateOTP({
+      phone_number: phoneNumber,
+      otp: otp,
+    });
+    res?.then((res) => {
+      if (res?.status == 200) {
+        setLoading(false);
+        if (res?.data?.token) {
+          localStorage.setItem('authToken', res?.data?.token);
+          onSuccess();
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (otp && otp.length === 4) {
+      onValidateOtp();
+    }
+  }, [otp]);
+
   return (
     <div className="md:w-1/2">
       <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
@@ -33,7 +59,7 @@ export default function PhoneOtp({ onOtp }) {
                     length={4}
                     className="flex flex-row items-center justify-between mx-auto w-full max-w-xs"
                     inputClassName="otpInput"
-                    onChangeOTP={(otp) => onOtp(otp)}
+                    onChangeOTP={(otp) => setOtp(otp)}
                   />
                 </div>
               </div>

@@ -1,8 +1,8 @@
 'use client';
 // const prefix = process.env.NEXT_PUBLIC_API_URL;
-// const updateSiteByID = async (id, payload) => {
-//   const response = await fetch(`${prefix}` + '/sites/' + id, {
-//     method: 'PATCH',
+// const requestOTP = async (payload) => {
+//   const response = await fetch(`${prefix}` + '/auth/request-otp', {
+//     method: 'POST',
 //     headers: {
 //       'Content-Type': 'application/json',
 //     },
@@ -12,8 +12,8 @@
 //   return result;
 // };
 import axios from '../common/axios';
-const updateSiteByID = async (id, payload) => {
-  const response = await axios?.patch('/sites/' + id, payload);
+const requestOTP = async (payload) => {
+  const response = await axios?.post('/auth/request-otp', payload);
   return response?.data;
 };
-export default updateSiteByID;
+export default requestOTP;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import AuthHeader from '../auth-header';
 import AuthImage from '../auth-image';
@@ -6,8 +6,34 @@ import loginPageSvg from '@/public/images/property-investor-illustration.svg';
 import { useState } from 'react';
 import OTPInput from './OTPInput';
 import Image from 'next/image';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import requestOTP from '@/apicalls/request-otp';
+import ButtonLoader from '@/components/ButtonLoader';
+import { set } from 'date-fns';
 
 export default function PhoneSignin({ onVerify }) {
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [buttonText, setButtonText] = useState('VERIFY');
+  const onSendOtpFn = () => {
+    setLoading(true);
+    setButtonText('Sending OTP...');
+    const res = requestOTP({
+      phone_number: phone,
+      role: 'Seller',
+    });
+    res?.then((res) => {
+      if (res?.status == 200) {
+        setLoading(false);
+        onVerify(phone);
+      }
+    });
+  };
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+  }, []);
+
   return (
     <div className="md:w-1/2">
       <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
@@ -28,21 +54,43 @@ export default function PhoneSignin({ onVerify }) {
             </h4>
           </div>
           <form>
-            <div className="my-16">
-              <input
-                id="phone"
-                className="form-input w-full"
-                type="phone"
-                placeholder="+91 9876543210"
+            <div className="my-12">
+              <PhoneInput
+                inputProps={{
+                  name: 'phone',
+                  required: true,
+                }}
+                countryCodeEditable={false}
+                disableDropdown={true}
+                country={'in'}
+                value={phone}
+                onChange={(phone) => setPhone(phone)}
+                placeholder="Enter your mobile number"
+                containerClass="w-full "
+                inputClass="w-full border-1 border-indigo-500 rounded-lg py-3 px-4 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
+                // isValid={(value, country) => {
+                //   console.log('value.length :>> ', value.length);
+                //   if (value.length == 12) {
+                //     return true;
+                //   }
+                //   return false;
+                // }}
               />
             </div>
             <div className="flex items-center justify-between my-10">
-              <Link
-                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl"
-                onClick={() => onVerify()}
-                href="#">
+              {/* <button
+                className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl disabled:bg-slate-400 disabled:cursor-not-allowed"
+                onClick={() => onSendOtpFn()}
+                disabled={phone?.length < 12}
+                type="button">
                 VERIFY
-              </Link>
+              </button> */}
+              <ButtonLoader
+                text="VERIFY"
+                onClick={onSendOtpFn}
+                disabled={phone?.length < 12}
+                loading={loading}
+              />
             </div>
           </form>
           <div className="pt-5  mt-40">

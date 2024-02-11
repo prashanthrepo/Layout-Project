@@ -1,9 +1,7 @@
-const prefix = process.env.NEXT_PUBLIC_API_URL;
+import axios from '../common/axios';
+
 const getAllLayouts = async () => {
-  const response = await fetch(`${prefix}/layouts`, {
-    method: 'get',
-  });
-  const result = await response.json();
-  return result;
+  const response = await axios?.get('/layouts');
+  return response?.data;
 };
 export default getAllLayouts;
