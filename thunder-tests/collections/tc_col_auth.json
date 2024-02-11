@@ -38,12 +38,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-01-18T11:49:36.669Z",
-            "modified": "2024-02-11T02:24:11.688Z",
+            "modified": "2024-02-11T16:42:06.168Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9003\",\n  \"role\": \"Seller\"\n}",
+                "raw": "{\n  \"phone_number\": \"9005\",\n  \"role\": \"Seller\"\n}",
                 "form": []
             },
             "tests": []
@@ -57,12 +57,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-11T02:24:35.357Z",
+            "modified": "2024-02-11T16:42:30.902Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9003\",\n  \"otp\": \"6380\"\n}",
+                "raw": "{\n  \"phone_number\": \"9005\",\n  \"otp\": \"6752\"\n}",
                 "form": []
             },
             "tests": []
