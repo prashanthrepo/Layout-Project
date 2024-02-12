@@ -9,10 +9,15 @@ import OTPService from "../services/otp"
 
 const updateProfile = async (req: Request, res: Response) => {
 
-    const { phone_number, ...updateData } = req.body
+    let { phone_number, ...updateData } = req.body
+    const userId = req.userId
+
+    if (updateData?.first_name && updateData?.last_name) { updateData["isVerified"] = true }
+    else { updateData["isVerified"] = false }
+
     try {
-        const user = await UserModel.findOneAndUpdate({ phone_number }, updateData, { new: true })
-        res.sendSuccess(user)
+        const updatedUser = await UserModel.findByIdAndUpdate(userId, updateData, { new: true })
+        res.sendSuccess(updatedUser)
     }
     catch (error) {
         res.sendError(SOMETHING_WENT_WRONG, { error })
