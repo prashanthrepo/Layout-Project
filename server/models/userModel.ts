@@ -6,6 +6,7 @@ interface User extends Document {
     first_name?: string
     last_name?: string
     phone_number: string
+    email: string
     dob?: string
     image?: string
     otp?: string
@@ -18,6 +19,7 @@ const userSchema = new Schema<User>(
         phone_number: { type: String, required: true, index: true, unique: true },
         first_name: { type: String, required: false, default: null },
         last_name: { type: String, required: false, default: null },
+        email: { type: String, required: false, default: null },
         dob: { type: String, required: false, default: null },
         image: { type: String, required: false, default: null },
         otp: { type: String, required: false, default: "" },
