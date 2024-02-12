@@ -12,20 +12,7 @@ export default function DropdownProfile({
 }: {
   align?: 'left' | 'right';
 }) {
-  const { setUser } = useAppStore((state) => state);
-  const [userDetails, setDetailsUser] = useState(null);
-
-  const onLogoutClick = () => {
-    localStorage.setItem(
-      'user',
-      JSON.stringify({ name: 'Srikanth Reddy', role: 'buyer' })
-    );
-    setUser({ name: 'Srikanth Reddy', role: 'buyer' });
-  };
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    setDetailsUser(JSON.parse(user));
-  }, []);
+  const { user } = useAppStore((state) => state);
 
   return (
     <Menu as="div" className="relative inline-flex">
@@ -39,7 +26,7 @@ export default function DropdownProfile({
         />
         <div className="flex items-center truncate">
           <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
-            {userDetails?.name}
+            {user?.name ?? user?.phone_number}
           </span>
           <svg
             className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
@@ -60,10 +47,10 @@ export default function DropdownProfile({
         leaveTo="opacity-0">
         <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
           <div className="font-medium text-slate-800 dark:text-slate-100">
-            {userDetails?.name}
+            {user?.name ?? user?.phone_number}
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 italic">
-            {userDetails?.role?.toUpperCase()}
+            {user?.role?.toUpperCase()}
           </div>
         </div>
         <Menu.Items as="ul" className="focus:outline-none">
