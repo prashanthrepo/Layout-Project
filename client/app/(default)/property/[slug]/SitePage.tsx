@@ -1,11 +1,12 @@
 'use client';
 import React, { useCallback } from 'react';
 import { useEffect } from 'react';
-import { siteTypeColor, useAppStore } from '@/common/utils';
+import { siteTypeColor } from '@/common/utils';
 import getLayoutByID from '@/apicalls/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import { useAppStore } from '@/common/appstore';
 export default function SitePage({ slug }) {
   const { user } = useAppStore((state) => state);
   const [layoutLoading, setLayoutLoading] = React.useState(false);
