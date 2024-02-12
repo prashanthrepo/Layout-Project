@@ -14,7 +14,7 @@
             "method": "PATCH",
             "sortNum": 10000,
             "created": "2024-01-18T11:15:27.630Z",
-            "modified": "2024-02-11T02:31:44.141Z",
+            "modified": "2024-02-12T03:06:44.964Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -24,7 +24,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"first_name\": \"john9003\",\n  \"last_name\": \"doe9003\",\n  \"phone_number\": \"9003\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\",\n  \"isVerified\":true\n}",
+                "raw": "{\n  \"first_name\": \"john-{{PHONE_NO}}\",\n  \"last_name\": \"doe-{{PHONE_NO}}\",\n  \"phone_number\": \"{{PHONE_NO}}\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\",\n  \"isVerified\":true\n}",
                 "form": []
             },
             "tests": []
@@ -38,12 +38,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-01-18T11:49:36.669Z",
-            "modified": "2024-02-11T16:42:06.168Z",
+            "modified": "2024-02-12T02:52:30.313Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9005\",\n  \"role\": \"Seller\"\n}",
+                "raw": "{\n  \"phone_number\": \"{{PHONE_NO}}\",\n  \"role\": \"Seller\"\n}",
                 "form": []
             },
             "tests": []
@@ -57,12 +57,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-11T16:42:30.902Z",
+            "modified": "2024-02-12T02:56:01.419Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"9005\",\n  \"otp\": \"6752\"\n}",
+                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"7522\"\n}",
                 "form": []
             },
             "tests": []
@@ -89,6 +89,25 @@
                 "raw": "{}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "6f66cd93-f9e0-4704-941e-676725db0e22",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Show all users [ for DEV purpose ]",
+            "url": "{{BASE_URL}}/auth/all-users",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2024-02-12T03:00:50.970Z",
+            "modified": "2024-02-12T03:02:12.051Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
             "tests": []
         }
     ]

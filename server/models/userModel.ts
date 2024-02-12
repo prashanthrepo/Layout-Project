@@ -16,11 +16,11 @@ interface User extends Document {
 const userSchema = new Schema<User>(
     {
         phone_number: { type: String, required: true, index: true, unique: true },
-        first_name: { type: String, required: false },
-        last_name: { type: String, required: false },
-        dob: { type: String, required: false },
-        image: { type: String, required: false },
-        otp: { type: String, required: false },
+        first_name: { type: String, required: false, default: null },
+        last_name: { type: String, required: false, default: null },
+        dob: { type: String, required: false, default: null },
+        image: { type: String, required: false, default: null },
+        otp: { type: String, required: false, default: "" },
         isVerified: { type: Boolean, required: true, default: false },
         role: {
             type: String,

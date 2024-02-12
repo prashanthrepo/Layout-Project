@@ -16,7 +16,11 @@
         },
         {
             "name": "TOKEN",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJkZDljODc5NWFlN2RiODQwZGNkMjciLCJpYXQiOjE3MDc2Njk3NTIsImV4cCI6MTcwODg3OTM1Mn0.CK7z5GF0L8EX0m3cJ-c3u-KldQU4szMB-6k08obupGE"
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWM5ODhhOTY1ZTExNDZkMWZkZDRiNGEiLCJpYXQiOjE3MDc3MDY1NjMsImV4cCI6MTcwODkxNjE2M30.tMDYwoM7wOh2wi0Cs4b8df2REbHD0isQt6GSN1Tirqk"
+        },
+        {
+            "name": "PHONE_NO",
+            "value": "9007"
         }
     ]
 }
