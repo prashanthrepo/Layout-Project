@@ -17,6 +17,10 @@
         {
             "name": "TOKEN",
             "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJkZDcwZjExMjllMjEzMDZjMmZlMzYiLCJpYXQiOjE3MDc2MTgyNzgsImV4cCI6MTcwODgyNzg3OH0.SlVWdlnh3yCIUiNCB0Vx5mXA9xt79Le8NHZLOVxeUN4"
+        },
+        {
+            "name": "PHONE_NO",
+            "value": "9007"
         }
     ]
 }
