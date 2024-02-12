@@ -1,9 +1,9 @@
 .btnprimary {
-    @apply inline-flex items-center rounded-md bg-indigo-500 px-2 py-1.5 sm:px-3 sm:py-2  text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-slate-500;
+    @apply btn items-center rounded-md bg-indigo-500 px-2 py-1.5 sm:px-3 sm:py-2  text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-slate-500;
 }
 
 .btnsecondary {
-    @apply inline-flex items-center rounded-md bg-white px-2 py-1.5 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
+    @apply inline-flex items-center rounded-md bg-white px-2 py-1.5 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 ;
 }
 
 .btncancel {
@@ -11,7 +11,7 @@
 }
 
 .btnlink {
-    @apply inline-flex items-center rounded-md bg-white px-2 py-1.5 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-indigo-600 shadow-sm hover:bg-gray-50;
+    @apply inline-flex items-center text-xm sm:text-sm font-semibold text-indigo-600;
 }
 
 .status_available {

@@ -4,6 +4,9 @@ import { Inter } from 'next/font/google'
 import Theme from './theme-provider'
 import AppProvider from './app-provider'
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useAppStore } from '@/common/appstore';
+import Hydrations from './hydration';
 // import { Viewport } from 'next';
 
 const inter = Inter({
@@ -40,6 +43,7 @@ export default function RootLayout({
         style={{
           paddingTop: 'env(safe-area-inset-top)',
         }}>
+        <Hydrations />
         <Toaster position="top-right" reverseOrder={false} />
         <Theme>
           <AppProvider>{children}</AppProvider>

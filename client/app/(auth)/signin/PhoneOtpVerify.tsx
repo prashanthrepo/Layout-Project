@@ -7,32 +7,60 @@ import { useState } from 'react';
 import OTPInput from './OTPInput';
 import Image from 'next/image';
 import validateOTP from '@/apicalls/validate-otp';
+import requestOTP from '@/apicalls/request-otp';
+import ButtonLoader from '@/components/ButtonLoader';
+import { useAppStore } from '@/common/appstore';
 
 export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
-  const [loading, setLoading] = useState(false);
+  const { setUser } = useAppStore((state) => state);
+
   const [otp, setOtp] = useState(null);
+  const [resendOtpText, setResendOtpText] = useState('Resend OTP in ');
+  const [timer, setTimer] = useState(30);
   const onValidateOtp = () => {
-    setLoading(true);
     const res = validateOTP({
       phone_number: phoneNumber,
       otp: otp,
     });
     res?.then((res) => {
       if (res?.status == 200) {
-        setLoading(false);
         if (res?.data?.token) {
+          setUser(null);
           localStorage.setItem('authToken', res?.data?.token);
           onSuccess(res?.data);
         }
       }
     });
   };
-
+  const onResendOtpFn = () => {
+    const res = requestOTP({
+      phone_number: phoneNumber,
+    });
+    res?.then((res) => {
+      if (res?.status == 200) {
+        setTimer(60);
+        setResendOtpText('New OTP sent, Resend OTP in ');
+      }
+    });
+  };
   useEffect(() => {
     if (otp && otp.length === 4) {
       onValidateOtp();
     }
   }, [otp]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev === 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
 
   return (
     <div className="md:w-1/2">
@@ -72,14 +100,21 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
               </Link>
             </div> */}
             </form>
-            <div className="text-sm text-center font-bold">
-              Din't recieve the OTP? {` `}
-              <Link
-                className=" text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 "
-                href="#">
-                RESEND OTP
-              </Link>
-            </div>
+            {timer === 0 ? (
+              <div className="text-sm text-center font-bold">
+                Din't recieve the OTP? {` `}
+                <ButtonLoader
+                  text="Resend OTP"
+                  onClick={() => onResendOtpFn()}
+                  classes="btnlink"
+                />
+              </div>
+            ) : (
+              <div className="text-sm text-center font-bold">
+                {resendOtpText}
+                {timer}s
+              </div>
+            )}
           </div>
         </div>
       </div>

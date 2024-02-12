@@ -11,8 +11,10 @@ import 'react-phone-input-2/lib/style.css';
 import requestOTP from '@/apicalls/request-otp';
 import ButtonLoader from '@/components/ButtonLoader';
 import { set } from 'date-fns';
+import { useAppStore } from '@/common/appstore';
 
 export default function PhoneSignin({ onVerify }) {
+  const { user, setUser } = useAppStore((state) => state);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState('VERIFY');
@@ -21,7 +23,6 @@ export default function PhoneSignin({ onVerify }) {
     setButtonText('Sending OTP...');
     const res = requestOTP({
       phone_number: phone,
-      role: 'Seller',
     });
     res?.then((res) => {
       if (res?.status == 200) {
@@ -31,6 +32,7 @@ export default function PhoneSignin({ onVerify }) {
     });
   };
   useEffect(() => {
+    setUser(null);
     localStorage.removeItem('authToken');
   }, []);
 
@@ -90,6 +92,7 @@ export default function PhoneSignin({ onVerify }) {
                 onClick={onSendOtpFn}
                 disabled={phone?.length < 12}
                 loading={loading}
+                classes="btnprimary w-full"
               />
             </div>
           </form>

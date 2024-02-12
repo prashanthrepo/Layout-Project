@@ -4,17 +4,14 @@ import { useEffect, useState } from 'react';
 //   title: 'Layout - Plots',
 //   description: 'Plots around bangalore',
 // };
-import AddNewLayout from './AddNewLayout';
-import { useAppStore } from '../../../common/utils';
 import MapView from './buyer-dashboard/map-view';
-import SellerLayouts from '../all/page';
 import AllLayouts from './admin-dashboard/all-layouts';
 import SellerDashboard from './seller-dashboard';
-
+import { useAppStore } from '@/common/appstore';
 export default function Dashboard() {
+  // const { user } = useAppStore((state) => state);
   const { user } = useAppStore((state) => state);
-
-
+  console.log('user :>> ', user);
   const dashboardRender = (type) => {
     switch (type) {
       case 'Buyer':

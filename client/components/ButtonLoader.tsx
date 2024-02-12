@@ -5,11 +5,13 @@ export default function ButtonLoader({
   disabled = false,
   onClick,
   loading = false,
+  classes = 'btnprimary',
 }) {
   return (
     <button
       type="button"
-      className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl disabled:bg-slate-400 disabled:cursor-not-allowed"
+      // className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl disabled:bg-slate-400 disabled:cursor-not-allowed"
+      className={classes}
       disabled={disabled}
       onClick={onClick}>
       {loading && (

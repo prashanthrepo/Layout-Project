@@ -9,12 +9,13 @@ import SidebarLinkGroup from './sidebar-link-group'
 import SidebarLink from './sidebar-link'
 import Logo from './logo'
 import getSelf from '@/apicalls/get-self';
-import { useAppStore } from '../../common/utils';
 import React from 'react';
 import Link from 'next/link';
+import { useAppStore } from '@/common/appstore';
 
 export default function Sidebar() {
   const { setUser } = useAppStore((state) => state);
+
   const sidebar = useRef<HTMLDivElement>(null);
   const { sidebarOpen, setSidebarOpen } = useAppProvider();
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(false);
@@ -24,19 +25,9 @@ export default function Sidebar() {
   );
   const expandOnly =
     !sidebarExpanded && (breakpoint === 'lg' || breakpoint === 'xl');
-  // const [userType, setUserType] = useState({
-  //   user: 'admin',
-  // });
-  // const { response, loading, error } = getSelf(userType);
-  // useEffect(() => {
-  //   if (response) {
-  //     setUser(response);
-  //   }
-  // }, [response]);
-  // close on click outside
-
 
   const removeToken = () => {
+    setUser(null);
     localStorage.removeItem('authToken');
   };
   useEffect(() => {
