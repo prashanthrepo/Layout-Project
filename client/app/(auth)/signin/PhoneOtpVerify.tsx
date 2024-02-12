@@ -22,7 +22,7 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
         setLoading(false);
         if (res?.data?.token) {
           localStorage.setItem('authToken', res?.data?.token);
-          onSuccess();
+          onSuccess(res?.data);
         }
       }
     });

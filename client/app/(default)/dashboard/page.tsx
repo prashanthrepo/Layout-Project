@@ -13,24 +13,20 @@ import SellerDashboard from './seller-dashboard';
 
 export default function Dashboard() {
   const { user } = useAppStore((state) => state);
-  const [userDetails, setDetailsUser] = useState(null);
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    setDetailsUser(JSON.parse(user));
-  }, []);
+
 
   const dashboardRender = (type) => {
     switch (type) {
-      case 'buyer':
+      case 'Buyer':
         return <MapView />;
-      case 'seller':
+      case 'Seller':
         // return <SellerLayouts />;
         return <SellerDashboard />;
-      case 'admin':
+      case 'Admin':
         return <AllLayouts />;
       default:
         return <></>;
     }
   };
-  return <>{dashboardRender(userDetails?.role)}</>;
+  return <>{dashboardRender(user?.role)}</>;
 }

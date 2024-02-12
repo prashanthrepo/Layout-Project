@@ -5,8 +5,8 @@
 //   return { response, loading, error };
 // };
 import axios from '../common/axios';
-const getSelf = async (payload) => {
-  const response = await axios?.post('/me', payload);
+const getSelf = async () => {
+  const response = await axios?.get('/me', {});
   return response?.data;
 };
 export default getSelf;

@@ -10,19 +10,18 @@ import Image from 'next/image';
 import PhoneSignin from './PhoneSignin';
 import PhoneOtpVerify from './PhoneOtpVerify';
 import PhoneSuccess from './PhoneSuccess';
-import { useAppStore } from '@/common/utils';
 
 export default function SignIn() {
-  const { setUser } = useAppStore((state) => state);
   const [screenType, setScreenType] = useState('send');
   const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState(null);
+  const [token, setToken] = useState(null);
   const onVerifyClick = (val) => {
     setScreenType('verify');
     setPhone(val);
   };
-  const onOTPSuccess = () => {
+  const onOTPSuccess = (data) => {
     setScreenType('success');
+    setToken(data);
   };
   return (
     <main className="bg-white dark:bg-slate-900">
@@ -31,11 +30,11 @@ export default function SignIn() {
           <PhoneSignin onVerify={(val) => onVerifyClick(val)} />
         ) : screenType == 'verify' ? (
           <PhoneOtpVerify
-            onSuccess={() => onOTPSuccess()}
+            onSuccess={(data) => onOTPSuccess(data)}
             phoneNumber={phone}
           />
         ) : (
-          <PhoneSuccess />
+          <PhoneSuccess phone={phone} token={token} />
         )}
 
         <AuthImage />
