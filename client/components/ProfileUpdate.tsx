@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import updateprofile from '@/apicalls/update-profile';
+import { useRouter } from 'next/navigation';
 export default function ProfileUpdate({ phone }) {
-  console.log('phone :>> ', phone);
+  const router = useRouter();
   const [profileDetails, setProfileDetails] = useState({
     first_name: '',
     last_name: '',
     email: '',
   });
   const onUpdateProfile = () => {
-    console.log('profileDetails :>> ', profileDetails);
     const res = updateprofile(profileDetails);
     res?.then((res) => {
       if (res) {
         if (res?.status == 200) {
-          window.location.href = '/';
+          //route to dashboard
+          router.push('/');
+          // setTimeout(() => {
+          //   window.location.href = '/';
+          // }, 5000);
         }
       }
     });

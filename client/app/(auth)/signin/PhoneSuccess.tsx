@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import AuthHeader from '../auth-header';
 import AuthImage from '../auth-image';
@@ -7,8 +7,24 @@ import { useState } from 'react';
 import OTPInput from './OTPInput';
 import Image from 'next/image';
 import ProfileUpdate from '@/components/ProfileUpdate';
+import getSelf from '@/apicalls/get-self';
+import { useAppStore } from '@/common/appstore';
 
 export default function PhoneSuccess({ phone, token }) {
+  const { user, setUser } = useAppStore((state) => state);
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token && !user) {
+      const res = getSelf();
+      res?.then((res) => {
+        if (res) {
+          if (res?.status == 200) {
+            setUser(res?.data);
+          }
+        }
+      });
+    }
+  }, []);
   return (
     <div className="md:w-1/2">
       <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
