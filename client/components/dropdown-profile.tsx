@@ -14,7 +14,10 @@ export default function DropdownProfile({
 }) {
   // const { user } = useAppStore((state) => state);
   const { user, setUser } = useAppStore((state) => state);
-
+  const onLogoutClick = () => {
+    setUser(null);
+    localStorage.removeItem('authToken');
+  };
   return (
     <Menu as="div" className="relative inline-flex">
       <Menu.Button className="inline-flex justify-center items-center group">
