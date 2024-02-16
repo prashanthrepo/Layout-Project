@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config"
+import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config"
 import UserModel from "../models/userModel"
 import JWTService from "../services/jwt"
 import MSG91Service from "../services/msg91"
@@ -33,6 +33,11 @@ const requestOTP = async (req: Request, res: Response) => {
         let user
         user = await UserModel.findOne({ phone_number })
         if (!user) {
+            if (!req.body.hasOwnProperty("role")) {
+
+                return res.sendError(BAD_REQUEST, { error: "Property 'role' is required for registration." })
+
+            }
             user = await UserModel.create(req.body)
             await user.save()
         }
