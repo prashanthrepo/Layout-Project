@@ -57,12 +57,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-12T02:56:01.419Z",
+            "modified": "2024-02-15T10:55:33.814Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"7522\"\n}",
+                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"8966\"\n}",
                 "form": []
             },
             "tests": []
@@ -108,6 +108,30 @@
                 }
             ],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "588db9d1-3b4d-4495-9ca9-e9a94a2674ad",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Dashboard",
+            "url": "{{BASE_URL}}/dashboard",
+            "method": "GET",
+            "sortNum": 7500,
+            "created": "2024-02-15T11:10:48.945Z",
+            "modified": "2024-02-15T11:12:21.932Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{}\n",
+                "form": []
+            },
             "tests": []
         }
     ]
