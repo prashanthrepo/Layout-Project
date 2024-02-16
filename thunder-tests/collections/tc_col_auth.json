@@ -33,7 +33,7 @@
             "_id": "a2c1cf1f-e09c-4749-bd4c-e64ea09e0a99",
             "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
             "containerId": "",
-            "name": "Request OTP",
+            "name": "Request OTP - Registration",
             "url": "{{BASE_URL}}/auth/request-otp",
             "method": "POST",
             "sortNum": 20000,
@@ -130,6 +130,25 @@
             "body": {
                 "type": "json",
                 "raw": "{}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e3293124-a973-427a-9bf0-826ee0dfcdb0",
+            "colId": "edf0ba0c-dadb-4ae3-9961-b3c65a199deb",
+            "containerId": "",
+            "name": "Request OTP - Login",
+            "url": "{{BASE_URL}}/auth/request-otp",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2024-02-16T08:44:34.042Z",
+            "modified": "2024-02-16T08:44:51.865Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\": \"{{PHONE_NO}}\"\n}",
                 "form": []
             },
             "tests": []
