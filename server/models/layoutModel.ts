@@ -15,6 +15,7 @@ export interface Layout extends Document {
     leads: Types.ObjectId[]
     approvals: string[]
     slug: string
+    user: Types.ObjectId
 }
 
 const locationSchema = new Schema<Location>({
@@ -32,6 +33,7 @@ const layoutSchema = new Schema<Layout>(
         leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
         approvals: [{ type: String, required: false }],
         slug: { type: String, unique: true },
+        user: { type: Schema.Types.ObjectId, ref: "User", required: false },
     },
     { timestamps: true }
 )

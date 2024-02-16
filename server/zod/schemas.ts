@@ -56,6 +56,7 @@ const layoutSchema = z.object({
     location: locationSchema,
     approvals: z.array(z.string()).optional(),
     layoutJSON: z.array(siteSchema),
+    user:z.string().optional()
 })
 
 const tokenSchema = z.object({
