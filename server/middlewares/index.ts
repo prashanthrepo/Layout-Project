@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, UNAUTHORISED } from "../config";
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config";
+import UserModel from "../models/userModel";
 import JWTService from "../services/jwt";
 
 
@@ -105,6 +106,27 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
     }
 
+    next()
+
+}
+
+
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const user = await UserModel.findById(req.userId)
+        if (user) {
+            if (user.role === "Admin") { next() }
+            else {
+                return res.sendError(UNAUTHORISED, { message: "Only Admin user is allowed to use this resource" })
+            }
+        }
+        else {
+            return res.sendError(OBJECT_NOT_FOUND)
+        }
+
+    } catch (error) {
+        return res.sendError(SOMETHING_WENT_WRONG)
+    }
     next()
 
 }

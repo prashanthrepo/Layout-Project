@@ -57,12 +57,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-15T10:55:33.814Z",
+            "modified": "2024-02-24T05:04:59.292Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"8966\"\n}",
+                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"4404\"\n}",
                 "form": []
             },
             "tests": []
@@ -119,7 +119,7 @@
             "method": "GET",
             "sortNum": 7500,
             "created": "2024-02-15T11:10:48.945Z",
-            "modified": "2024-02-15T11:12:21.932Z",
+            "modified": "2024-02-16T11:45:31.263Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -129,7 +129,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{}\n",
+                "raw": "{}\n\n",
                 "form": []
             },
             "tests": []
