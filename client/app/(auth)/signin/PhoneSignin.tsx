@@ -1,39 +1,36 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import AuthHeader from '../auth-header';
-import AuthImage from '../auth-image';
 import loginPageSvg from '@/public/images/property-investor-illustration.svg';
 import { useState } from 'react';
-import OTPInput from './OTPInput';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import requestOTP from '@/apicalls/request-otp';
 import ButtonLoader from '@/components/ButtonLoader';
-import { set } from 'date-fns';
-import { useAppStore } from '@/common/appstore';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function PhoneSignin({ onVerify }) {
-  const { user, setUser } = useAppStore((state) => state);
+  const { requestOTP, logout } = useUser();
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState('VERIFY');
-  const onSendOtpFn = () => {
+
+  const onRequestOtpFn = () => {
     setLoading(true);
     setButtonText('Sending OTP...');
-    const res = requestOTP({
+    const response = requestOTP({
       phone_number: phone,
     });
-    res?.then((res) => {
+    response?.then((res) => {
       if (res?.status == 200) {
         setLoading(false);
         onVerify(phone);
       }
     });
   };
+
   useEffect(() => {
-    setUser(null);
-    localStorage.removeItem('authToken');
+    logout(null);
   }, []);
 
   return (
@@ -88,8 +85,8 @@ export default function PhoneSignin({ onVerify }) {
                 VERIFY
               </button> */}
               <ButtonLoader
-                text="VERIFY"
-                onClick={onSendOtpFn}
+                text={buttonText}
+                onClick={onRequestOtpFn}
                 disabled={phone?.length < 12}
                 loading={loading}
                 classes="btnprimary w-full"

@@ -1,12 +1,15 @@
 'use client';
+import { Capacitor } from '@capacitor/core';
+import { Keyboard } from '@capacitor/keyboard';
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
 import Dashboard from './(default)/dashboard/page';
 import MobileNav from './(default)/components-library/MobileNav';
 import { useEffect } from 'react';
+import { useUser } from '@/hooks/useUserHook';
 export default function DefaultLayout() {
+  const token = localStorage.getItem('authToken');
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
     if (!token) {
       window.location.href = '/signin';
     }

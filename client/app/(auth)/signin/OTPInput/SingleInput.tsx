@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { memo, useRef, useLayoutEffect } from 'react';
+import React, { memo, useRef, useLayoutEffect, useEffect } from 'react';
 import usePrevious from './usePrevious';
 
 export interface SingleOTPInputProps
@@ -32,7 +32,8 @@ export function SingleOTPInputComponent(props: SingleOTPInputProps) {
           'w-full h-full text-white focus:text-indigo-100 font-semibold flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-0 border-indigo-100 text-xl bg-indigo-100 focus:bg-indigo-200  ' +
           (props?.value != '' ? 'bg-indigo-500' : 'bg-indigo-50')
         }
-        type="text"
+        type="number"
+        inputMode="numeric"
       />
     </div>
   );

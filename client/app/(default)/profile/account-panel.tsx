@@ -49,7 +49,8 @@ export default function AccountPanel() {
               <input
                 id="user-phone"
                 className="form-input w-full"
-                type="text"
+                type="number"
+                inputMode="numeric"
               />
             </div>
             <div className="sm:w-1/3">

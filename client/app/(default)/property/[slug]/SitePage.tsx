@@ -6,9 +6,7 @@ import getLayoutByID from '@/apicalls/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
-import { useAppStore } from '@/common/appstore';
 export default function SitePage({ slug }) {
-  const { user } = useAppStore((state) => state);
   const [layoutLoading, setLayoutLoading] = React.useState(false);
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
@@ -126,7 +124,7 @@ export default function SitePage({ slug }) {
           </div>
         </SkeletonLoader>
       </div>
-      {user?.role == 'Admin' && <LayoutSettingsButton />}
+      {/* {user?.role == 'Admin' && <LayoutSettingsButton />} */}
       <Site
         selectedSite={seletedSite}
         openModal={openModal}

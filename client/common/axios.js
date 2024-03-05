@@ -19,20 +19,16 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response ? error.response.status : null;
-    console.log('status :>> ', status);
     if (status === 401) {
       console.log('Unauthorized access');
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
+      return Promise.reject(error);
     } else if (status === 403) {
-      alert('Unauthorized access');
+      console.log('Unauthorized access');
     } else if (status === 404) {
       console.log('Post not found');
     } else {
       console.error('An error occurred:', error);
     }
-
     return Promise.reject(error);
   }
 );

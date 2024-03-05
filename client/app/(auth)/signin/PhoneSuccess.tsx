@@ -8,21 +8,14 @@ import OTPInput from './OTPInput';
 import Image from 'next/image';
 import ProfileUpdate from '@/components/ProfileUpdate';
 import getSelf from '@/apicalls/get-self';
-import { useAppStore } from '@/common/appstore';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function PhoneSuccess({ phone, token }) {
-  const { user, setUser } = useAppStore((state) => state);
+  const { user, getUser } = useUser();
+  const tokenLocal = localStorage.getItem('authToken');
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token && !user) {
-      const res = getSelf();
-      res?.then((res) => {
-        if (res) {
-          if (res?.status == 200) {
-            setUser(res?.data);
-          }
-        }
-      });
+    if (tokenLocal && !user) {
+      getUser();
     }
   }, []);
   return (

@@ -5,18 +5,19 @@ import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
 import { useEffect, useState } from 'react';
-import { useAppStore } from '@/common/appstore';
-
+import { redirect, useRouter } from 'next/navigation';
+import { useUser } from '@/hooks/useUserHook';
 export default function DropdownProfile({
   align,
 }: {
   align?: 'left' | 'right';
 }) {
-  // const { user } = useAppStore((state) => state);
-  const { user, setUser } = useAppStore((state) => state);
+  const router = useRouter();
+  const { user, logout } = useUser();
   const onLogoutClick = () => {
-    setUser(null);
+    logout(null);
     localStorage.removeItem('authToken');
+    router.push('/signin');
   };
   return (
     <Menu as="div" className="relative inline-flex">
@@ -29,11 +30,14 @@ export default function DropdownProfile({
           alt="User"
         />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
-            {user?.first_name && user?.last_name
-              ? `${user?.first_name} ${user?.last_name}`
-              : user?.phone_number}
-          </span>
+          {user && (
+            <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
+              {user?.first_name && user?.last_name
+                ? `${user?.first_name} ${user?.last_name}`
+                : user?.phone_number}
+            </span>
+          )}
+
           <svg
             className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
             viewBox="0 0 12 12">
@@ -51,14 +55,14 @@ export default function DropdownProfile({
         leave="transition ease-out duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0">
-        {/* <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
+        <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
           <div className="font-medium text-slate-800 dark:text-slate-100">
             {user?.name ?? user?.phone_number}
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 italic">
             {user?.role?.toUpperCase()}
           </div>
-        </div> */}
+        </div>
         <Menu.Items as="ul" className="focus:outline-none">
           <Menu.Item as="li">
             {({ active }) => (
@@ -75,16 +79,15 @@ export default function DropdownProfile({
           </Menu.Item>
           <Menu.Item as="li">
             {({ active }) => (
-              <Link
+              <button
                 className={`font-medium text-sm flex items-center py-1 px-3 ${
                   active
                     ? 'text-indigo-600 dark:text-indigo-400'
                     : 'text-indigo-500'
                 }`}
-                onClick={() => onLogoutClick()}
-                href="#">
+                onClick={() => onLogoutClick()}>
                 Sign Out
-              </Link>
+              </button>
             )}
           </Menu.Item>
         </Menu.Items>

@@ -9,23 +9,22 @@ import Image from 'next/image';
 import validateOTP from '@/apicalls/validate-otp';
 import requestOTP from '@/apicalls/request-otp';
 import ButtonLoader from '@/components/ButtonLoader';
-import { useAppStore } from '@/common/appstore';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
-  const { setUser } = useAppStore((state) => state);
-
+  const { validateOtp, requestOTP } = useUser();
   const [otp, setOtp] = useState(null);
   const [resendOtpText, setResendOtpText] = useState('Resend OTP in ');
   const [timer, setTimer] = useState(30);
-  const onValidateOtp = () => {
-    const res = validateOTP({
+  const onValidateOtpFn = () => {
+    const res = validateOtp({
       phone_number: phoneNumber,
       otp: otp,
     });
     res?.then((res) => {
+      console.log('res :>> ', res);
       if (res?.status == 200) {
         if (res?.data?.token) {
-          setUser(null);
           localStorage.setItem('authToken', res?.data?.token);
           onSuccess(res?.data);
         }
@@ -33,10 +32,8 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
     });
   };
   const onResendOtpFn = () => {
-    const res = requestOTP({
-      phone_number: phoneNumber,
-    });
-    res?.then((res) => {
+    const response = requestOTP({ phone_number: phoneNumber });
+    response?.then((res) => {
       if (res?.status == 200) {
         setTimer(60);
         setResendOtpText('New OTP sent, Resend OTP in ');
@@ -45,7 +42,7 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
   };
   useEffect(() => {
     if (otp && otp.length === 4) {
-      onValidateOtp();
+      onValidateOtpFn();
     }
   }, [otp]);
 
