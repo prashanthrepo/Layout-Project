@@ -1,21 +1,20 @@
-'use client'
+'use client';
 
-import { useEffect, useRef, useState } from 'react'
-import { useAppProvider } from '@/app/app-provider'
-import { useSelectedLayoutSegments } from 'next/navigation'
-import { Transition } from '@headlessui/react'
-import { getBreakpoint } from '../utils/utils'
-import SidebarLinkGroup from './sidebar-link-group'
-import SidebarLink from './sidebar-link'
-import Logo from './logo'
+import { useEffect, useRef, useState } from 'react';
+import { useAppProvider } from '@/app/app-provider';
+import { useSelectedLayoutSegments } from 'next/navigation';
+import { Transition } from '@headlessui/react';
+import { getBreakpoint } from '../utils/utils';
+import SidebarLinkGroup from './sidebar-link-group';
+import SidebarLink from './sidebar-link';
+import Logo from './logo';
 import getSelf from '@/apicalls/get-self';
 import React from 'react';
 import Link from 'next/link';
-import { useAppStore } from '@/common/appstore';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function Sidebar() {
-  const { setUser } = useAppStore((state) => state);
-
+  const { user, logout } = useUser();
   const sidebar = useRef<HTMLDivElement>(null);
   const { sidebarOpen, setSidebarOpen } = useAppProvider();
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(false);
@@ -27,7 +26,7 @@ export default function Sidebar() {
     !sidebarExpanded && (breakpoint === 'lg' || breakpoint === 'xl');
 
   const removeToken = () => {
-    setUser(null);
+    logout(null);
     localStorage.removeItem('authToken');
   };
   useEffect(() => {

@@ -7,17 +7,14 @@ import { useEffect, useState } from 'react';
 import MapView from './buyer-dashboard/map-view';
 import AllLayouts from './admin-dashboard/all-layouts';
 import SellerDashboard from './seller-dashboard';
-import { useAppStore } from '@/common/appstore';
+import { useUser } from '@/hooks/useUserHook';
 export default function Dashboard() {
-  // const { user } = useAppStore((state) => state);
-  const { user } = useAppStore((state) => state);
-  console.log('user :>> ', user);
+  const { user } = useUser();
   const dashboardRender = (type) => {
     switch (type) {
       case 'Buyer':
         return <MapView />;
       case 'Seller':
-        // return <SellerLayouts />;
         return <SellerDashboard />;
       case 'Admin':
         return <AllLayouts />;

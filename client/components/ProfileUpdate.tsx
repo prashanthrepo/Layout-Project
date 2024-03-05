@@ -96,7 +96,8 @@ export default function ProfileUpdate({ phone }) {
             <input
               id="phone-number"
               className="form-input w-full  disabled:bg-slate-100 disabled:text-slate-600 dark:disabled:bg-slate-800 dark:disabled:text-slate-300"
-              type="phone"
+              type="number"
+              inputMode="numeric"
               defaultValue={phone}
               disabled
             />

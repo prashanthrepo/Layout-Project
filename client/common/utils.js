@@ -56,17 +56,7 @@ const siteTypeColor = (type) => {
   }
 };
 
-// const useAppStore = create(
-//   zukeeper((set, get) => ({
-//     user: null,
-//     setUser: (user) => {
-//       set({ user });
-//     },
-//   }))
-// );
-// if (typeof window !== 'undefined') {
-//   window.store = useAppStore;
-// }
+
 const findDifferencesBwObjects = (obj1, obj2) => {
   const differences = {};
 

@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.sqft.app',
-  appName: '1sqft',
-  webDir: 'out',
+  appId: 'com.paypersqft.app',
+  appName: 'Paypersqft',
+  webDir: 'www',
   bundledWebRuntime: false,
   server: {
     url: 'http://192.168.0.113:3000',
