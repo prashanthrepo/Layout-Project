@@ -117,7 +117,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
         if (user) {
             if (user.role === "Admin") { next() }
             else {
-                return res.sendError(UNAUTHORISED, { message: "Only Admin user is allowed to use this resource" })
+                res.sendError(UNAUTHORISED, { message: "Only Admin user is allowed to use this resource" })
             }
         }
         else {
@@ -125,8 +125,8 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
         }
 
     } catch (error) {
-        return res.sendError(SOMETHING_WENT_WRONG)
+        res.sendError(SOMETHING_WENT_WRONG)
     }
-    next()
+    // next()
 
 }
