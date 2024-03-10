@@ -35,7 +35,7 @@ const getLayouts = async (req: Request, res: Response) => {
 
     try {
 
-        const layouts = await Layout.find({})
+        const layouts = await Layout.find({ user: req.userId })
             .select("-sites -location._id")
             .sort({ createdAt: -1 })
         res.sendSuccess(layouts)
