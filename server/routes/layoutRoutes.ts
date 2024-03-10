@@ -9,14 +9,14 @@ import {
     getSingleLayout,
     updateLayout,
 } from "../controllers/layoutController"
-import { checkAuth, validateId } from "../middlewares"
+import { checkAuth, isAdmin, validateId } from "../middlewares"
 
 export const router = express.Router()
 
-router.post("/", checkAuth, createLayout)
+router.post("/", checkAuth, isAdmin, createLayout)
 router.get("/", checkAuth, getLayouts)
 router.get("/:id", checkAuth, validateId, getSingleLayout)
-router.delete("/:id", checkAuth, validateId, deleteLayout) // TODO: add m/w to check if layoutOwner/admin
+router.delete("/:id", checkAuth, isAdmin, validateId, deleteLayout) // TODO: add m/w to check if layoutOwner/admin
 router.patch("/:id", checkAuth, validateId, updateLayout)
 
 router.get("/:id/leads", checkAuth, validateId, getLayoutLeads)
