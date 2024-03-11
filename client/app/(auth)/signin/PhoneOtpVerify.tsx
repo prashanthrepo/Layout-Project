@@ -6,8 +6,6 @@ import otpImage from '@/public/images/otp-input.svg';
 import { useState } from 'react';
 import OTPInput from './OTPInput';
 import Image from 'next/image';
-import validateOTP from '@/apicalls/validate-otp';
-import requestOTP from '@/apicalls/request-otp';
 import ButtonLoader from '@/components/ButtonLoader';
 import { useUser } from '@/hooks/useUserHook';
 
@@ -22,7 +20,6 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
       otp: otp,
     });
     res?.then((res) => {
-      console.log('res :>> ', res);
       if (res?.status == 200) {
         if (res?.data?.token) {
           localStorage.setItem('authToken', res?.data?.token);

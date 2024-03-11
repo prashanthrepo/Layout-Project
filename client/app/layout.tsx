@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { Viewport } from 'next';
 import { UserProvider } from '@/hooks/useUserHook';
-
+import { ReactQueryProvider } from '@/common/reactQueryConfig';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -35,7 +35,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log('layout');
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -47,7 +46,9 @@ export default function RootLayout({
         <Toaster position="top-right" reverseOrder={false} />
         <Theme>
           <UserProvider>
-            <AppProvider>{children}</AppProvider>
+            <ReactQueryProvider>
+              <AppProvider>{children}</AppProvider>
+            </ReactQueryProvider>
           </UserProvider>
         </Theme>
       </body>

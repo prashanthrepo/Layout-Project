@@ -9,7 +9,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 const DatepickerComponent = ({ onChange }) => {
   const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
-    console.log('startDate :>> ', startDate);
     onChange(startDate);
   }, [startDate]);
 

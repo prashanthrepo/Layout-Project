@@ -20,6 +20,7 @@ export default function PhoneSignin({ onVerify }) {
     setButtonText('Sending OTP...');
     const response = requestOTP({
       phone_number: phone,
+      role: 'Seller',
     });
     response?.then((res) => {
       if (res?.status == 200) {
@@ -67,13 +68,6 @@ export default function PhoneSignin({ onVerify }) {
                 placeholder="Enter your mobile number"
                 containerClass="w-full "
                 inputClass="w-full border-1 border-indigo-500 rounded-lg py-3 px-4 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
-                // isValid={(value, country) => {
-                //   console.log('value.length :>> ', value.length);
-                //   if (value.length == 12) {
-                //     return true;
-                //   }
-                //   return false;
-                // }}
               />
             </div>
             <div className="flex items-center justify-between my-10">

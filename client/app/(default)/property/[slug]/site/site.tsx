@@ -49,7 +49,6 @@ export default function Site({
       url: window.location.href,
       dialogTitle: `Share site no ${siteDetails?.number} with friends`,
     };
-    console.log('temp :>> ', temp);
     await Share.share(temp);
   };
   // const share = async () => {

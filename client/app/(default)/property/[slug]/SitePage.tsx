@@ -7,7 +7,7 @@ import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
 export default function SitePage({ slug }) {
-  const [layoutLoading, setLayoutLoading] = React.useState(false);
+  const [layoutLoading, setLayoutLoading] = React.useState(true);
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);

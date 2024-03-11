@@ -143,14 +143,15 @@
             "method": "POST",
             "sortNum": 25000,
             "created": "2024-02-16T08:44:34.042Z",
-            "modified": "2024-02-16T08:44:51.865Z",
+            "modified": "2024-03-10T06:42:19.638Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": \"{{PHONE_NO}}\"\n}",
+                "raw": "{\n  \"phone_number\": \"{{PHONE_NO}}\",\n  \"role\": \"Seller\"\n}",
                 "form": []
             },
+            "reqType": "post",
             "tests": []
         }
     ]
