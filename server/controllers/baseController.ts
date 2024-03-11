@@ -12,10 +12,11 @@ const getUserDetails = async (req: Request, res: Response) => {
 
     const user = await UserModel.findById(req.userId)
     if (user) {
-        const { first_name, last_name, phone_number, image, isVerified, role } = user
+        const { first_name, last_name, phone_number, image, isVerified, role,email } = user
         const response = {
             first_name: first_name ? first_name : null,
             last_name: last_name ? last_name : null,
+            email: email ? email : null,
             image: image ? image : null,
             role: role ? role : null,
             isVerified, phone_number
