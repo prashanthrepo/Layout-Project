@@ -14,7 +14,7 @@
             "method": "PATCH",
             "sortNum": 10000,
             "created": "2024-01-18T11:15:27.630Z",
-            "modified": "2024-02-12T03:06:44.964Z",
+            "modified": "2024-03-11T08:39:00.621Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -24,9 +24,10 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"first_name\": \"john-{{PHONE_NO}}\",\n  \"last_name\": \"doe-{{PHONE_NO}}\",\n  \"phone_number\": \"{{PHONE_NO}}\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\",\n  \"isVerified\":true\n}",
+                "raw": "{\n  \"first_name\": \"john-{{PHONE_NO}}\",\n  \"last_name\": \"doe-{{PHONE_NO}}\",\n  \"email\":\"test@email.com\",\n  \"phone_number\": \"{{PHONE_NO}}\",\n  \"image\": \"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg\",\n  \"isVerified\":true\n}",
                 "form": []
             },
+            "reqType": "patch",
             "tests": []
         },
         {
@@ -57,14 +58,15 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-02-24T05:04:59.292Z",
+            "modified": "2024-03-11T08:40:29.637Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"4404\"\n}",
+                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"6188\"\n}",
                 "form": []
             },
+            "reqType": "post",
             "tests": []
         },
         {
