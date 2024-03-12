@@ -19,7 +19,7 @@ export default function Activity({ data }) {
           </header> */}
           <ul className="px-5 py-4 ">
             {data?.map((item, key) => (
-              <li key={key} className={key !== history.length - 1 && 'mb-5'}>
+              <li key={key} className={'mb-5'}>
                 <div className="relative">
                   <div className="relative flex space-x-2">
                     <div className="w-20 pl-2">
