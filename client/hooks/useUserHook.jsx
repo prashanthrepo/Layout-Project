@@ -1,21 +1,22 @@
 'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import requestOTPApi from '@/apicalls/request-otp';
 import validateOTPApi from '@/apicalls/validate-otp';
 import getSelfApi from '@/apicalls/get-self';
 
 const UserContext = createContext();
-const loggedInUser = localStorage.getItem('user');
-
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(loggedInUser);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser));
+    if (typeof window !== 'undefined') {
+      const loggedInUser = localStorage.getItem('user') || null;
+      if (loggedInUser !== 'undefined') {
+        setUser(JSON.parse(loggedInUser));
+        setLoading(false);
+      }
     }
-    setLoading(false);
   }, []);
 
   const requestOTP = (phoneNumber) => {
@@ -29,8 +30,10 @@ export const UserProvider = ({ children }) => {
 
   const getUser = () => {
     const res = getSelfApi();
-    setUser(res?.data);
-    localStorage.setItem('user', JSON.stringify(res?.data));
+    res?.then((res) => {
+      setUser(res?.data);
+      localStorage.setItem('user', JSON.stringify(res?.data));
+    });
   };
 
   const logout = () => {

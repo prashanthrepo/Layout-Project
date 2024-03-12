@@ -8,10 +8,12 @@ import MobileNav from './(default)/components-library/MobileNav';
 import { useEffect } from 'react';
 import { useUser } from '@/hooks/useUserHook';
 export default function DefaultLayout() {
-  const token = localStorage.getItem('authToken');
   useEffect(() => {
-    if (!token) {
-      window.location.href = '/signin';
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        window.location.href = '/signin';
+      }
     }
   }, []);
   return (

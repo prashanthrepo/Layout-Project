@@ -40,7 +40,6 @@ export default function MapView() {
   };
 
   const handleMarkerClick = (id, lat, lng, address) => {
-    console.log('id, lat, lng, address :>> ', id, lat, lng, address);
     mapRef?.panTo({ lat, lng });
     setInfoWindowData({ id, address });
     setIsOpen(true);

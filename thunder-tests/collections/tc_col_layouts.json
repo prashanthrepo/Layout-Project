@@ -53,11 +53,11 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Get layout",
-            "url": "{{BASE_URL}}/layouts/659be1d424e8193c5fbab8fb",
+            "url": "{{BASE_URL}}/layouts/65cf00fef901e992d94c892b",
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-04T14:17:35.027Z",
-            "modified": "2024-02-10T02:19:46.823Z",
+            "modified": "2024-03-10T08:10:56.945Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -65,6 +65,7 @@
                 }
             ],
             "params": [],
+            "reqType": "get",
             "tests": []
         },
         {
