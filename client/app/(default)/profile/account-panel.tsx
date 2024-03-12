@@ -16,7 +16,7 @@ export default function AccountPanel() {
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(null);
 
   const validate = () => {
     let errors = {};
@@ -25,15 +25,15 @@ export default function AccountPanel() {
     const email = emailRef.current.value;
 
     if (!firstName) {
-      errors.firstName = 'First name is required';
+      errors['firstName'] = 'First name is required';
     }
     if (!lastName) {
-      errors.lastName = 'Last name is required';
+      errors['lastName'] = 'Last name is required';
     }
     if (!email || email.trim() === '') {
-      errors.email = 'Email is required';
+      errors['email'] = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = 'Email is invalid';
+      errors['email'] = 'Email is invalid';
     }
     setErrors(errors);
     return Object.keys(errors).length === 0;
