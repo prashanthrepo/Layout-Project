@@ -14,7 +14,8 @@ export default function PhoneSuccess({ phone, token }) {
   const { user, getUser } = useUser();
   const tokenLocal = localStorage.getItem('authToken');
   useEffect(() => {
-    if (tokenLocal && !user) {
+    console.log('tokenLocal && !user :>> ', tokenLocal, !user);
+    if (tokenLocal) {
       getUser();
     }
   }, []);

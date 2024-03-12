@@ -20,7 +20,6 @@ export default function PhoneSignin({ onVerify }) {
     setButtonText('Sending OTP...');
     const response = requestOTP({
       phone_number: phone,
-      role: 'Seller',
     });
     response?.then((res) => {
       if (res?.status == 200) {
@@ -31,7 +30,7 @@ export default function PhoneSignin({ onVerify }) {
   };
 
   useEffect(() => {
-    logout(null);
+    logout();
   }, []);
 
   return (
