@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose"
+import { Document, Schema, model,Model } from "mongoose"
 
 type UserRole = "Seller" | "Buyer" | "Admin"
 
@@ -12,6 +12,10 @@ interface User extends Document {
     otp?: string
     role: UserRole
     isVerified: boolean
+}
+
+interface UserModelStatic extends Model<User> {
+    getUserRoleById(userId: string): Promise<UserRole | null>
 }
 
 const userSchema = new Schema<User>(
@@ -34,7 +38,18 @@ const userSchema = new Schema<User>(
     { timestamps: true }
 )
 
-const UserModel = model<User>("User", userSchema)
+
+userSchema.statics.getUserRoleById = async function (userId: string): Promise<UserRole | null> {
+    try {
+        const user = await this.findById(userId)
+        return user ? user.role : null
+    } catch (error) {
+        console.error("Error retrieving user role:", error)
+        return null
+    }
+}
+
+const UserModel = model<User,UserModelStatic>("User", userSchema)
 
 export default UserModel
 

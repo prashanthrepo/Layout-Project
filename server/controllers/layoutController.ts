@@ -4,6 +4,7 @@ import layoutModel, { default as Layout } from "../models/layoutModel"
 import siteModel, { Site } from "../models/siteModel"
 import { TransactionDocument } from "../models/transaction"
 import { layoutSchema } from "../zod/schemas"
+import UserModel from "../models/userModel"
 
 const createLayout = async (req: Request, res: Response) => {
     try {
@@ -35,7 +36,12 @@ const getLayouts = async (req: Request, res: Response) => {
 
     try {
 
-        const layouts = await Layout.find({ user: req.userId })
+        const userRole = await UserModel.getUserRoleById(req.userId as string)
+        
+        let filter: any = { user: req.userId as string }
+        if (userRole === "Admin") filter = {}
+
+        const layouts = await Layout.find(filter)
             .select("-sites -location._id")
             .sort({ createdAt: -1 })
         res.sendSuccess(layouts)
