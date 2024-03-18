@@ -3,11 +3,16 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.paypersqft.app',
   appName: 'Paypersqft',
-  webDir: 'www',
-  bundledWebRuntime: false,
-  server: {
-    url: 'http://192.168.0.113:3000',
-    cleartext: true,
+  loggingBehavior: 'debug',
+
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 500,
+      launchAutoHide: false,
+      androidScaleType: 'CENTER_CROP',
+      splashImmersive: false,
+      backgroundColor: '#002b36',
+    },
   },
 };
 

@@ -16,7 +16,6 @@ export default function DropdownProfile({
   const { user, logout } = useUser();
   const onLogoutClick = () => {
     logout(null);
-    localStorage.removeItem('authToken');
     router.push('/signin');
   };
   return (

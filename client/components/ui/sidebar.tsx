@@ -25,10 +25,6 @@ export default function Sidebar() {
   const expandOnly =
     !sidebarExpanded && (breakpoint === 'lg' || breakpoint === 'xl');
 
-  const removeToken = () => {
-    logout(null);
-    localStorage.removeItem('authToken');
-  };
   useEffect(() => {
     const clickHandler = ({ target }: { target: EventTarget | null }): void => {
       if (!sidebar.current) return;
@@ -219,7 +215,7 @@ export default function Sidebar() {
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   segments.includes('logout') && 'bg-slate-900'
                 }`}
-                onClick={() => removeToken()}>
+                onClick={() => logout(null)}>
                 <SidebarLink href="/signin">
                   <div className="flex items-center">
                     <svg

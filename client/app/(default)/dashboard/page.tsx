@@ -11,13 +11,14 @@ import { useUser } from '@/hooks/useUserHook';
 export default function Dashboard() {
   const { user } = useUser();
   console.log('user :>> ', user);
-  const dashboardRender = (type) => {
-    switch (type) {
-      case 'Buyer':
+  const dashboardRender = (role) => {
+    role = role?.toLowerCase();
+    switch (role) {
+      case 'buyer':
         return <MapView />;
-      case 'Seller':
+      case 'seller':
         return <SellerDashboard />;
-      case 'Admin':
+      case 'admin':
         return <AllLayouts />;
       default:
         return <></>;
