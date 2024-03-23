@@ -1,51 +1,58 @@
 .btnprimary {
-    @apply btn items-center rounded-md bg-indigo-500 px-2 py-1.5 sm:px-3 sm:py-2  text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-slate-500;
+  @apply btn items-center rounded-md bg-indigo-500 px-2 py-1.5 sm:px-3 sm:py-2  text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-slate-500;
 }
 
 .btnsecondary {
-    @apply inline-flex items-center rounded-md bg-white px-2 py-1.5 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 ;
+  @apply inline-flex items-center rounded-md bg-white px-2 py-1.5 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
 }
 
 .btncancel {
-    @apply inline-flex w-full justify-center rounded-md bg-red-600 px-2 py-1 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto;
+  @apply inline-flex w-full justify-center rounded-md bg-red-600 px-2 py-1 sm:px-3 sm:py-2 text-xm sm:text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto;
 }
 
 .btnlink {
-    @apply inline-flex items-center text-xm sm:text-sm font-semibold text-indigo-600;
+  @apply inline-flex items-center text-xm sm:text-sm font-semibold text-indigo-600;
 }
 
 .status_available {
-    @apply inline-flex items-center rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700;
+  @apply inline-flex items-center rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700;
 }
 
 .status_sold {
-    @apply inline-flex items-center rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700;
+  @apply inline-flex items-center rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700;
 }
 
 .status_token {
-    @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
+  @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
 }
 .status_token_cancelled {
-    @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
+  @apply inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800;
 }
 
 .status_blocked {
-    @apply inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600;
+  @apply inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600;
 }
 
 .react-datepicker-wrapper {
-    width: 100%;
+  width: 100%;
 }
 
 input.form-control {
-    width: 100% !important;
+  width: 100% !important;
 }
 .react-tel-input .flag-dropdown {
-    width: 34px !important;
-    border-radius: 5px 0 0 5px !important;
-    -webkit-border-radius: 5px 0 0 5px !important;
-    -moz-border-radius: 5px 0 0 5px !important;
-    -ms-border-radius: 5px 0 0 5px !important;
-    -o-border-radius: 5px 0 0 5px !important;
-   
+  width: 34px !important;
+  border-radius: 5px 0 0 5px !important;
+  -webkit-border-radius: 5px 0 0 5px !important;
+  -moz-border-radius: 5px 0 0 5px !important;
+  -ms-border-radius: 5px 0 0 5px !important;
+  -o-border-radius: 5px 0 0 5px !important;
+}
+
+.pp-label {
+  @apply block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5;
+}
+
+.pp-input {
+  @apply block w-full rounded border-0 py-2 text-gray-900 bg-gray-50 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6;
 }

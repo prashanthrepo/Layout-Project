@@ -11,10 +11,9 @@ import getSelf from '@/apicalls/get-self';
 import { useUser } from '@/hooks/useUserHook';
 
 export default function PhoneSuccess({ phone, token }) {
-  const { user, getUser } = useUser();
+  const { getUser } = useUser();
   const tokenLocal = localStorage.getItem('authToken');
   useEffect(() => {
-    console.log('tokenLocal && !user :>> ', tokenLocal, !user);
     if (tokenLocal) {
       getUser();
     }
