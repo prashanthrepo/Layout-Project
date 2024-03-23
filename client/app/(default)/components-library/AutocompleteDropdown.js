@@ -1,9 +1,16 @@
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-
-export default function AutocompleteDropdown({ leads, onChange }) {
-  const [selected, setSelected] = useState();
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+export default function AutocompleteDropdown({
+  leads,
+  onChange,
+  className,
+  defaultValue,
+}) {
+  const [selected, setSelected] = useState(defaultValue);
   const [query, setQuery] = useState('');
 
   const filteredLeads =
@@ -18,11 +25,15 @@ export default function AutocompleteDropdown({ leads, onChange }) {
 
   const onChangeOption = useCallback(
     (val) => {
-      selected !== val && setSelected(val);
+      selected?._id !== val?._id && setSelected(val);
       onChange(val);
     },
     [selected]
   );
+
+  // useEffect(() => {
+  //   onChangeOption(defaultValue);
+  // }, [defaultValue]);
 
   return (
     <div className="relative">
@@ -30,7 +41,7 @@ export default function AutocompleteDropdown({ leads, onChange }) {
         <div className="relative">
           <div className="">
             <Combobox.Input
-              className="form-input w-full"
+              className={className}
               displayValue={(leads) => leads?.name}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -57,24 +68,31 @@ export default function AutocompleteDropdown({ leads, onChange }) {
                   <Combobox.Option
                     key={lead?._id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                      }`
+                      classNames(
+                        'relative cursor-default select-none py-2 pl-3 pr-9',
+                        active ? 'bg-indigo-600 text-white' : 'text-gray-900'
+                      )
                     }
                     value={lead}>
-                    {({ selected, active }) => (
+                    {({ active, selected }) => (
                       <>
                         <span
-                          className={`block truncate ${
-                            selected ? 'font-medium' : 'font-normal'
-                          }`}>
+                          className={classNames(
+                            'block truncate',
+                            selected && 'font-semibold'
+                          )}>
                           {lead?.name}
                         </span>
-                        {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+
+                        {selected && (
+                          <span
+                            className={classNames(
+                              'absolute inset-y-0 right-0 flex items-center pr-4',
+                              active ? 'text-white' : 'text-indigo-600'
+                            )}>
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                        ) : null}
+                        )}
                       </>
                     )}
                   </Combobox.Option>

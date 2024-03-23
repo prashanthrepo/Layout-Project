@@ -5,7 +5,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useCallback } from 'react';
 import cancelTokenApi from '@/apicalls/cancel-token';
 
-export default function SiteDetails({ siteDetails }) {
+export default function SiteDetails({ siteDetails, setUiStatus }) {
   const tokenCancelReasonRef = React.useRef(null);
   const [cancelToken, setCancelToken] = React.useState(false);
 
@@ -57,52 +57,6 @@ export default function SiteDetails({ siteDetails }) {
       )}
       {siteDetails?.status == 'Token' && (
         <div className="rounded-md bg-blue-50 p-4">
-          {/* <div className=" inset-0 z-10 overflow-y-auto">
-              <div className="flex items-end justify-center sm:p-4 text-center sm:items-center sm:px-24">
-                <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all  w-full sm:p-6">
-                  <div className="flex items-start">
-                    <div className=" flex  flex-shrink-0 items-center justify-center rounded-full bg-red-100 mx-0 h-10 w-10">
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-600"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div className=" ml-4 mt-0 text-left w-full">
-                      <div className="h3 text-base font-semibold leading-6 text-gray-900">
-                        Cancel token
-                      </div>
-                      <div className="mt-2">
-                        <div className="mt-2">
-                          <textarea
-                            rows={2}
-                            name="comment"
-                            id="comment"
-                            placeholder="Provide a reason for cancelling the token"
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm leading-6"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-5 ml-10 flex pl-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 w-auto"
-                      // onClick={ () => setOpen(false) }
-                    >
-                      Confirm
-                    </button>
-                    <button
-                      type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 ml-3 mt-0 w-auto"
-                      onClick={() => setCancelToken(false)}
-                      // ref={ cancelButtonRef }
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
@@ -179,6 +133,11 @@ export default function SiteDetails({ siteDetails }) {
           </span>
 
           <StatusChip status={siteDetails?.status} size="sm" />
+          <button
+            onClick={() => setUiStatus('statuschange')}
+            className="text-indigo-600 font-semibold pl-2">
+            change
+          </button>
         </li>
         <li className="flex items-center">
           <div>

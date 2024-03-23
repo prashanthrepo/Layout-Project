@@ -1,19 +1,6 @@
-'use client';
-// const prefix = process.env.NEXT_PUBLIC_API_URL;
-// const updateSiteByID = async (id, payload) => {
-//   const response = await fetch(`${prefix}` + '/sites/' + id, {
-//     method: 'PATCH',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(payload),
-//   });
-//   const result = await response.json();
-//   return result;
-// };
 import axios from '../common/axios';
-const updateSiteByID = async (id, payload) => {
-  const response = await axios?.patch('/sites/' + id, payload);
+const updateSiteByID = async (params) => {
+  const response = await axios?.patch('/sites/' + params?.id, params?.payload);
   return response?.data;
 };
 export default updateSiteByID;

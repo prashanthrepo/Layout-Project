@@ -14,8 +14,8 @@ import getLeadsBySite from '@/apicalls/get-leads-by-site';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import ShareButton from '@/app/(default)/components-library/ShareButton';
 import OptionsDropdown from './options-dropdown';
-import StatusChange from './site-details/status-change';
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import StatusChange from './site-details/status-change/index';
+import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
 import TokenDetails from './site-details/details/token-details';
 
 export default function Site({
@@ -33,7 +33,7 @@ export default function Site({
   const [cancelToken, setCancelToken] = useState(false);
   const onUpdateSiteFn = useCallback(() => {
     const temp = findDifferencesBwObjects(tempSiteDetails, siteDetails);
-    const res = updateSiteByID(siteDetails?._id, temp);
+    const res = updateSiteByID({ id: siteDetails?._id, temp });
     res?.then((res) => {
       if (res) {
         setSiteDetails(res?.data?.site);
@@ -106,9 +106,19 @@ export default function Site({
           case 'Token':
             return <TokenDetails siteDetails={siteDetails} reFetch={getSite} />;
           case 'Sold':
-            return <SiteDetails siteDetails={siteDetails} />;
+            return (
+              <SiteDetails
+                siteDetails={siteDetails}
+                setUiStatus={setUiStatus}
+              />
+            );
           default:
-            return <SiteDetails siteDetails={siteDetails} />;
+            return (
+              <SiteDetails
+                siteDetails={siteDetails}
+                setUiStatus={setUiStatus}
+              />
+            );
         }
 
       case 'editdetails':
@@ -146,10 +156,15 @@ export default function Site({
               onClick={() => setUiStatus('addlead')}>
               Add lead
             </button>
-            <OptionsDropdown
+            {/* <OptionsDropdown
               align="left"
               onOptionClick={(val) => setUiStatus(val)}
-            />
+            /> */}
+            <button
+              className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              onClick={() => setUiStatus('editdetails')}>
+              <PencilSquareIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
             <button
               className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
               onClick={() => setOpenModal(false)}>
@@ -179,71 +194,68 @@ export default function Site({
   return (
     <div className="m-1.5">
       <ModalAction isOpen={openModal} setIsOpen={setOpenModal}>
-        <div className="grid content-between h-full">
-          <SkeletonLoader
-            type="SiteDetails"
-            length={3}
-            isLoading={loading}
-            isData={siteDetails ? true : false}
-            noDataText="Something went wrong. Please try after sometime.">
-            <div>
-              <div className="mb-5 ">
-                <div className="flex justify-between  md:space-y-0 space-x-2">
-                  <div className="flex items-start space-x-3 ">
-                    <div
-                      className={
-                        statusColors(siteDetails?.status) + ' w-10 h-10'
-                      }>
-                      <svg
-                        width="25"
-                        height="25"
-                        viewBox="0 0 30 30"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M16.25 6.25875H23.125C23.3617 6.25875 23.5781 6.3925 23.684 6.60424C23.7899 6.81598 23.767 7.06936 23.625 7.25875L20.1562 11.8837L23.625 16.5087C23.767 16.6981 23.7899 16.9515 23.684 17.1633C23.5781 17.375 23.3617 17.5087 23.125 17.5087H16.875C15.8395 17.5087 15 16.6693 15 15.6337C15 15.2886 14.7202 15.0087 14.375 15.0087H7.5V25.6338C7.5 25.9789 7.22018 26.2588 6.875 26.2588C6.52982 26.2588 6.25 25.9789 6.25 25.6338V5.625C6.25 4.58947 7.08947 3.75 8.125 3.75H14.375C15.4105 3.75 16.25 4.58947 16.25 5.625V6.25875Z"
-                        />
-                      </svg>
-                    </div>
-                    <div className="">
-                      <span className="flex font-semibold text-slate-800 dark:text-slate-100 leading-5">
-                        {siteDetails?.number}
-                      </span>
-                      <span className={'text-xm'}>{siteDetails?.status}</span>
-                    </div>
+        <SkeletonLoader
+          type="SiteDetails"
+          length={3}
+          isLoading={loading}
+          isData={siteDetails ? true : false}
+          noDataText="Something went wrong. Please try after sometime.">
+          <div>
+            <div className="mb-5 ">
+              <div className="flex justify-between  md:space-y-0 space-x-2">
+                <div className="flex items-start space-x-3 ">
+                  <div
+                    className={
+                      statusColors(siteDetails?.status) + ' w-10 h-10'
+                    }>
+                    <svg
+                      width="25"
+                      height="25"
+                      viewBox="0 0 30 30"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M16.25 6.25875H23.125C23.3617 6.25875 23.5781 6.3925 23.684 6.60424C23.7899 6.81598 23.767 7.06936 23.625 7.25875L20.1562 11.8837L23.625 16.5087C23.767 16.6981 23.7899 16.9515 23.684 17.1633C23.5781 17.375 23.3617 17.5087 23.125 17.5087H16.875C15.8395 17.5087 15 16.6693 15 15.6337C15 15.2886 14.7202 15.0087 14.375 15.0087H7.5V25.6338C7.5 25.9789 7.22018 26.2588 6.875 26.2588C6.52982 26.2588 6.25 25.9789 6.25 25.6338V5.625C6.25 4.58947 7.08947 3.75 8.125 3.75H14.375C15.4105 3.75 16.25 4.58947 16.25 5.625V6.25875Z"
+                      />
+                    </svg>
                   </div>
-                  <div className="flex space-x-2">
-                    {renderButtons(uiStatus)}
-                    {/* <StatusChip status={siteDetails?.status} /> */}
-                    {Capacitor.isNativePlatform() && (
-                      <ShareButton onClick={() => onShare()} />
-                    )}
+                  <div className="">
+                    <span className="flex font-semibold text-slate-800 dark:text-slate-100 leading-5">
+                      {siteDetails?.number}
+                    </span>
+                    <span className={'text-xm'}>{siteDetails?.status}</span>
                   </div>
                 </div>
-              </div>
-              <div className="text-sm mb-3">
-                <hr className=" border-b-0 mb-3 border-gray-200" />
-                <div className="flex justify-end absolute right-0">
-                  <div className="sm:ml-6 space-x-2 sm:flex-shrink-0"></div>
+                <div className="flex space-x-2">
+                  {renderButtons(uiStatus)}
+                  {Capacitor.isNativePlatform() && (
+                    <ShareButton onClick={() => onShare()} />
+                  )}
                 </div>
-                {renderUi(uiStatus)}
               </div>
-
-              {openModal &&
-                siteDetails?._id === selectedSite?._id &&
-                uiStatus != 'statuschange' && (
-                  <SiteTabs
-                    siteDetails={siteDetails}
-                    setSiteDetails={setSiteDetails}
-                    leads={leads}
-                    loading={leadsLoading}
-                  />
-                )}
             </div>
-          </SkeletonLoader>
-        </div>
+            <div className="text-sm mb-3">
+              <hr className=" border-b-0 mb-3 border-gray-200" />
+              <div className="flex justify-end absolute right-0">
+                <div className="sm:ml-6 space-x-2 sm:flex-shrink-0"></div>
+              </div>
+              {renderUi(uiStatus)}
+            </div>
+
+            {openModal &&
+              siteDetails?._id === selectedSite?._id &&
+              uiStatus == 'sitedetails' && (
+                <SiteTabs
+                  siteDetails={siteDetails}
+                  setSiteDetails={setSiteDetails}
+                  leads={leads}
+                  loading={leadsLoading}
+                />
+              )}
+          </div>
+        </SkeletonLoader>
       </ModalAction>
     </div>
   );

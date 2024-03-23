@@ -88,24 +88,6 @@ export default function AccountPanel() {
         <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-5">
           Profile
         </h2>
-        {/* Picture */}
-        {/* <section>
-          <div className="flex items-center">
-            <div className="mr-4">
-              <Image
-                className="w-20 h-20 rounded-full"
-                src={AccountImage}
-                width={80}
-                height={80}
-                alt="User upload"
-              />
-            </div>
-            <button className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
-              Change
-            </button>
-          </div>
-        </section> */}
-        {/* Business Profile */}
         <section>
           <div>
             <div className="space-y-4">
@@ -181,7 +163,7 @@ export default function AccountPanel() {
       </div>
       <footer>
         <div className="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
-          <div className="flex self-end">
+          <div className="flex self-center">
             <Link
               href="/dashboard"
               className="mr-2 btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">

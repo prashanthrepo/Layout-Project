@@ -1,132 +1,232 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import createLead from '@/apicalls/create-lead';
+import { useMutation } from 'react-query';
+import toast from 'react-hot-toast';
+
+interface NewLeadProps {
+  siteDetails: any;
+  setUiStatus: (status: string) => void;
+  fetchLeads: () => void;
+  onClose: () => void;
+}
 export default function NewLead({
   siteDetails,
   setUiStatus,
   fetchLeads,
   onClose,
-}) {
+}: NewLeadProps) {
+  const { mutate, isLoading } = useMutation(createLead, {
+    onSuccess: () => {
+      toast.success('Lead created successfully');
+      setUiStatus('sitedetails');
+      fetchLeads();
+      onClose();
+    },
+    onError: (error: any) => {
+      toast.error(
+        `Error: ${error?.response?.data?.message || 'Unknown error'}`
+      );
+    },
+  });
+
   const [newLead, setNewLead] = useState({
     siteId: siteDetails?._id,
-    name: 'Krishna',
-    phone: '909123123',
-    email: 'prashanth@gmail.com',
-    buyerOffer: 4000,
-    sellerOffer: 3800,
-    finalPrice: 3500,
-    notes: 'Will pay token on 25th',
+    name: '',
+    phone: '',
+    email: '',
+    buyerOffer: 0,
+    sellerOffer: 0,
+    finalPrice: 0,
+    notes: '',
     status: 'hot',
   });
 
-  const onNewLeadSave = () => {
-    const res = createLead(newLead);
-    res?.then((res) => {
-      if (res) {
-        setUiStatus('sitedetails');
-        fetchLeads();
-      }
-    });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const validate = () => {
+    let validationErrors: { [key: string]: string } = {};
+    if (!newLead.name.trim()) validationErrors.name = 'Name is required';
+    if (!newLead.phone.trim())
+      validationErrors.phone = 'Phone number is required';
+    else if (!/^\d{10}$/.test(newLead.phone.trim()))
+      validationErrors.phone = 'Invalid phone number, must be 10 digits';
+    if (!newLead.email.trim()) validationErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(newLead.email.trim()))
+      validationErrors.email = 'Email is invalid';
+    if (!newLead.buyerOffer)
+      validationErrors.buyerOffer = 'Buyer offer is required';
+    else if (isNaN(newLead.buyerOffer) || Number(newLead.buyerOffer) <= 0)
+      validationErrors.buyerOffer =
+        'Invalid buyer offer, must be a positive number';
+    if (!newLead.sellerOffer)
+      validationErrors.sellerOffer = 'Seller offer is required';
+    else if (isNaN(newLead.sellerOffer) || Number(newLead.sellerOffer) <= 0)
+      validationErrors.sellerOffer =
+        'Invalid seller offer, must be a positive number';
+    if (!newLead.notes.trim()) validationErrors.notes = 'Notes are required';
+
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
   };
+
+  const handleSave = () => {
+    if (validate()) {
+      mutate(newLead);
+    }
+  };
+
+  const handleInputChange = (field: string, value: string | number) => {
+    setNewLead((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
-    <div>
-      <div className="space-y-1.5 bg-indigo-50 p-3 sm:p-5 rounded-lg border border-indigo-100 ">
-        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-3">
-          New Lead
-        </h3>
+    <div className="grow mt-4">
+      <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
+        Add Lead
+      </h2>
+      <div className="space-y-1">
         <div className="flex space-x-4">
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="lead-name">
+            <label htmlFor="lead-name" className="pp-label">
               Name <span className="text-rose-500">*</span>
             </label>
             <input
               id="lead-name"
-              className="form-input w-full"
               type="text"
-              placeholder="prashanth"
-              defaultValue={newLead?.name}
-              onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
+              className="pp-input"
+              placeholder="Full name"
+              value={newLead.name}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('name', e.target.value)
+              }
             />
+            {errors.name && (
+              <p className="text-sm text-rose-500">{errors.name}</p>
+            )}
           </div>
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="lead-phone">
+            <label htmlFor="lead-phone" className="pp-label">
               Phone <span className="text-rose-500">*</span>
             </label>
             <input
               id="lead-phone"
-              className="form-input w-full"
               type="text"
-              placeholder="+91 9876543210"
-              defaultValue={newLead?.phone}
-              onChange={(e) =>
-                setNewLead({ ...newLead, phone: e.target.value })
+              className="pp-input"
+              placeholder="9876543210"
+              value={newLead.phone}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('phone', e.target.value)
               }
             />
+            {errors.phone && (
+              <p className="text-sm text-rose-500">{errors.phone}</p>
+            )}
           </div>
         </div>
-        {/* Expiry and CVC */}
         <div className="flex space-x-4">
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="lead-buyer-price">
-              Buyer price <span className="text-rose-500">*</span>
+            <label htmlFor="lead-email" className="pp-label">
+              Email <span className="text-rose-500">*</span>
             </label>
             <input
-              id="lead-buyer-price"
-              className="form-input w-full text-right"
-              type="number"
-              placeholder="0"
-              defaultValue={newLead?.buyerOffer}
-              onChange={(e) =>
-                setNewLead({ ...newLead, buyerOffer: +e.target.value })
+              id="lead-email"
+              type="text"
+              className="pp-input"
+              placeholder="Email"
+              value={newLead.email}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('email', e.target.value)
               }
             />
+            {errors.email && (
+              <p className="text-sm text-rose-500">{errors.email}</p>
+            )}
           </div>
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="lead-seller-price">
-              Seller Price <span className="text-rose-500">*</span>
+            <label htmlFor="lead-buyer-offer" className="pp-label">
+              Buyer Offer <span className="text-rose-500">*</span>
             </label>
             <input
-              id="lead-seller-price"
-              className="form-input w-full text-right"
+              id="lead-buyer-offer"
               type="number"
-              placeholder="0"
-              defaultValue={newLead?.sellerOffer}
-              onChange={(e) =>
-                setNewLead({ ...newLead, sellerOffer: +e.target.value })
+              className="pp-input"
+              placeholder="Buyer Offer"
+              value={newLead.buyerOffer}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('buyerOffer', Number(e.target.value))
+              }
+            />
+            {errors.buyerOffer && (
+              <p className="text-sm text-rose-500">{errors.buyerOffer}</p>
+            )}
+          </div>
+        </div>
+        <div className="flex space-x-4">
+          <div className="flex-1">
+            <label htmlFor="lead-seller-offer" className="pp-label">
+              Seller Offer <span className="text-rose-500">*</span>
+            </label>
+            <input
+              id="lead-seller-offer"
+              type="number"
+              className="pp-input"
+              placeholder="Seller Offer"
+              value={newLead.sellerOffer}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('sellerOffer', Number(e.target.value))
+              }
+            />
+            {errors.sellerOffer && (
+              <p className="text-sm text-rose-500">{errors.sellerOffer}</p>
+            )}
+          </div>
+          <div className="flex-1">
+            <label htmlFor="lead-final-price" className="pp-label">
+              Final Price
+            </label>
+            <input
+              id="lead-final-price"
+              type="number"
+              className="pp-input"
+              placeholder="Final Price"
+              value={newLead.finalPrice}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('finalPrice', Number(e.target.value))
               }
             />
           </div>
         </div>
-        {/* Name on Card */}
-        <div>
-          <label
-            className="block text-xs sm:text-sm font-medium"
-            htmlFor="lead-notes">
-            Notes <span className="text-rose-500">*</span>
-          </label>
-          <textarea
-            id="lead-notes"
-            className="form-input w-full"
-            placeholder="..."
-            defaultValue={newLead?.notes}
-            onChange={(e) => setNewLead({ ...newLead, notes: e.target.value })}
-          />
+        <div className="flex space-x-4">
+          <div className="flex-1">
+            <label htmlFor="lead-notes" className="pp-label">
+              Notes <span className="text-rose-500">*</span>
+            </label>
+            <textarea
+              id="lead-notes"
+              className="form-textarea w-full"
+              placeholder="Notes"
+              value={newLead.notes}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                handleInputChange('notes', e.target.value)
+              }
+            />
+            {errors.notes && (
+              <p className="text-sm text-rose-500">{errors.notes}</p>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-        <button className="btnsecondary" onClick={() => onClose()}>
-          Close
-        </button>
-        <button className="btnprimary" onClick={() => onNewLeadSave()}>
-          Save
-        </button>
+
+        <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+          <button className="btnsecondary" onClick={onClose}>
+            Close
+          </button>
+          <button
+            className="btnprimary"
+            onClick={handleSave}
+            disabled={isLoading}>
+            {isLoading ? 'Saving...' : 'Save'}
+          </button>
+        </div>
       </div>
     </div>
   );

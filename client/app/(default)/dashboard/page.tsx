@@ -10,7 +10,6 @@ import SellerDashboard from './seller-dashboard';
 import { useUser } from '@/hooks/useUserHook';
 export default function Dashboard() {
   const { user } = useUser();
-  console.log('user :>> ', user);
   const dashboardRender = (role) => {
     role = role?.toLowerCase();
     switch (role) {
