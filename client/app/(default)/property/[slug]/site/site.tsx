@@ -8,7 +8,7 @@ import StatusChip from '../../../components-library/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
 import SiteTabs from './tabs/site-tabs';
 import EditSite from './site-details/edit-site';
-import SiteDetails from './site-details/details';
+import SiteDetails from './site-details/site-details';
 import NewLead from './site-details/new-lead';
 import getLeadsBySite from '@/apicalls/get-leads-by-site';
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -103,8 +103,8 @@ export default function Site({
         );
       case 'sitedetails':
         switch (siteDetails?.status) {
-          case 'Token':
-            return <TokenDetails siteDetails={siteDetails} reFetch={getSite} />;
+          // case 'Token':
+          //   return <TokenDetails siteDetails={siteDetails} reFetch={getSite} />;
           case 'Sold':
             return (
               <SiteDetails
@@ -126,7 +126,6 @@ export default function Site({
           <EditSite
             siteDetails={siteDetails}
             setSiteDetails={setSiteDetails}
-            onUpdate={() => onUpdateSiteFn()}
             onClose={() => setUiStatus('sitedetails')}
           />
         );

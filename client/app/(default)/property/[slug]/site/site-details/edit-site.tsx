@@ -1,138 +1,152 @@
-import StatusChip from '@/app/(default)/components-library/StatusChip';
-import { siteStatus } from '@/common/mockdata';
-import { Menu, Transition } from '@headlessui/react';
-import React from 'react';
+import React, { useState, useCallback, ChangeEvent } from 'react';
+import { useMutation } from 'react-query';
+import updateSiteByID from '@/apicalls/update-site-by-id';
+import toast from 'react-hot-toast';
+import ButtonLoader from '@/components/ButtonLoader';
 
-export default function EditSite({
-  setSiteDetails,
-  siteDetails,
-  onUpdate,
-  onClose,
-}) {
+interface SiteDetails {
+  dimensions: string;
+  area: string;
+  customPrice: string;
+  defaultPrice: string;
+}
+
+export default function EditSite({ siteDetails, setSiteDetails, onClose }) {
+  const [editDetails, setEditDetails] = useState<SiteDetails>({
+    dimensions: '30ft x 40ft',
+    area: '1200sqft',
+    customPrice: '4000',
+    defaultPrice: '4000',
+  });
+
+  const [errors, setErrors] = useState<Partial<SiteDetails>>({});
+  const { mutate, isLoading } = useMutation(updateSiteByID, {
+    onSuccess: (res) => {
+      setSiteDetails(res?.data);
+      toast.success('Site details updated successfully');
+      onClose();
+    },
+    onError: (error) => {
+      toast.error(`Error: ${error || 'Unknown error'}`);
+    },
+  });
+
+  const validate = () => {
+    let validationErrors: Partial<SiteDetails> = {};
+    if (!editDetails.dimensions.trim())
+      validationErrors.dimensions = 'Dimensions are required';
+    if (!editDetails.area.trim()) validationErrors.area = 'Area is required';
+    if (!editDetails.customPrice.trim())
+      validationErrors.customPrice = 'Custom price is required';
+    if (!editDetails.defaultPrice.trim()) setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
+  const onUpdateSiteFn = useCallback(() => {
+    if (validate()) {
+      const payload = {
+        ...editDetails,
+      };
+      mutate({ id: siteDetails?._id, payload });
+    }
+  }, [editDetails, siteDetails?._id]);
+
+  const handleInputChange = (field: keyof SiteDetails, value: string) => {
+    setEditDetails((prevState) => ({ ...prevState, [field]: value }));
+  };
+
   return (
-    <div>
-      <ul className="space-y-2 mb-5">
-        <li className="flex items-center">
-          <span className="text-sm text-slate-800 dark:text-slate-100 font-medium pr-2">
-            Status :
-          </span>
-          <Menu as="div" className="relative inline-flex">
-            {({ open }) => (
-              <>
-                <Menu.Button
-                  className="btn py-1 justify-between min-w-[11rem] bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-200"
-                  aria-label="Select date range">
-                  <span className="flex items-center">
-                    <span>{siteDetails?.status}</span>
-                  </span>
-                  <svg
-                    className="shrink-0 ml-1 fill-current text-slate-400"
-                    width="11"
-                    height="7"
-                    viewBox="0 0 11 7">
-                    <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z" />
-                  </svg>
-                </Menu.Button>
-                <Transition
-                  className="z-10 absolute top-full right-0 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
-                  enter="transition ease-out duration-100 transform"
-                  enterFrom="opacity-0 -translate-y-2"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-out duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0">
-                  <Menu.Items className="font-medium text-sm text-slate-600 dark:text-slate-300 focus:outline-none">
-                    {siteStatus.map((option, optionIndex) => (
-                      <Menu.Item key={optionIndex}>
-                        {({ active }) => (
-                          <button
-                            className={`flex items-center w-full py-1 px-3 cursor-pointer ${
-                              active ? 'bg-slate-50 dark:bg-slate-700/20' : ''
-                            } ${
-                              option.type === siteDetails?.status &&
-                              'text-indigo-500'
-                            }`}
-                            onClick={() => {
-                              setSiteDetails({
-                                ...siteDetails,
-                                status: option.type,
-                              });
-                            }}>
-                            <svg
-                              className={`shrink-0 mr-2 fill-current text-indigo-500 ${
-                                option.type !== siteDetails?.status &&
-                                'invisible'
-                              }`}
-                              width="12"
-                              height="9"
-                              viewBox="0 0 12 9">
-                              <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z" />
-                            </svg>
-                            <span>{option?.type}</span>
-                          </button>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
-              </>
-            )}
-          </Menu>
-        </li>
-        <li className="flex items-center">
-          <div>
-            <span className="text-sm text-slate-800 dark:text-slate-100 font-medium">
-              Dimensions :
-            </span>
+    <div className="grow mt-4">
+      <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
+        Edit Site Details
+      </h2>
+      <div className="space-y-3">
+        <div className="flex space-x-4">
+          <div className="flex-1">
+            <label className="pp-label" htmlFor="site-dimensions">
+              Dimensions <span className="text-rose-500">*</span>
+            </label>
             <input
-              id="name"
-              className="form-input ml-2 py-1"
+              id="site-dimensions"
+              className="pp-input"
               type="text"
-              defaultValue="30ft x 40ft"
+              defaultValue={editDetails?.dimensions}
+              placeholder="30ft x 40ft"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('dimensions', e.target.value)
+              }
             />
+            {errors.dimensions && (
+              <p className="text-sm text-rose-500">{errors.dimensions}</p>
+            )}
           </div>
-        </li>
-        <li className="flex items-center">
-          <span className="text-sm text-slate-800 dark:text-slate-100 font-medium">
-            Area :
-          </span>
-          <input
-            id="name"
-            className="form-input ml-2 py-1"
-            type="text"
-            defaultValue="1200sqft"
-          />
-        </li>
-        <li className="flex items-center">
-          <span className="text-sm text-slate-800 dark:text-slate-100 font-medium">
-            Custom Price :
-          </span>
-          <input
-            id="name"
-            className="form-input ml-2 py-1"
-            type="text"
-            defaultValue="4000"
-          />
-        </li>
-        <li className="flex items-center">
-          <span className="text-sm text-slate-800 dark:text-slate-100 font-medium">
-            Default Price :
-          </span>
-          <input
-            id="name"
-            className="form-input ml-2 py-1"
-            type="text"
-            defaultValue="4000"
-          />
-        </li>
-      </ul>
+          <div className="flex-1">
+            <label className="pp-label" htmlFor="site-area">
+              Area <span className="text-rose-500">*</span>
+            </label>
+            <input
+              id="site-area"
+              className="pp-input"
+              type="text"
+              defaultValue={editDetails?.area}
+              placeholder="1200sqft"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('area', e.target.value)
+              }
+            />
+            {errors.area && (
+              <p className="text-sm text-rose-500">{errors.area}</p>
+            )}
+          </div>
+        </div>
+        <div className="flex space-x-4">
+          <div className="flex-1">
+            <label className="pp-label" htmlFor="site-custom-price">
+              Custom Price <span className="text-rose-500">*</span>
+            </label>
+            <input
+              id="site-custom-price"
+              className="pp-input"
+              type="text"
+              defaultValue={editDetails?.customPrice}
+              placeholder="0000"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('customPrice', e.target.value)
+              }
+            />
+            {errors.customPrice && (
+              <p className="text-sm text-rose-500">{errors.customPrice}</p>
+            )}
+          </div>
+          <div className="flex-1">
+            <label className="pp-label" htmlFor="site-default-price">
+              Default Price <span className="text-rose-500">*</span>
+            </label>
+            <input
+              id="site-default-price"
+              className="pp-input"
+              type="text"
+              defaultValue={editDetails?.defaultPrice}
+              placeholder="0000"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleInputChange('defaultPrice', e.target.value)
+              }
+            />
+            {errors.defaultPrice && (
+              <p className="text-sm text-rose-500">{errors.defaultPrice}</p>
+            )}
+          </div>
+        </div>
+      </div>
       <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-        <button className="btnsecondary" onClick={() => onClose()}>
+        <button className="btnsecondary" onClick={onClose}>
           Close
         </button>
-        <button className="btnprimary" onClick={() => onUpdate()}>
-          Save
-        </button>
+        <ButtonLoader
+          onClick={onUpdateSiteFn}
+          text={isLoading ? 'Saving...' : 'Save'}
+          classes="btnprimary"
+        />
       </div>
     </div>
   );
