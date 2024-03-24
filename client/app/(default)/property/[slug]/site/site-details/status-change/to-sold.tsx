@@ -1,125 +1,134 @@
+import React, { useCallback, useEffect, useState } from 'react';
 import updateSiteByID from '@/apicalls/update-site-by-id';
 import AutocompleteDropdown from '@/app/(default)/components-library/AutocompleteDropdown';
-import DatepickerComponent from '@/app/(default)/components-library/DatepickerComponent';
-import { format } from 'date-fns';
-import React, { useCallback, useState } from 'react';
+import ButtonLoader from '@/components/ButtonLoader';
+import { useMutation } from 'react-query';
+import toast from 'react-hot-toast';
 
 export default function ToSold({
   leads,
-  currentStatus,
   siteDetails,
   onRefetchDataFn,
   onClose,
 }) {
-  const [toSold, setToSold] = useState({
-    lead: null,
-    amount: null,
-    registrationDate: new Date(),
-    notes: null,
+  const { mutate, isLoading } = useMutation(updateSiteByID, {
+    onSuccess: (data) => {
+      toast.success('Site updated successfully');
+      onRefetchDataFn(data?.data);
+      onClose();
+    },
+    onError: (error) => {
+      toast.error(`Error: ${error || 'Unknown error'}`);
+    },
   });
 
+  interface ToSoldState {
+    lead: string | null;
+    amount: string;
+    notes: string;
+  }
+
+  const [toSold, setToSold] = useState<ToSoldState>({
+    lead: leads[0],
+    amount: '',
+    notes: '',
+  });
+
+  interface ValidationErrors {
+    lead?: string;
+    amount?: string;
+    notes?: string;
+  }
+
+  const [errors, setErrors] = useState<ValidationErrors>({});
+
+  const validate = () => {
+    let validationErrors: ValidationErrors = {};
+    if (!toSold.lead) validationErrors.lead = 'Lead is required';
+    if (!toSold.amount.trim()) validationErrors.amount = 'Amount is required';
+    if (!toSold.notes.trim()) validationErrors.notes = 'Notes are required';
+
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const onUpdateSiteFn = useCallback(() => {
-    const payload = {};
-    payload['status'] = currentStatus;
-    payload['statusMetadata'] = toSold;
-    const res = updateSiteByID({ id: siteDetails?._id, payload });
-    res?.then((res) => {
-      if (res) {
-        onRefetchDataFn(res?.data);
-      }
-    });
-  }, [siteDetails?._id, currentStatus, toSold]);
+    if (validate()) {
+      const payload = {
+        status: 'Sold',
+        statusMetadata: toSold,
+      };
+      mutate({ id: siteDetails?._id, payload });
+    }
+  }, [toSold, siteDetails]);
+
+  const handleInputChange = (field: keyof ToSoldState, value: string) => {
+    setToSold((prevState) => ({ ...prevState, [field]: value }));
+  };
+
   return (
-    <div className="mb-4">
-      <div className="space-y-3 bg-slate-50 p-3 sm:p-5 rounded-lg border border-indigo-100 ">
-        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-3">
-          Sold to
-        </h3>
+    <div className="grow mt-4">
+      <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
+        Sold To
+      </h2>
+      <div className="space-y-3">
         <div className="flex space-x-4">
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="sold-lead">
+            <label className="pp-label" htmlFor="sold-lead">
               Sold to <span className="text-rose-500">*</span>
             </label>
             <AutocompleteDropdown
               className="pp-input"
               leads={leads}
-              onChange={(val) => setToSold({ ...toSold, lead: val?._id })}
+              onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}
             />
+            {errors.lead && (
+              <p className="text-sm text-rose-500">{errors.lead}</p>
+            )}
           </div>
           <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="sold-amount">
+            <label className="pp-label" htmlFor="sold-amount">
               Amount <span className="text-rose-500">*</span>
             </label>
             <input
               id="sold-amount"
-              className="form-input w-full"
+              className="pp-input"
               type="text"
               defaultValue={toSold?.amount}
-              onChange={(e) =>
-                setToSold({ ...toSold, amount: +e.target.value })
-              }
+              placeholder="0000"
+              onChange={(e) => handleInputChange('amount', e.target.value)}
             />
+            {errors.amount && (
+              <p className="text-sm text-rose-500">{errors.amount}</p>
+            )}
           </div>
         </div>
-        <div className="flex space-x-4">
-          <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="token-validity">
-              Registration Date <span className="text-rose-500">*</span>
-            </label>
-            {/* <input
-                id="token-validity"
-                className="form-input w-full text-right"
-                type="number"
-                defaultValue={toSold?.registrationDate}
-                onChange={(e) =>
-                  setToSold({ ...toSold, registrationDate: e.target.value })
-                }
-              /> */}
-            <DatepickerComponent
-              className="pp-input"
-              onChange={(val) => {
-                //format val to dd/mm/yyyy
-                val = format(val, 'dd/MM/yyyy');
-                setToSold({ ...toSold, registrationDate: val });
-              }}
-            />
-          </div>
-          <div className="flex-1">
-            <label
-              className="block text-xs sm:text-sm font-medium"
-              htmlFor="sold-notes">
-              Notes <span className="text-rose-500">*</span>
-            </label>
-            <textarea
-              id="sold-notes"
-              className="form-input w-full"
-              placeholder="..."
-              defaultValue={toSold?.notes}
-              onChange={(e) => setToSold({ ...toSold, notes: e.target.value })}
-            />
-          </div>
+        <div className="">
+          <label className="pp-label" htmlFor="sold-notes">
+            Notes <span className="text-rose-500">*</span>
+          </label>
+          <textarea
+            id="sold-notes"
+            className="pp-input"
+            placeholder="Additional notes..."
+            defaultValue={toSold?.notes}
+            onChange={(e) => handleInputChange('notes', e.target.value)}
+          />
+          {errors.notes && (
+            <p className="text-sm text-rose-500">{errors.notes}</p>
+          )}
         </div>
-        {currentStatus != 'Available' && (
-          <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-            <button className="btnsecondary" onClick={() => onClose()}>
-              Close
-            </button>
-            <button
-              className="btnprimary"
-              onClick={() => {
-                onUpdateSiteFn();
-              }}>
-              Save
-            </button>
-          </div>
-        )}
+      </div>
+      <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+        <button onClick={onClose} className="btnsecondary">
+          Close
+        </button>
+        <ButtonLoader
+          onClick={onUpdateSiteFn}
+          text={isLoading ? 'Saving...' : 'Save'}
+          classes="btnprimary"
+        />
       </div>
     </div>
   );

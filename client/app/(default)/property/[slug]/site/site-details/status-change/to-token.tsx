@@ -14,7 +14,6 @@ export default function ToToken({
   onRefetchDataFn,
   onClose,
 }) {
-  console.log('leads :>> ', leads);
   const { mutate, isLoading, data, error } = useMutation(updateSiteByID, {
     onSuccess: () => {
       toast.success('Site updated successfully');
@@ -35,7 +34,7 @@ export default function ToToken({
   }
 
   const [toToken, setToToken] = useState<ToTokenState>({
-    lead: null,
+    lead: leads[0],
     tokenAmount: '',
     validity: '',
     registrationDate: '',
@@ -87,7 +86,7 @@ export default function ToToken({
       <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
         Add Token
       </h2>
-      <div className="space-y-1">
+      <div className="space-y-3">
         <div className="flex space-x-4">
           <div className="flex-1">
             <label className="pp-label" htmlFor="token-lead">
@@ -103,7 +102,6 @@ export default function ToToken({
               <p className="text-sm text-rose-500">{errors.lead}</p>
             )}
           </div>
-
           <div className="flex-1">
             <label className="pp-label" htmlFor="token-amount">
               Amount <span className="text-rose-500">*</span>
@@ -113,6 +111,7 @@ export default function ToToken({
               className="pp-input"
               type="text"
               value={toToken.tokenAmount}
+              placeholder="0000"
               onChange={(e) => handleInputChange('tokenAmount', e.target.value)}
             />
             {errors.tokenAmount && (
@@ -130,6 +129,7 @@ export default function ToToken({
               className="pp-input text-right"
               type="number"
               value={toToken.validity}
+              placeholder="90 Days"
               onChange={(e) => handleInputChange('validity', e.target.value)}
             />
             {errors.validity && (
@@ -153,22 +153,20 @@ export default function ToToken({
             )}
           </div>
         </div>
-        <div className="flex space-x-4">
-          <div className="w-full">
-            <label className="pp-label" htmlFor="lead-notes">
-              Notes <span className="text-rose-500">*</span>
-            </label>
-            <textarea
-              id="lead-notes"
-              className="pp-input w-full"
-              placeholder="..."
-              value={toToken.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
-            />
-            {errors.notes && (
-              <p className="text-sm text-rose-500">{errors.notes}</p>
-            )}
-          </div>
+        <div className="">
+          <label className="pp-label" htmlFor="lead-notes">
+            Notes <span className="text-rose-500">*</span>
+          </label>
+          <textarea
+            id="lead-notes"
+            className="pp-input"
+            placeholder="Add notes about the token..."
+            value={toToken.notes}
+            onChange={(e) => handleInputChange('notes', e.target.value)}
+          />
+          {errors.notes && (
+            <p className="text-sm text-rose-500">{errors.notes}</p>
+          )}
         </div>
       </div>
       <div className="flex w-full flex-wrap justify-center space-x-2 my-4">

@@ -34,9 +34,9 @@ export default function NewLead({
     name: '',
     phone: '',
     email: '',
-    buyerOffer: 0,
-    sellerOffer: 0,
-    finalPrice: 0,
+    buyerOffer: '',
+    sellerOffer: '',
+    finalPrice: '',
     notes: '',
     status: 'hot',
   });
@@ -55,12 +55,18 @@ export default function NewLead({
       validationErrors.email = 'Email is invalid';
     if (!newLead.buyerOffer)
       validationErrors.buyerOffer = 'Buyer offer is required';
-    else if (isNaN(newLead.buyerOffer) || Number(newLead.buyerOffer) <= 0)
+    else if (
+      isNaN(Number(newLead.buyerOffer)) ||
+      Number(newLead.buyerOffer) <= 0
+    )
       validationErrors.buyerOffer =
         'Invalid buyer offer, must be a positive number';
     if (!newLead.sellerOffer)
       validationErrors.sellerOffer = 'Seller offer is required';
-    else if (isNaN(newLead.sellerOffer) || Number(newLead.sellerOffer) <= 0)
+    else if (
+      isNaN(Number(newLead.sellerOffer)) ||
+      Number(newLead.sellerOffer) <= 0
+    )
       validationErrors.sellerOffer =
         'Invalid seller offer, must be a positive number';
     if (!newLead.notes.trim()) validationErrors.notes = 'Notes are required';
@@ -84,7 +90,7 @@ export default function NewLead({
       <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
         Add Lead
       </h2>
-      <div className="space-y-1">
+      <div className="space-y-3">
         <div className="flex space-x-4">
           <div className="flex-1">
             <label htmlFor="lead-name" className="pp-label">
@@ -132,7 +138,7 @@ export default function NewLead({
               id="lead-email"
               type="text"
               className="pp-input"
-              placeholder="Email"
+              placeholder="user@gmail.com"
               value={newLead.email}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 handleInputChange('email', e.target.value)
@@ -150,7 +156,7 @@ export default function NewLead({
               id="lead-buyer-offer"
               type="number"
               className="pp-input"
-              placeholder="Buyer Offer"
+              placeholder="0000"
               value={newLead.buyerOffer}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 handleInputChange('buyerOffer', Number(e.target.value))
@@ -170,7 +176,7 @@ export default function NewLead({
               id="lead-seller-offer"
               type="number"
               className="pp-input"
-              placeholder="Seller Offer"
+              placeholder="0000"
               value={newLead.sellerOffer}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 handleInputChange('sellerOffer', Number(e.target.value))
@@ -188,7 +194,7 @@ export default function NewLead({
               id="lead-final-price"
               type="number"
               className="pp-input"
-              placeholder="Final Price"
+              placeholder="0000"
               value={newLead.finalPrice}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 handleInputChange('finalPrice', Number(e.target.value))
@@ -204,7 +210,7 @@ export default function NewLead({
             <textarea
               id="lead-notes"
               className="form-textarea w-full"
-              placeholder="Notes"
+              placeholder="Notes about the lead..."
               value={newLead.notes}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                 handleInputChange('notes', e.target.value)
@@ -215,18 +221,17 @@ export default function NewLead({
             )}
           </div>
         </div>
-
-        <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-          <button className="btnsecondary" onClick={onClose}>
-            Close
-          </button>
-          <button
-            className="btnprimary"
-            onClick={handleSave}
-            disabled={isLoading}>
-            {isLoading ? 'Saving...' : 'Save'}
-          </button>
-        </div>
+      </div>
+      <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
+        <button className="btnsecondary" onClick={onClose}>
+          Close
+        </button>
+        <button
+          className="btnprimary"
+          onClick={handleSave}
+          disabled={isLoading}>
+          {isLoading ? 'Saving...' : 'Save'}
+        </button>
       </div>
     </div>
   );

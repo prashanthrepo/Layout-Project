@@ -56,7 +56,6 @@ const siteTypeColor = (type) => {
   }
 };
 
-
 const findDifferencesBwObjects = (obj1, obj2) => {
   const differences = {};
 
@@ -89,7 +88,9 @@ const daysBetween = (date) => {
 };
 //use date-fns to convert 2024-01-27T05:49:35.149Z to Monday, January 27, 2024
 const convertDate = (date) => {
+  console.log('date :>> ', date);
   const date2 = new Date(date);
+  console.log('date2 :>> ', date2);
   const formattedDate = format(date2, 'EEEE, MMMM d, yyyy');
   return formattedDate;
 };

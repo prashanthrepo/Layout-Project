@@ -93,14 +93,12 @@ export default function AccountPanel() {
             <div className="space-y-4">
               <div className="flex space-x-4">
                 <div className="flex-1">
-                  <label
-                    className="block text-sm font-medium mb-1"
-                    htmlFor="first-name">
+                  <label className="pp-label" htmlFor="first-name">
                     First name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     id="first-name"
-                    className="form-input w-full"
+                    className="pp-input"
                     type="text"
                     ref={firstNameRef}
                   />
@@ -109,14 +107,12 @@ export default function AccountPanel() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <label
-                    className="block text-sm font-medium mb-1"
-                    htmlFor="last-name">
+                  <label className="pp-label" htmlFor="last-name">
                     Name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     id="last-name"
-                    className="form-input w-full"
+                    className="pp-input"
                     type="text"
                     ref={lastNameRef}
                   />
@@ -127,28 +123,24 @@ export default function AccountPanel() {
               </div>
               <div className="flex space-x-4">
                 <div className="flex-1">
-                  <label
-                    className="block text-sm font-medium mb-1"
-                    htmlFor="card-expiry">
+                  <label className="pp-label" htmlFor="card-expiry">
                     Phone number
                   </label>
                   <input
                     id="card-expiry"
-                    className="form-input w-full disabled:bg-slate-200"
+                    className="pp-input disabled:bg-slate-200"
                     type="tel"
                     defaultValue={user?.phone_number}
                     disabled
                   />
                 </div>
                 <div className="flex-1">
-                  <label
-                    className="block text-sm font-medium mb-1"
-                    htmlFor="card-email">
+                  <label className="pp-label" htmlFor="card-email">
                     Email <span className="text-rose-500">*</span>
                   </label>
                   <input
                     id="card-email"
-                    className="form-input w-full"
+                    className="pp-input"
                     type="email"
                     ref={emailRef}
                   />
