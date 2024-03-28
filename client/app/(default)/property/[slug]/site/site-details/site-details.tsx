@@ -1,16 +1,9 @@
 import StatusChip from '@/app/(default)/components-library/StatusChip';
-import { convertDate, daysBetween } from '@/common/utils';
-import { Transition } from '@headlessui/react';
-import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useCallback } from 'react';
-import cancelTokenApi from '@/apicalls/cancel-token';
 import TokenDetails from './details/token-details';
 import SoldDetails from './details/sold-details';
 
 export default function SiteDetails({ siteDetails, setUiStatus }) {
-  const tokenCancelReasonRef = React.useRef(null);
-  const [cancelToken, setCancelToken] = React.useState(false);
-
   return (
     <div>
       {siteDetails?.status == 'Token' && (

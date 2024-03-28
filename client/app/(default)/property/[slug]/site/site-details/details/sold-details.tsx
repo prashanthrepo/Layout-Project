@@ -32,7 +32,7 @@ export default function SoldDetails({ siteDetails }) {
               <p>
                 Sold on{' '}
                 <span className="font-semibold">
-                  {convertDate(siteDetails?.statusMetadata?.lead?.createdAt)}
+                  {convertDate(siteDetails?.statusMetadata?.soldDate)}
                 </span>
               </p>
 
