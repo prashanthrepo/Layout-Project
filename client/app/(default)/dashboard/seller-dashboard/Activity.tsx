@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusChip from '../../components-library/StatusChip';
+import StatusChip from '../../../../components/StatusChip';
 import moment from 'moment';
 
 export default function Activity({ data }) {

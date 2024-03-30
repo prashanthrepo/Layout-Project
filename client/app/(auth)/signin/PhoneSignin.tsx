@@ -41,7 +41,7 @@ export default function PhoneSignin({ onVerify }) {
         <div className=" max-w-sm mx-auto w-full px-4 py-8">
           <Image
             src={loginPageSvg}
-            className=" w-64 mx-auto"
+            className=" w-auto max-w-56 mx-auto"
             alt="Login Page Illustration"
           />
           <div className="my-10 text-center">
@@ -86,7 +86,7 @@ export default function PhoneSignin({ onVerify }) {
               />
             </div>
           </form>
-          <div className="pt-5  mt-40">
+          <div className="pt-5  mt-20">
             <div className="text-sm text-center font-medium">
               By continuing you agree to our <br />
               <Link

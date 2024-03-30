@@ -55,7 +55,8 @@ export default function MobileNav() {
               Layouts
             </span>
           </Link>
-          <button
+          <Link
+            href="/leads"
             type="button"
             className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
             <svg
@@ -82,7 +83,7 @@ export default function MobileNav() {
               }`}>
               Leads
             </span>
-          </button>
+          </Link>
           <Link
             href="/profile"
             className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -104,7 +105,7 @@ export default function MobileNav() {
                   ? 'text-indigo-500 dark:text-indigo-500'
                   : 'text-slate-600 dark:text-slate-600'
               }`}>
-              Profile
+              Profile1
             </span>
           </Link>
         </div>

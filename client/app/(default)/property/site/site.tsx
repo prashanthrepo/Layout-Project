@@ -4,7 +4,7 @@ import { Share } from '@capacitor/share';
 import ModalAction from '@/components/modal-action';
 import getSiteByID from '@/apicalls/get-site-by-id';
 import updateSiteByID from '@/apicalls/update-site-by-id';
-import StatusChip from '../../../components-library/StatusChip';
+import StatusChip from '../../../../components/StatusChip';
 import { findDifferencesBwObjects, statusColors } from '@/common/utils';
 import SiteTabs from './tabs/site-tabs';
 import EditSite from './site-details/edit-site';
@@ -12,7 +12,7 @@ import SiteDetails from './site-details/site-details';
 import NewLead from './site-details/new-lead';
 import getLeadsBySite from '@/apicalls/get-leads-by-site';
 import SkeletonLoader from '@/components/SkeletonLoader';
-import ShareButton from '@/app/(default)/components-library/ShareButton';
+import ShareButton from '@/components/ShareButton';
 import OptionsDropdown from './options-dropdown';
 import StatusChange from './site-details/status-change/index';
 import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
@@ -42,15 +42,15 @@ export default function Site({
       }
     });
   }, [siteDetails, tempSiteDetails]);
-  const onShare = async () => {
-    const temp = {
-      title: siteDetails?.number,
-      text: siteDetails?.status,
-      url: window.location.href,
-      dialogTitle: `Share site no ${siteDetails?.number} with friends`,
-    };
-    await Share.share(temp);
-  };
+  // const onShare = async () => {
+  //   const temp = {
+  //     title: siteDetails?.number,
+  //     text: siteDetails?.status,
+  //     url: window.location.href,
+  //     dialogTitle: `Share site no ${siteDetails?.number} with friends`,
+  //   };
+  //   await Share.share(temp);
+  // };
   // const share = async () => {
   //   await Share.share({
   //     title: 'Simons YT Channel',
@@ -229,9 +229,9 @@ export default function Site({
                 </div>
                 <div className="flex space-x-2">
                   {renderButtons(uiStatus)}
-                  {Capacitor.isNativePlatform() && (
+                  {/* {Capacitor.isNativePlatform() && (
                     <ShareButton onClick={() => onShare()} />
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

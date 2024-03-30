@@ -1,6 +1,5 @@
 'use client';
 import React, { useCallback } from 'react';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { siteTypeColor } from '@/common/utils';
@@ -8,9 +7,9 @@ import getLayoutByID from '@/apicalls/get-layout-by-id';
 import LayoutSettingsButton from './layout-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
-export default function SitePage() {
-  const path = usePathname();
-  const slug = path.split('/')[2];
+export default function Property() {
+  const params = useSearchParams();
+  const slug = params.get('id');
   const [layoutLoading, setLayoutLoading] = React.useState(true);
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);

@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import updateSiteByID from '@/apicalls/update-site-by-id';
-import AutocompleteDropdown from '@/app/(default)/components-library/AutocompleteDropdown';
+import AutocompleteDropdown from '@/components/AutocompleteDropdown';
 import ButtonLoader from '@/components/ButtonLoader';
 import Link from 'next/link';
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
-import DatepickerComponent from '@/app/(default)/components-library/DatepickerComponent';
+import DatepickerComponent from '@/components/DatepickerComponent';
 import { format } from 'date-fns';
 
 export default function ToToken({

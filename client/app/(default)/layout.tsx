@@ -1,7 +1,8 @@
 'use client';
 import Sidebar from '@/components/ui/sidebar';
 import Header from '@/components/ui/header';
-import MobileNav from './components-library/MobileNav';
+import MobileNav from '../../components/MobileNav';
+import { Viewport } from 'next';
 
 export default function DefaultLayout({
   children,

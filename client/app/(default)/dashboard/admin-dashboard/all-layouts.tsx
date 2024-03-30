@@ -1,3 +1,4 @@
+'use client';
 import getAllLayouts from '@/apicalls/get-all-layouts';
 import mapImage from '../../../../public/images/google-maps.png';
 import Image from 'next/image';
@@ -61,7 +62,7 @@ export default function AllLayouts() {
               </div>
               <div className="space-y-2">
                 {layouts?.data?.map((layout, key) => (
-                  <Link href={`/property/${layout?._id}`} key={key}>
+                  <Link href={`/property?id=${layout?._id}`} key={key}>
                     <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
                       <div className="md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2">
                         <div className="flex items-start space-x-3 md:space-x-4">
