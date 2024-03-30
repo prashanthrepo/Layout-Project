@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { siteStatus } from '@/common/mockdata';
-import StatusChip from '@/app/(default)/components-library/StatusChip';
+import StatusChip from '@/components/StatusChip';
 import ToToken from './to-token';
 import ToSold from './to-sold';
 import ToBlocked from './to-blocked';

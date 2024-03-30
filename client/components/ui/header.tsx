@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useAppProvider } from '@/app/app-provider'
+import { useState } from 'react';
+import { useAppProvider } from '@/app/app-provider';
 
 import ThemeToggle from '@/components/theme-toggle';
 import DropdownProfile from '@/components/dropdown-profile';

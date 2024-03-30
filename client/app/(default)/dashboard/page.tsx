@@ -8,20 +8,34 @@ import MapView from './buyer-dashboard/map-view';
 import AllLayouts from './admin-dashboard/all-layouts';
 import SellerDashboard from './seller-dashboard';
 import { useUser } from '@/hooks/useUserHook';
+
 export default function Dashboard() {
   const { user } = useUser();
-  const dashboardRender = (role) => {
-    role = role?.toLowerCase();
-    switch (role) {
-      case 'buyer':
-        return <MapView />;
-      case 'seller':
-        return <SellerDashboard />;
-      case 'admin':
-        return <AllLayouts />;
-      default:
-        return <></>;
-    }
-  };
-  return <>{dashboardRender(user?.role)}</>;
+  console.log('user :>> ', user);
+  // const dashboardRender = (role) => {
+  //   role = role?.toLowerCase();
+  //   switch (role) {
+  //     case 'buyer':
+  //       return <MapView />;
+  //     case 'seller':
+  //       return <SellerDashboard />;
+  //     case 'admin':
+  //       return <AllLayouts />;
+  //     default:
+  //       return <></>;
+  //   }
+  // };
+  return (
+    <>
+      {user?.role == 'Admin' ? (
+        <AllLayouts />
+      ) : user?.role == 'Seller' ? (
+        <SellerDashboard />
+      ) : user?.role == 'Buyer' ? (
+        <MapView />
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }

@@ -1,20 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import updateSiteByID from '@/apicalls/update-site-by-id';
-import AutocompleteDropdown from '@/app/(default)/components-library/AutocompleteDropdown';
+import AutocompleteDropdown from '@/components/AutocompleteDropdown';
 import ButtonLoader from '@/components/ButtonLoader';
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
 
-export default function ToSold({
+export default function ToBlocked({
   leads,
   siteDetails,
   onRefetchDataFn,
   onClose,
 }) {
   const { mutate, isLoading } = useMutation(updateSiteByID, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Site updated successfully');
-      onRefetchDataFn(data?.data);
+      onRefetchDataFn();
       onClose();
     },
     onError: (error) => {
@@ -22,21 +22,18 @@ export default function ToSold({
     },
   });
 
-  interface ToSoldState {
+  interface ToBlockedState {
     lead: string | null;
-    amount: string;
     notes: string;
   }
 
-  const [toSold, setToSold] = useState<ToSoldState>({
-    lead: leads[0],
-    amount: '',
+  const [toBlocked, setToBlocked] = useState<ToBlockedState>({
+    lead: null,
     notes: '',
   });
 
   interface ValidationErrors {
     lead?: string;
-    amount?: string;
     notes?: string;
   }
 
@@ -44,9 +41,8 @@ export default function ToSold({
 
   const validate = () => {
     let validationErrors: ValidationErrors = {};
-    if (!toSold.lead) validationErrors.lead = 'Lead is required';
-    if (!toSold.amount.trim()) validationErrors.amount = 'Amount is required';
-    if (!toSold.notes.trim()) validationErrors.notes = 'Notes are required';
+    if (!toBlocked.lead) validationErrors.lead = 'Lead is required';
+    if (!toBlocked.notes.trim()) validationErrors.notes = 'Notes are required';
 
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
@@ -55,27 +51,27 @@ export default function ToSold({
   const onUpdateSiteFn = useCallback(() => {
     if (validate()) {
       const payload = {
-        status: 'Sold',
-        statusMetadata: toSold,
+        status: 'Blocked',
+        statusMetadata: { notes: toBlocked.notes },
       };
       mutate({ id: siteDetails?._id, payload });
     }
-  }, [toSold, siteDetails]);
+  }, [toBlocked, siteDetails]);
 
-  const handleInputChange = (field: keyof ToSoldState, value: string) => {
-    setToSold((prevState) => ({ ...prevState, [field]: value }));
+  const handleInputChange = (field: keyof ToBlockedState, value: string) => {
+    setToBlocked((prevState) => ({ ...prevState, [field]: value }));
   };
 
   return (
     <div className="grow mt-4">
       <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
-        Sold To
+        Blocked for
       </h2>
       <div className="space-y-3">
         <div className="flex space-x-4">
-          <div className="flex-1">
-            <label className="pp-label" htmlFor="sold-lead">
-              Sold to <span className="text-rose-500">*</span>
+          <div className="w-full sm:w-1/2 ">
+            <label className="pp-label" htmlFor="blocked-lead">
+              Blocked to <span className="text-rose-500">*</span>
             </label>
             <AutocompleteDropdown
               className="pp-input"
@@ -87,32 +83,16 @@ export default function ToSold({
               <p className="text-sm text-rose-500">{errors.lead}</p>
             )}
           </div>
-          <div className="flex-1">
-            <label className="pp-label" htmlFor="sold-amount">
-              Amount <span className="text-rose-500">*</span>
-            </label>
-            <input
-              id="sold-amount"
-              className="pp-input"
-              type="text"
-              defaultValue={toSold?.amount}
-              placeholder="0000"
-              onChange={(e) => handleInputChange('amount', e.target.value)}
-            />
-            {errors.amount && (
-              <p className="text-sm text-rose-500">{errors.amount}</p>
-            )}
-          </div>
         </div>
-        <div className="">
-          <label className="pp-label" htmlFor="sold-notes">
+        <div>
+          <label className="pp-label" htmlFor="blocked-notes">
             Notes <span className="text-rose-500">*</span>
           </label>
           <textarea
-            id="sold-notes"
-            className="pp-input"
-            placeholder="Additional notes..."
-            defaultValue={toSold?.notes}
+            id="blocked-notes"
+            className="form-input w-full"
+            placeholder="Notes about the site being blocked..."
+            value={toBlocked.notes}
             onChange={(e) => handleInputChange('notes', e.target.value)}
           />
           {errors.notes && (
@@ -121,7 +101,7 @@ export default function ToSold({
         </div>
       </div>
       <div className="flex w-full flex-wrap justify-center space-x-2 my-4">
-        <button onClick={onClose} className="btnsecondary">
+        <button className="btnsecondary" onClick={onClose}>
           Close
         </button>
         <ButtonLoader

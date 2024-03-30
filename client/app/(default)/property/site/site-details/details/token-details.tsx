@@ -1,4 +1,4 @@
-import StatusChip from '@/app/(default)/components-library/StatusChip';
+import StatusChip from '@/components/StatusChip';
 import { convertDate, daysBetween } from '@/common/utils';
 import WarningDialog from '@/components/WarningDialog';
 import { Transition } from '@headlessui/react';

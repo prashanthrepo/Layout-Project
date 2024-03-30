@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "hooks/usePostData.js",
     "apicalls/get-self.js",
-    "app/(default)/components-library/AutocompleteDropdown.js"
+    "components/AutocompleteDropdown.js"
   ],
   "exclude": ["node_modules"]
 }

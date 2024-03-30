@@ -55,7 +55,14 @@ export default function Sidebar() {
       window.removeEventListener('resize', handleBreakpoint);
     };
   }, [breakpoint]);
-
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const token = localStorage.getItem('authToken');
+  //     if (!token) {
+  //       window.location.href = '/signin';
+  //     }
+  //   }
+  // }, []);
   return (
     <div className={`min-w-fit ${sidebarExpanded ? 'sidebar-expanded' : ''}`}>
       {/* Sidebar backdrop (mobile only) */}

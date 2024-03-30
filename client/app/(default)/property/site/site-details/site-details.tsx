@@ -1,4 +1,4 @@
-import StatusChip from '@/app/(default)/components-library/StatusChip';
+import StatusChip from '@/components/StatusChip';
 import React, { Fragment, useCallback } from 'react';
 import TokenDetails from './details/token-details';
 import SoldDetails from './details/sold-details';
