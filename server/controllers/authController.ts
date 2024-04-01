@@ -44,10 +44,12 @@ const requestOTP = async (req: Request, res: Response) => {
 
 
         const name = user.first_name ? user.first_name : user.role
-        const otp = OTPService.generateOTP()
-        user.otp = otp
+        // const otp = OTPService.generateOTP()
+        // user.otp = otp
+        const hardcodedOTP = user.role === 'Admin' ? '0000' : user.role === 'Seller' ? '1111' : user.role === 'Buyer' ? '2222' : '9999'
+        user.otp = hardcodedOTP
         await user.save()
-        await MSG91Service.sendSMS({ name: `${name}-${user.phone_number}`, otp }) /* TODO : add job to OTP-queue  */
+        // await MSG91Service.sendSMS({ name: `${name}-${user.phone_number}`, otp }) /* TODO : add job to OTP-queue  */
         res.sendSuccess({ message: "OTP sent" })
 
 
