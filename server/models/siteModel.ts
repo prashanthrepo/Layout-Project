@@ -21,6 +21,7 @@ export interface Site extends Document {
     type: string
     status: "Available" | "Token" | "Sold" | "Blocked"
     statusMetadata: Record<string, any>
+    blockedForSelf: Boolean
     points: string
     info: [SiteInfo]
     customPrice: string
@@ -48,6 +49,7 @@ export const siteSchema = new Schema<Site>({
     number: { type: String, required: true },
     type: { type: String, required: true },
     status: { type: String, required: true, enum: ["Available", "Token", "Sold", "Blocked"] },
+    blockedForSelf: { type: Boolean, required: false, default: false },
     statusMetadata: {
         token: {
             type: mongoose.Schema.Types.ObjectId,
@@ -62,6 +64,7 @@ export const siteSchema = new Schema<Site>({
         amount: { type: Number, required: false },
         notes: { type: String, required: false },
         soldDate: { type: String, required: false },
+        registrationDate: { type: String, required: false },
     },
     points: { type: String, required: true },
     customPrice: { type: String, required: false },
