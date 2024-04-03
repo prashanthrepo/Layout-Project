@@ -4,9 +4,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import requestOTPApi from '@/apicalls/request-otp';
 import validateOTPApi from '@/apicalls/validate-otp';
 import getSelfApi from '@/apicalls/get-self';
-
+import { useRouter } from 'next/navigation';
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -37,9 +38,11 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log('logout');
     localStorage.removeItem('user');
     localStorage.removeItem('authToken');
     setUser(null);
+    router.push('/signin');
   };
 
   return (

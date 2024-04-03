@@ -112,7 +112,7 @@ export default function NewLead({
           </div>
           <div className="flex-1">
             <label htmlFor="lead-phone" className="pp-label">
-              Phone <span className="text-rose-500">*</span>
+              Phone number <span className="text-rose-500">*</span>
             </label>
             <input
               id="lead-phone"
@@ -132,7 +132,7 @@ export default function NewLead({
         <div className="flex space-x-4">
           <div className="flex-1">
             <label htmlFor="lead-email" className="pp-label">
-              Email <span className="text-rose-500">*</span>
+              Email
             </label>
             <input
               id="lead-email"
@@ -150,7 +150,7 @@ export default function NewLead({
           </div>
           <div className="flex-1">
             <label htmlFor="lead-buyer-offer" className="pp-label">
-              Buyer Offer <span className="text-rose-500">*</span>
+              Buyer Offer
             </label>
             <input
               id="lead-buyer-offer"
@@ -170,7 +170,7 @@ export default function NewLead({
         <div className="flex space-x-4">
           <div className="flex-1">
             <label htmlFor="lead-seller-offer" className="pp-label">
-              Seller Offer <span className="text-rose-500">*</span>
+              Seller Offer
             </label>
             <input
               id="lead-seller-offer"
@@ -205,7 +205,7 @@ export default function NewLead({
         <div className="flex space-x-4">
           <div className="flex-1">
             <label htmlFor="lead-notes" className="pp-label">
-              Notes <span className="text-rose-500">*</span>
+              Notes
             </label>
             <textarea
               id="lead-notes"

@@ -26,7 +26,6 @@ export default function LeadsTab({ leads, loading }) {
             />
             <div className="px-4 py-2.5 rounded dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
               <div className="grid grid-cols-12 items-center gap-x-2">
-                {/* Card */}
                 <div className="col-span-6 order-1 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
                   <div className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate text-left">
                     {lead?.name}
@@ -52,7 +51,7 @@ export default function LeadsTab({ leads, loading }) {
                   </button>
                   <div>
                     <div className="text-xs ">+91 {lead?.phone}</div>
-                    <div className="text-xs">johndoe@gmail.com</div>
+                    <div className="text-xs">{lead?.email}</div>
                   </div>
                 </div>
                 <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">

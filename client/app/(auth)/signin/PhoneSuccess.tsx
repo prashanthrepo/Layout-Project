@@ -9,8 +9,10 @@ import Image from 'next/image';
 import ProfileUpdate from '@/components/ProfileUpdate';
 import getSelf from '@/apicalls/get-self';
 import { useUser } from '@/hooks/useUserHook';
+import { redirect, useRouter } from 'next/navigation';
 
 export default function PhoneSuccess({ phone, token }) {
+  const router = useRouter();
   const { getUser } = useUser();
   const tokenLocal = localStorage.getItem('authToken');
   useEffect(() => {
@@ -18,6 +20,12 @@ export default function PhoneSuccess({ phone, token }) {
       getUser();
     }
   }, []);
+
+  useEffect(() => {
+    if (token?.accountVerified) {
+      router.push('/dashboard');
+    }
+  }, [token?.accountVerified]);
   return (
     <div className="md:w-1/2">
       <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">

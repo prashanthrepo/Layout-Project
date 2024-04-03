@@ -30,7 +30,7 @@ export default function PhoneSignin({ onVerify }) {
   };
 
   useEffect(() => {
-    logout();
+    // logout();
   }, []);
 
   return (
