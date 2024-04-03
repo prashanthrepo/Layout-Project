@@ -1,9 +1,11 @@
 import { Request, Response } from "express"
 import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import LayoutModel from "../models/layoutModel"
-import Lead from "../models/leadModel"
+import Lead, { LeadDocument } from "../models/leadModel"
 import Site from "../models/siteModel"
 import { leadSchema } from "../zod/schemas"
+import layoutModel from "../models/layoutModel"
+import siteModel from "../models/siteModel"
 
 const createLead = async (req: Request, res: Response) => {
 
@@ -39,6 +41,26 @@ const createLead = async (req: Request, res: Response) => {
 }
 
 
+const getAllLeads = async (req: Request, res: Response) => {
+
+
+    const layoutIds = await layoutModel.find({ user: req.userId }).distinct('_id');
+    const sites = await siteModel.find({ layout: { $in: layoutIds } })
+
+    const allLeads:LeadDocument[] = sites.reduce((acc:LeadDocument[] , site) => {
+        acc.push(...site.leads);
+        return acc;
+    }, []);
+
+    res.sendSuccess(allLeads)
+
+
+
+
+
+
+}
+
 const deleteLead = async (req: Request, res: Response) => {
     const { id } = req.params
     try {
@@ -71,4 +93,4 @@ const updateLead = async (req: Request, res: Response) => {
 
 }
 
-export { createLead, deleteLead, updateLead }
+export { createLead, deleteLead, updateLead,getAllLeads }
