@@ -3,56 +3,16 @@ import getDashboardApi from '@/apicalls/get-dashboard';
 import Activity from './Activity';
 
 export default function SellerDashboard() {
-  console.log('seller');
   const { data, error, isLoading } = useQuery('posts', getDashboardApi);
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
-      {/* Page header */}
       <div className="sm:flex sm:justify-between sm:items-center mb-5">
-        {/* Left: Title */}
         <div className="mb-4 sm:mb-0">
           <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">
-            Dashboard
+            Seller Dashboard
           </h1>
         </div>
-
-        {/* Right: Actions */}
-        {/* <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-          <form className="relative">
-            <label htmlFor="action-search" className="sr-only">
-              Search
-            </label>
-            <input
-              id="action-search"
-              className="form-input pl-9 bg-white dark:bg-slate-800"
-              type="search"
-              placeholder="Search..."
-            />
-            <button
-              className="absolute inset-0 right-auto group"
-              type="submit"
-              aria-label="Search">
-              <svg
-                className="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
-                <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
-              </svg>
-            </button>
-          </form>
-          <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-            <svg
-              className="w-4 h-4 fill-current opacity-50 shrink-0"
-              viewBox="0 0 16 16">
-              <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-            </svg>
-            <span className="hidden xs:block ml-2"> Add Property</span>
-          </button>
-        </div> */}
       </div>
-
-      {/* Table */}
       <div className="flex-row md:flex gap-6">
         <div className="w-full xl:w-1/2 dark:bg-slate-800  mt-5 mb-10">
           <div className="grid grid-cols-12 gap-6">

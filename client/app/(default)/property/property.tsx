@@ -4,9 +4,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { siteTypeColor } from '@/common/utils';
 import getLayoutByID from '@/apicalls/get-layout-by-id';
-import LayoutSettingsButton from './layout-settings';
+import LayoutSettingsButton from './property-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import PropertySettings from './property-settings';
 export default function Property() {
   const params = useSearchParams();
   const slug = params.get('id');
@@ -14,12 +15,12 @@ export default function Property() {
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [seletedSite, setSelectedSite] = React.useState(null);
+  const [settingsModal, setSettingsModal] = React.useState(false);
   const onSiteClick = useCallback((site: any) => {
     if (site?.type == 'road') return;
     setSelectedSite(site);
     setOpenModal(true);
   }, []);
-
   const onSiteStatusChange = useCallback(
     (number, type) => {
       const newData = data?.sites?.map((item) => {
@@ -52,13 +53,41 @@ export default function Property() {
 
   return (
     <div className="relative">
-      <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
+      <div className="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-[96rem] mx-auto">
         <SkeletonLoader
           type=""
           length={3}
           isLoading={layoutLoading}
           isData={data?.sites?.length > 0}
-          noDataText=" No sites in the layout.">
+          noDataText="No sites in the layout.">
+          <div className="flex justify-between mb-4">
+            <h5 className="text-sm font-medium text-gray-900">{data?.name}</h5>
+            <div>
+              <button
+                className="btnsecondary "
+                onClick={() => setSettingsModal(true)}>
+                Setting
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5 ml-1">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
           <div className="flex">
             <div className="w-full">
               <svg
@@ -127,7 +156,12 @@ export default function Property() {
           </div>
         </SkeletonLoader>
       </div>
-      {/* {user?.role == 'Admin' && <LayoutSettingsButton />} */}
+      <PropertySettings
+        open={settingsModal}
+        setOpen={setSettingsModal}
+        property={data}
+      />
+
       <Site
         selectedSite={seletedSite}
         openModal={openModal}

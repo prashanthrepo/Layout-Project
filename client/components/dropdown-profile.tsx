@@ -4,20 +4,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
 import UserAvatar from '@/public/images/user-avatar-32.png';
-import { useEffect, useState } from 'react';
-import { redirect, useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUserHook';
 export default function DropdownProfile({
   align,
 }: {
   align?: 'left' | 'right';
 }) {
-  const router = useRouter();
   const { user, logout } = useUser();
-  const onLogoutClick = () => {
-    logout(null);
-    router.push('/signin');
-  };
+
   return (
     <Menu as="div" className="relative inline-flex">
       <Menu.Button className="inline-flex justify-center items-center group">
@@ -84,7 +78,7 @@ export default function DropdownProfile({
                     ? 'text-indigo-600 dark:text-indigo-400'
                     : 'text-indigo-500'
                 }`}
-                onClick={() => onLogoutClick()}>
+                onClick={() => logout(null)}>
                 Sign Out
               </button>
             )}
