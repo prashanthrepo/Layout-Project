@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose"
 import slugify from "slugify"
+import { Approval } from "./approvalModel"
 
 interface Location {
     lat: number
@@ -13,7 +14,7 @@ export interface Layout extends Document {
     location: Location
     sites: Types.ObjectId[]
     leads: Types.ObjectId[]
-    approvals: string[]
+    approvals: Approval[]
     slug: string
     user: Types.ObjectId
 }
@@ -31,7 +32,7 @@ const layoutSchema = new Schema<Layout>(
         image: { type: String, required: true },
         sites: [{ type: Schema.Types.ObjectId, ref: "Site" }],
         leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
-        approvals: [{ type: String, required: false }],
+        approvals: [{ type: String, ref:"Approval" }],
         slug: { type: String, unique: true },
         user: { type: Schema.Types.ObjectId, ref: "User", required: false },
     },
