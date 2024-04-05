@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config"
 import layoutModel, { default as Layout } from "../models/layoutModel"
-import siteModel, { Site } from "../models/siteModel"
-import { TransactionDocument } from "../models/transaction"
-import { layoutSchema } from "../zod/schemas"
+import siteModel, { Site, createCustomTransaction, siteSchema } from "../models/siteModel"
+import transaction, { TransactionDocument } from "../models/transaction"
+import { layoutSchema, transactionSchema } from "../zod/schemas"
 import UserModel from "../models/userModel"
 
 const createLayout = async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ const getLayouts = async (req: Request, res: Response) => {
     try {
 
         const userRole = await UserModel.getUserRoleById(req.userId as string)
-        
+
         let filter: any = { user: req.userId as string }
         if (userRole === "Admin") filter = {}
 
@@ -112,43 +112,6 @@ const getLayoutLeads = async (req: Request, res: Response) => {
 }
 
 
-// const getLayoutTransactions = async (req: Request, res: Response) => {
-
-//     let txns = []
-
-//     const { id } = req.params
-
-//     const layout = await layoutModel.findById(id).populate("sites")
-//     if (layout) {
-
-//         txns = layout.sites.map(async (site) => {
-
-//             const siteTxns = await transaction.find({ site })
-//             return siteTxns
-
-
-
-//         })
-
-//         console.log("txns ===", txns)
-
-//         res.sendSuccess()
-
-
-
-
-
-
-
-//     }
-
-
-
-
-
-
-// }
-
 
 const getLayoutTransactions = async (req: Request, res: Response) => {
     try {
@@ -158,26 +121,44 @@ const getLayoutTransactions = async (req: Request, res: Response) => {
         const layout = await layoutModel.findById(id).populate("sites");
 
         if (layout) {
-
             const sitePromises = layout.sites.map(async (site) => {
-                const siteObj = await siteModel.findById(site).populate("transactions")
-                // const siteObj = await siteModel.findById(site).populate({
-                //     path: "transactions",
-                //     options: { sort: { date: -1 } }
-                // })
-                return siteObj?.transactions
+
+
+                const siteObj = await siteModel.findById(site)
+                    .populate({
+                        path: 'transactions',
+                        populate: [
+                            { path: 'metadata.lead', model: 'Lead' },
+                            {
+                                path: 'metadata.token',
+                                model: 'Token',
+                                populate: { path: 'lead', model: 'Lead' } // Recursively populate lead within token
+                            }
+                        ]
+                    });
+
+                const siteTxns = siteObj?.transactions
+                const customTxns = []
+
+                if (siteTxns) {
+
+                    for (let txn of siteTxns) {
+                        const customTxn = createCustomTransaction(siteObj, txn as any)
+                        customTxns.push(customTxn)
+
+                    }
+
+                }
+
+
+
+                return customTxns;
             });
 
+            const resolvedSiteTxns = await Promise.all(sitePromises) as Array<any[]>; // Array of arrays of custom transactions
+            const allCustomTxns = resolvedSiteTxns.flat(); // Flatten the array of arrays
 
-            const resolvedSiteTxns = await Promise.all(sitePromises) as Array<TransactionDocument>[];
-            const allTxns = resolvedSiteTxns.flat()
-            const sortedTxns = allTxns.sort((a, b) => {
-                if (a.date && b.date) {
-                    return b.date.getTime() - a.date.getTime();
-                }
-                return 0;
-            })
-            res.sendSuccess(sortedTxns);
+            res.sendSuccess(allCustomTxns);
         }
     } catch (error) {
         console.error("Error in getLayoutTransactions:", error);

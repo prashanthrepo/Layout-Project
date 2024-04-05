@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose"
 import { Layout } from "./layoutModel"
-import { TransactionDocument } from "./transaction"
+import transactionModel, { TransactionDocument } from "../models/transaction"
 
 interface SiteInfo extends Document {
     text: string
@@ -79,6 +79,61 @@ export const siteSchema = new Schema<Site>({
     leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
     transactions: [{ type: Schema.Types.Mixed, ref: "Transaction" }],
 })
+
+
+
+export const createCustomTransaction = function(site: Site, txn: TransactionDocument) {
+    const customTransaction: any = {
+        siteNumber: site.number,
+    };
+
+    const getStatus = (metadata: any) => {
+        if (metadata.currentStatus === "Token" || metadata.currentStatus === "Sold" || metadata.currentStatus === "Blocked")
+            return metadata.currentStatus;
+
+        if (metadata.prevStatus === "Token" && metadata.currentStatus === "Available")
+            return "Token Cancelled";
+
+        if (metadata.prevStatus !== "Token" && metadata.currentStatus === "Available")
+            return "Available";
+    };
+
+    const txnStatus = getStatus(txn.metadata);
+
+    
+
+    if (txnStatus === "Token") {
+        customTransaction.type = "Token";
+        customTransaction.tokenBy = txn.metadata?.token?.lead ? txn.metadata.token.lead.name : "";
+        customTransaction.tokenDate = txn.metadata.token ? txn.metadata.token.createdAt : "";
+    } 
+     else if (txnStatus === "Sold") {
+        customTransaction.type = "Sold";
+        customTransaction.soldTo = txn.metadata.lead ? txn.metadata.lead.name : "";
+        customTransaction.soldDate = txn.metadata.soldDate ? txn.metadata.soldDate : "";
+        
+    } 
+     else if (txnStatus === "Blocked") {
+        customTransaction.type = "Blocked";
+        customTransaction.blockedTo = txn.metadata.lead ? txn.metadata.lead.name : "";
+        customTransaction.blockedDate = txn?.date ? txn.date : "";
+        
+    } 
+    else if (txnStatus === "Available") {
+        customTransaction.type = "Available";
+        customTransaction.status_change_date = txn.date ? txn.date.toDateString() : "";
+        
+    } 
+     else if (txnStatus === "Token Cancelled") {
+        customTransaction.type = "Token Cancelled";
+        customTransaction.tokenCancelledBy = txn.metadata.lead ? txn.metadata.lead.name : "";
+        customTransaction.tokenCancelledDate = txn.date ? txn.date.toDateString() : "";
+        
+    }
+
+    return customTransaction;
+};
+
 
 const siteModel = mongoose.model("Site", siteSchema)
 
