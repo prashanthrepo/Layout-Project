@@ -33,7 +33,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-04-03T07:38:44.815Z",
-            "modified": "2024-04-03T07:40:19.633Z",
+            "modified": "2024-04-13T02:46:15.583Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -43,7 +43,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\":\"BDA\",\n  \"type\":\"bda\",\n  \"description\":\"BDA approval\"\n}",
+                "raw": "{\n  \"name\":\"BDA123\",\n  \"type\":\"bda\",\n  \"description\":\"BDA approval\"\n}",
                 "form": []
             },
             "tests": []
@@ -53,11 +53,11 @@
             "colId": "0cec8486-0b8d-419b-af28-c3dcebad9878",
             "containerId": "",
             "name": "Update approval values [ By Seller ]",
-            "url": "{{BASE_URL}}/approvals",
+            "url": "{{BASE_URL}}/approvals/6619f1f7b352481cf663beb4",
             "method": "PATCH",
             "sortNum": 20000,
             "created": "2024-04-03T07:43:32.706Z",
-            "modified": "2024-04-03T07:48:56.196Z",
+            "modified": "2024-04-13T02:46:57.195Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -79,7 +79,7 @@
             "name": "select applicable approvals for site [By Seller]",
             "url": "{{BASE_URL}}/approvals",
             "method": "POST",
-            "sortNum": 15000,
+            "sortNum": 30000,
             "created": "2024-04-03T07:46:04.457Z",
             "modified": "2024-04-03T07:46:04.457Z",
             "headers": [
@@ -92,6 +92,54 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"name\":\"BDA\",\n  \"type\":\"bda\",\n  \"description\":\"BDA approval\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "216ff9c2-0c84-4b65-9830-674fce0b2c1c",
+            "colId": "0cec8486-0b8d-419b-af28-c3dcebad9878",
+            "containerId": "",
+            "name": "Edit approval [ By Admin ] ",
+            "url": "{{BASE_URL}}/approvals/6619f254b352481cf663beb9",
+            "method": "PATCH",
+            "sortNum": 12500,
+            "created": "2024-04-13T02:47:15.395Z",
+            "modified": "2024-04-13T02:48:35.583Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"BDA123-updated\",\n  \"type\":\"bda\",\n  \"description\":\"BDA approval-updated\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0bb3b6da-28c1-4ea6-9205-b1fc44015889",
+            "colId": "0cec8486-0b8d-419b-af28-c3dcebad9878",
+            "containerId": "",
+            "name": "Delete approval [ By Admin ]  ",
+            "url": "{{BASE_URL}}/approvals/6619f254b352481cf663beb9",
+            "method": "DELETE",
+            "sortNum": 17500,
+            "created": "2024-04-13T02:48:56.764Z",
+            "modified": "2024-04-13T02:49:21.134Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
                 "form": []
             },
             "tests": []
