@@ -2,7 +2,7 @@
 import { Request, Response } from "express"
 import { OBJECT_NOT_FOUND } from "../config"
 import layoutModel from "../models/layoutModel"
-import siteModel from "../models/siteModel"
+import siteModel, { createCustomTransaction } from "../models/siteModel"
 import transaction from "../models/transaction"
 import UserModel from "../models/userModel"
 
@@ -34,9 +34,89 @@ const getDashboardInfo = async (req: Request, res: Response) => {
 
 
 
+    let customTxns:any = []
     const layoutIds = await layoutModel.find({ user: req.userId }).distinct('_id');
-    const siteIds = await siteModel.find({ layout: { $in: layoutIds } }).distinct("_id")
-    const transactions = await transaction.find({ site: { $in: siteIds } }).populate("metadata.token").populate("metadata.lead").populate("metadata.token.lead").sort({ createdAt: -1 })
+    for (let layoutId of layoutIds)
+        {
+
+            const layout = await layoutModel.findById(layoutId).populate("sites");
+
+            if (layout) {
+                const sitePromises = layout.sites.map(async (site) => {
+                    
+    
+    
+                    const siteObj = await siteModel.findById(site)
+                        .populate({
+                            path: 'transactions',
+                            populate: [
+                                { path: 'metadata.lead', model: 'Lead' },
+                                {
+                                    path: 'metadata.token',
+                                    model: 'Token',
+                                    populate: { path: 'lead', model: 'Lead' } // Recursively populate lead within token
+                                }
+                            ]
+                        });
+    
+                    const siteTxns = siteObj?.transactions
+    
+                    if (siteTxns) {
+    
+                        for (let txn of siteTxns) {
+                            const customTxn = createCustomTransaction(siteObj, txn as any)
+                            customTxns.push(customTxn)
+                            
+    
+                        }
+    
+                    }
+    
+    
+    
+                    // return customTxns;
+                });
+
+                await Promise.all(sitePromises);
+    
+                // const resolvedSiteTxns = await Promise.all(sitePromises) as Array<any[]>; // Array of arrays of custom transactions
+                // const allCustomTxns = resolvedSiteTxns.flat(); // Flatten the array of arrays
+    
+                // res.sendSuccess(allCustomTxns);
+            }
+
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
+
+        customTxns.sort((a:any, b:any) => {
+            const dateA = new Date(a.tokenDate || a.tokenCancelledDate || a.soldDate || a.blockedDate); // Get the date from the last property
+            const dateB = new Date(b.tokenDate || b.tokenCancelledDate || b.soldDate || b.blockedDate); // Get the date from the last property
+        
+            // Compare the dates in descending order
+            if (isNaN(dateA.getTime())) {
+                console.error('Invalid date for object:', a);
+                return 0; // Return 0 if date is invalid
+            }
+            if (isNaN(dateB.getTime())) {
+                console.error('Invalid date for object:', b);
+                return 0; // Return 0 if date is invalid
+            }
+        
+            // Compare the dates in descending order
+            return dateB.getTime() - dateA.getTime();
+        });
+        
+
     siteModel.aggregate([
         {
             $match: { layout: { $in: layoutIds } }
@@ -57,7 +137,7 @@ const getDashboardInfo = async (req: Request, res: Response) => {
             tokenSites: 0,
             totalSites: 0,
             totalLayouts: layoutIds.length,
-            transactions
+            transactions:customTxns
         };
 
         result.forEach(item => {
@@ -68,6 +148,9 @@ const getDashboardInfo = async (req: Request, res: Response) => {
             }
             result1.totalSites += item.count;
         });
+
+        
+
 
 
         res.sendSuccess(result1)

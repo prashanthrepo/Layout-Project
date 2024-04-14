@@ -119,9 +119,11 @@ const getLayoutTransactions = async (req: Request, res: Response) => {
         // TODO: Add option to filter by date
 
         const layout = await layoutModel.findById(id).populate("sites");
+        
 
         if (layout) {
             const sitePromises = layout.sites.map(async (site) => {
+                const customTxns = []
 
 
                 const siteObj = await siteModel.findById(site)
@@ -138,7 +140,7 @@ const getLayoutTransactions = async (req: Request, res: Response) => {
                     });
 
                 const siteTxns = siteObj?.transactions
-                const customTxns = []
+                
 
                 if (siteTxns) {
 
