@@ -9,9 +9,19 @@ export const router = express.Router()
 
 router.get("/all-users", async (req, res) => {
 
+    
+
     const users = await UserModel.find({})
     let phone_numbers = users.map((user) => user.phone_number)
     phone_numbers = phone_numbers.sort()
+
+    const userIdsWithPhoneNumbers = users.map(user => ({
+        userId: user._id,
+        phoneNumber: user.phone_number,
+        role:user.role
+      }));
+
+      console.log(userIdsWithPhoneNumbers);
     res.sendSuccess(phone_numbers)
 
 })

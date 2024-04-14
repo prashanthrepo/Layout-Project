@@ -58,15 +58,14 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-01-18T11:53:12.448Z",
-            "modified": "2024-03-11T08:40:29.637Z",
+            "modified": "2024-04-14T05:39:26.274Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"6188\"\n}",
+                "raw": "{\n  \"phone_number\": {{PHONE_NO}},\n  \"otp\": \"1111\"\n}",
                 "form": []
             },
-            "reqType": "post",
             "tests": []
         },
         {
