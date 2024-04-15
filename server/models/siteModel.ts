@@ -76,16 +76,26 @@ export const siteSchema = new Schema<Site>({
             type: siteInfoSchema,
         },
     ],
-    leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
+    leads: [{ type: Schema.Types.ObjectId, ref: "Contact" }],
     transactions: [{ type: Schema.Types.Mixed, ref: "Transaction" }],
 })
 
 
 
-export const createCustomTransaction = function(site: Site, txn: TransactionDocument) {
-    const customTransaction: any = {
+export const createCustomTransaction = function(site: Site, txn: TransactionDocument, layoutName?:string) {
+    let customTransaction: any   = {
         siteNumber: site.number,
-    };
+        layoutName
+    }
+
+    if (layoutName) {
+
+        customTransaction.layoutName = layoutName
+
+
+       
+        
+    }
 
     const getStatus = (metadata: any) => {
         if (metadata.currentStatus === "Token" || metadata.currentStatus === "Sold" || metadata.currentStatus === "Blocked")
@@ -105,29 +115,29 @@ export const createCustomTransaction = function(site: Site, txn: TransactionDocu
     if (txnStatus === "Token") {
         customTransaction.type = "Token";
         customTransaction.tokenBy = txn.metadata?.token?.lead ? txn.metadata.token.lead.name : "";
-        customTransaction.tokenDate = txn.metadata.token ? txn.metadata.token.createdAt : "";
+        customTransaction.date = txn.metadata.token ? txn.metadata.token.createdAt : "";
     } 
      else if (txnStatus === "Sold") {
         customTransaction.type = "Sold";
         customTransaction.soldTo = txn.metadata.lead ? txn.metadata.lead.name : "";
-        customTransaction.soldDate = txn.metadata.soldDate ? txn.metadata.soldDate : "";
+        customTransaction.date = txn.metadata.soldDate ? txn.metadata.soldDate : "";
         
     } 
      else if (txnStatus === "Blocked") {
         customTransaction.type = "Blocked";
         customTransaction.blockedTo = txn.metadata.lead ? txn.metadata.lead.name : "";
-        customTransaction.blockedDate = txn?.date ? txn.date : "";
+        customTransaction.date = txn?.date ? txn.date : "";
         
     } 
     else if (txnStatus === "Available") {
         customTransaction.type = "Available";
-        customTransaction.status_change_date = txn.date ? txn.date.toDateString() : "";
+        customTransaction.date = txn.date ? txn.date.toDateString() : "";
         
     } 
      else if (txnStatus === "Token Cancelled") {
         customTransaction.type = "Token Cancelled";
         customTransaction.tokenCancelledBy = txn.metadata.lead ? txn.metadata.lead.name : "";
-        customTransaction.tokenCancelledDate = txn.date ? txn.date.toDateString() : "";
+        customTransaction.date = txn.date ? txn.date.toDateString() : "";
         
     }
 
