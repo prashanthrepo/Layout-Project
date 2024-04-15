@@ -64,7 +64,7 @@ const getDashboardInfo = async (req: Request, res: Response) => {
                     if (siteTxns) {
     
                         for (let txn of siteTxns) {
-                            const customTxn = createCustomTransaction(siteObj, txn as any)
+                            const customTxn = createCustomTransaction(siteObj, txn as any,layout.name)
                             customTxns.push(customTxn)
                             
     
@@ -99,8 +99,8 @@ const getDashboardInfo = async (req: Request, res: Response) => {
 
 
         customTxns.sort((a:any, b:any) => {
-            const dateA = new Date(a.tokenDate || a.tokenCancelledDate || a.soldDate || a.blockedDate); // Get the date from the last property
-            const dateB = new Date(b.tokenDate || b.tokenCancelledDate || b.soldDate || b.blockedDate); // Get the date from the last property
+            const dateA = new Date(a.date ); // Get the date from the last property
+            const dateB = new Date(b.date); // Get the date from the last property
         
             // Compare the dates in descending order
             if (isNaN(dateA.getTime())) {

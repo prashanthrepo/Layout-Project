@@ -129,12 +129,8 @@ const getSiteTransactions = async (req: Request, res: Response) => {
     }
 
     customTxns.sort((a: any, b: any) => {
-      const dateA = new Date(
-        a.tokenDate || a.tokenCancelledDate || a.soldDate || a.blockedDate
-      );
-      const dateB = new Date(
-        b.tokenDate || b.tokenCancelledDate || b.soldDate || b.blockedDate
-      );
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
 
       if (isNaN(dateA.getTime())) {
         console.error("Invalid date for object:", a);
