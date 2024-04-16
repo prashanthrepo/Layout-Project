@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
 import Sidebar from '@/components/ui/sidebar';
@@ -7,6 +7,11 @@ import Dashboard from './(default)/dashboard/page';
 import MobileNav from '../components/MobileNav';
 import { useEffect } from 'react';
 import { useUser } from '@/hooks/useUserHook';
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Paypersqft - Dashboard',
+  description: 'Paypersqft - Buy plots online',
+};
 export default function DefaultLayout() {
   return (
     <div className="flex h-[100dvh] overflow-hidden">

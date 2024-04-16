@@ -177,6 +177,48 @@ const SkeletonLoaderHtml = (type, times = 0) => {
           </div>
         </div>
       );
+    case 'SellerDashboard':
+      return (
+        <div className="flex space-x-5">
+          <div className="bg-white dark:bg-slate-800 w-full p-5">
+            <div className="animate-pulse flex">
+              <div className="flex-1 space-y-8 py-1">
+                <div className="flex space-x-8">
+                  <div className=" bg-slate-200 h-20 w-full"></div>
+                  <div className="ml-2 bg-slate-200 h-20 w-full"></div>
+                </div>
+                <div className="flex space-x-8">
+                  <div className=" bg-slate-200 h-20 w-full"></div>
+                  <div className="ml-2 bg-slate-200 h-20 w-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white dark:bg-slate-800 w-full p-5">
+            <div className="animate-pulse flex">
+              <div className="flex-1 space-y-10 pb-5">
+                <div className="flex space-x-10">
+                  <div className=" bg-slate-200 h-8 w-2/5"></div>
+                </div>
+              </div>
+            </div>
+            {new Array(times).fill(0).map((i, key) => (
+              <div className="animate-pulse flex space-x-4" key={key}>
+                <div className="flex-1 space-y-3">
+                  <div className="space-y-3 mb-3">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="h-4 bg-slate-200 rounded col-span-2"></div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="h-3 bg-slate-200 rounded col-span-1"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     default:
       return (
         <div className="flex justify-center h-80 max-h-40 bg-white">
