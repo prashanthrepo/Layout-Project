@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config";
 import UserModel from "../models/userModel";
 import JWTService from "../services/jwt";
+import ContactModel from "../models/contactModel";
 
 
 declare global {
@@ -109,6 +110,40 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     next()
 
 }
+
+
+
+// export const isOwner = async(req: Request, res: Response, next: NextFunction) => {
+
+//     try {
+
+//         const contact = await ContactModel.findById(req.params.id)
+//         if(contact)
+//             {
+                 
+//                 if (req.userId == contact.user)
+//                     {
+
+//                     }
+//             }
+       
+
+
+
+//     } catch (error) {
+//         return res.status(403).json({
+//             "status": 403,
+//             "error": "Forbidden. Authentication token required."
+//         })
+
+//     }
+
+//     next()
+
+// }
+
+
+
 
 
 export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
