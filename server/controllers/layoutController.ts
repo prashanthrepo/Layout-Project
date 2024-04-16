@@ -39,7 +39,7 @@ const getLayouts = async (req: Request, res: Response) => {
         const userRole = await UserModel.getUserRoleById(req.userId as string)
 
         let filter: any = { user: req.userId as string }
-        if (userRole === "Admin") filter = {}
+        if (userRole === "Admin" || userRole === "Buyer") filter = {}
 
         const layouts = await Layout.find(filter)
             .select("-sites -location._id")
