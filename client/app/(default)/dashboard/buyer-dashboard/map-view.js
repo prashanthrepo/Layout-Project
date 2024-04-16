@@ -1,38 +1,29 @@
 'use client';
+import getAllLayouts from '@/apicalls/get-all-layouts';
 import {
   GoogleMap,
   InfoWindow,
   Marker,
   useLoadScript,
 } from '@react-google-maps/api';
-import React from 'react';
-import { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
-export default function MapView() {
+export default function MapView({ layouts }) {
+  const router = useRouter();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
   });
-  const center = useMemo(
-    () => ({ lat: 12.939525555477744, lng: 77.73138458855705 }),
-    []
-  );
   const [mapRef, setMapRef] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [infoWindowData, setInfoWindowData] = useState();
+  const [markers, setMarkers] = useState([]);
+  // const center = useMemo(
+  //   () => ({ lat: layouts[0]?.location?.long, lng: layouts[0]?.location?.lat }),
+  //   [layouts]
+  // );
 
-  const markers = [
-    { address: 'Obel Villas', lat: 12.939525555477744, lng: 77.73138458855705 },
-    {
-      address: 'Halasahalli Layout',
-      lat: 12.92928781121957,
-      lng: 77.7583750464287,
-    },
-    {
-      address: 'Katherguppe Layout',
-      lat: 12.912284797208201,
-      lng: 77.76543445706841,
-    },
-  ];
   const onMapLoad = (map) => {
     setMapRef(map);
     const bounds = new google.maps.LatLngBounds();
@@ -54,6 +45,18 @@ export default function MapView() {
     rotation: 0,
     scale: 1,
   };
+
+  useEffect(() => {
+    if (layouts) {
+      const markers = layouts.map((layout) => ({
+        address: layout.name,
+        lat: layout.location?.long,
+        lng: layout.location?.lat,
+        id: layout._id,
+      }));
+      setMarkers(markers);
+    }
+  }, [layouts]);
   return (
     <div className=" w-full max-w-[96rem] mx-auto">
       <div className="grid grid-cols-12 gap-6">
@@ -68,10 +71,12 @@ export default function MapView() {
                     mapContainerClassName="w-full h-full"
                     onLoad={onMapLoad}
                     onClick={() => setIsOpen(false)}
-                    // center={center}
-                    // zoom={16}>
-                  >
-                    {markers.map(({ address, lat, lng }, ind) => (
+                    center={{
+                      lat: 12.912516973158983,
+                      lng: 77.76556536425828,
+                    }}
+                    zoom={10}>
+                    {markers?.map(({ address, lat, lng, id }, ind) => (
                       <Marker
                         key={ind}
                         position={{ lat, lng }}
@@ -88,11 +93,14 @@ export default function MapView() {
                               <div className="flex font-semibold text-slate-800 dark:text-slate-100">
                                 {infoWindowData.address}
                               </div>
-
-                              <div className="flex justify-center">
-                                <span className="text-xs  font-medium rounded-full text-center px-2.5 py-1 mt-1 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">
-                                  Available
-                                </span>
+                              <div className="flex justify-center mt-2 ">
+                                <button
+                                  className="rounded-lg bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+                                  onClick={() => {
+                                    router.push(`/property?id=${id}`);
+                                  }}>
+                                  View Layout
+                                </button>
                               </div>
                             </>
                           </InfoWindow>

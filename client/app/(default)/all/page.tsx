@@ -5,22 +5,15 @@ import mapImage from '@/public/images/google-maps.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 export default function SellerLayouts() {
-  const [layouts, setLayouts] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const getLayouts = useCallback(() => {
-    setLoading(true);
-    const res = getAllLayouts();
-    res?.then((res) => {
-      setLoading(false);
-      setLayouts(res || []);
-    });
-  }, []);
-
+  const { data, isLoading, error } = useQuery('allLayouts', getAllLayouts);
   useEffect(() => {
-    getLayouts();
-  }, []);
+    if (error) {
+      console.log('Error fetching all layouts:', error);
+    }
+  }, [error]);
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
       <div className="grid grid-cols-12 gap-6">
@@ -37,11 +30,11 @@ export default function SellerLayouts() {
               <SkeletonLoader
                 type="PropertyList"
                 length={3}
-                isLoading={loading}
-                isData={layouts?.data?.length > 0}
+                isLoading={isLoading}
+                isData={data?.data?.length > 0}
                 noDataText="No properties listed.">
                 <div className="space-y-2 ">
-                  {layouts?.data?.map((layout, key) => (
+                  {data?.data?.map((layout, key) => (
                     <Link href={`/property?id=${layout?._id}`} key={key}>
                       <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border hover:border-indigo-500">
                         <div className="md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2">

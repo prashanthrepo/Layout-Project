@@ -10,6 +10,7 @@ import SellerDashboard from './seller-dashboard';
 import { useUser } from '@/hooks/useUserHook';
 import AdminDashboard from './admin-dashboard';
 import { redirect } from 'next/navigation';
+import BuyerDashboard from './buyer-dashboard';
 
 export default function Dashboard() {
   const { user } = useUser();
@@ -23,7 +24,7 @@ export default function Dashboard() {
       ) : user?.role == 'Seller' ? (
         <SellerDashboard />
       ) : user?.role == 'Buyer' ? (
-        <MapView />
+        <BuyerDashboard />
       ) : (
         <></>
       )}

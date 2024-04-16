@@ -3,13 +3,22 @@ import { Fragment, useEffect, useRef, useState, ChangeEvent } from 'react';
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import ModalAction from '@/components/modal-action';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import MultiSelectDropdown from '@/components/MultiSelectDropdown';
+import { useMutation } from 'react-query';
+import { getAllApprovals } from '@/apicalls/approvals';
 
 export default function PropertySettings({ open, setOpen, property }) {
+  const {
+    mutate: allApprovalsMutate,
+    data,
+    error,
+    isLoading,
+  } = useMutation(getAllApprovals);
   const [propertyDetails, setPropertyDetails] = useState({
     name: '',
     location: { lat: '', long: '' },
   });
-  console.log('propertyDetails :>> ', property);
+  const [selectedApprovals, setSelectedApprovals] = useState([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const validate = () => {
     let validationErrors: { [key: string]: string } = {};
@@ -34,6 +43,7 @@ export default function PropertySettings({ open, setOpen, property }) {
       name: property?.name || '',
       location: property?.location || { lat: '', long: '' },
     });
+    allApprovalsMutate();
   }, [property]);
   return (
     <div className="m-1.5">
@@ -112,134 +122,47 @@ export default function PropertySettings({ open, setOpen, property }) {
                   )}
                 </div>
               </div>
-              <select>
-                <option>BDA</option>
-                <option>BMRDA</option>
-                <option>Water connection</option>
-              </select>
-              <div className="flex space-x-4 bg-indigo-50 p-4 rounded-md border border-indigo-100">
-                <div className="space-y-5">
-                  <div className="relative flex items-start">
-                    <div className="flex h-6 items-center">
-                      <input
-                        id="comments"
-                        aria-describedby="comments-description"
-                        name="comments"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm leading-6">
-                      <label
-                        htmlFor="comments"
-                        className="font-medium text-gray-900">
-                        BDA
-                      </label>
-                      <p id="comments-description" className="text-gray-500">
-                        Approved by BDA.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="relative flex items-start">
-                    <div className="flex h-6 items-center">
-                      <input
-                        id="candidates"
-                        aria-describedby="candidates-description"
-                        name="candidates"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm leading-6">
-                      <label
-                        htmlFor="candidates"
-                        className="font-medium text-gray-900">
-                        Water connection
-                      </label>
-                      <p id="candidates-description" className="text-gray-500">
-                        Approved by BMRDA.
-                      </p>
-                    </div>
-                  </div>
-                  {/* <div className="relative flex items-start">
-                    <div className="flex h-6 items-center">
-                      <input
-                        id="offers"
-                        aria-describedby="offers-description"
-                        name="offers"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm leading-6">
-                      <label
-                        htmlFor="offers"
-                        className="font-medium text-gray-900">
-                        Yellow Zone
-                      </label>
-                      <p id="offers-description" className="text-gray-500">
-                        Property is in Yellow Zone.
-                      </p>
-                    </div>
-                  </div> */}
+              <div className="flex space-x-4">
+                <div className="flex-1">
+                  <label htmlFor="property-location" className="pp-label">
+                    Approvals
+                  </label>
+                  <MultiSelectDropdown
+                    className="pp-input"
+                    options={data?.data}
+                    onSelect={(selected) => {
+                      setSelectedApprovals(selected);
+                    }}
+                  />
                 </div>
               </div>
-              {/* <div className="flex space-x-4">
-                <div className="flex-1">
-                  <label htmlFor="lead-seller-offer" className="pp-label">
-                    Seller Offer
-                  </label>
-                  <input
-                    id="lead-seller-offer"
-                    type="number"
-                    className="pp-input"
-                    placeholder="0000"
-                    value={propertyDetails.sellerOffer}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      handleInputChange('sellerOffer', Number(e.target.value))
-                    }
-                  />
-                  {errors.sellerOffer && (
-                    <p className="text-sm text-rose-500">
-                      {errors.sellerOffer}
-                    </p>
-                  )}
+              <div className="flex space-x-4 bg-indigo-50 p-4 rounded-md border border-indigo-100">
+                <div className="space-y-5">
+                  {selectedApprovals?.map((approval, index) => (
+                    <div className="relative flex items-start" key={index}>
+                      <div className="flex h-6 items-center">
+                        <input
+                          id="comments"
+                          aria-describedby="comments-description"
+                          name="comments"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm leading-6">
+                        <label
+                          htmlFor="comments"
+                          className="font-medium text-gray-900">
+                          {approval.name}
+                        </label>
+                        <p id="comments-description" className="text-gray-500">
+                          {approval.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex-1">
-                  <label htmlFor="lead-final-price" className="pp-label">
-                    Final Price
-                  </label>
-                  <input
-                    id="lead-final-price"
-                    type="number"
-                    className="pp-input"
-                    placeholder="0000"
-                    value={propertyDetails.finalPrice}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      handleInputChange('finalPrice', Number(e.target.value))
-                    }
-                  />
-                </div>
-              </div> */}
-              {/* <div className="flex space-x-4">
-                <div className="flex-1">
-                  <label htmlFor="lead-notes" className="pp-label">
-                    Notes
-                  </label>
-                  <textarea
-                    id="lead-notes"
-                    className="form-textarea w-full"
-                    placeholder="Notes about the lead..."
-                    value={propertyDetails.notes}
-                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                      handleInputChange('notes', e.target.value)
-                    }
-                  />
-                  {errors.notes && (
-                    <p className="text-sm text-rose-500">{errors.notes}</p>
-                  )}
-                </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </SkeletonLoader>

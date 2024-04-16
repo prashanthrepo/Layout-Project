@@ -36,7 +36,6 @@ export default function NewLead({
     email: '',
     buyerOffer: '',
     sellerOffer: '',
-    finalPrice: '',
     notes: '',
     status: 'hot',
   });
@@ -185,21 +184,6 @@ export default function NewLead({
             {errors.sellerOffer && (
               <p className="text-sm text-rose-500">{errors.sellerOffer}</p>
             )}
-          </div>
-          <div className="flex-1">
-            <label htmlFor="lead-final-price" className="pp-label">
-              Final Price
-            </label>
-            <input
-              id="lead-final-price"
-              type="number"
-              className="pp-input"
-              placeholder="0000"
-              value={newLead.finalPrice}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                handleInputChange('finalPrice', Number(e.target.value))
-              }
-            />
           </div>
         </div>
         <div className="flex space-x-4">

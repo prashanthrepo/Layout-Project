@@ -4,6 +4,7 @@ import Image from 'next/image';
 import StatusChip from '../../../../../components/StatusChip';
 import moment from 'moment';
 import getTranscationsBySite from '@/apicalls/get-transcations-by-site';
+import SingleTranscation from '@/components/SingleTranscation';
 
 export default function HistoryTab({ siteDetails }) {
   const [loading, setLoading] = useState(false);
@@ -26,92 +27,7 @@ export default function HistoryTab({ siteDetails }) {
           <div className="flow-root">
             <ul role="list" className="">
               {history?.map((item, key) => (
-                <li key={key} className={key !== history.length - 1 && 'mb-5'}>
-                  <div className="relative">
-                    {key !== history.length - 1 && (
-                      <span
-                        className="absolute left-6 top-6 -ml-px h-full w-0.5 bg-gray-200"
-                        aria-hidden="true"></span>
-                    )}
-                    <div className="relative flex space-x-2">
-                      <div className="w-20 pl-2">
-                        <span className="h-5 w-8 mt-1 rounded-full flex items-center justify-center ring-8 ring-white">
-                          <div className={' '} aria-hidden="true">
-                            <StatusChip
-                              status={item?.metadata?.currentStatus}
-                              size="sm"
-                            />
-                          </div>
-                        </span>
-                      </div>
-                      <div className="w-full">
-                        {item?.metadata?.currentStatus === 'Available' && (
-                          <div>
-                            <p className="text-xm text-gray-900">
-                              Status change
-                            </p>
-                          </div>
-                        )}
-                        {item?.metadata?.currentStatus === 'Token' &&
-                          (item?.metadata?.token?.status == 'active' ? (
-                            <div>
-                              <p className="text-xm text-gray-900">
-                                By{' '}
-                                <span className="font-semibold">
-                                  {item?.metadata?.token?.lead?.name}
-                                </span>{' '}
-                                for{' '}
-                                <span className="font-semibold">
-                                  {item?.metadata?.token?.lead?.buyerOffer}
-                                </span>
-                                /sqft
-                                <a
-                                  href="#"
-                                  className="font-medium text-gray-900">
-                                  {item?.name}
-                                </a>
-                              </p>
-                            </div>
-                          ) : (
-                            <div>
-                              <p className="text-xm text-orange-600">
-                                Cancelled on{' '}
-                                <span className="font-semibold">
-                                  {moment(
-                                    item?.metadata?.token?.cancelledDate
-                                  ).format('Do MMM YYYY, hh:mm A')}
-                                </span>{' '}
-                                <span className=" italic">
-                                  ({item?.metadata?.token?.cancellationReason})
-                                </span>
-                              </p>
-                            </div>
-                          ))}
-                        {item?.metadata?.currentStatus === 'Sold' && (
-                          <div>
-                            <p className="text-xm text-gray-500">
-                              By{' '}
-                              <span className="font-semibold">
-                                {item?.metadata?.token?.lead?.name}
-                              </span>{' '}
-                              for{' '}
-                              <span className="font-semibold">
-                                {item?.metadata?.token?.lead?.buyerOffer}
-                              </span>
-                              /sqft
-                              <a href="#" className="font-medium text-gray-900">
-                                {item?.name}
-                              </a>
-                            </p>
-                          </div>
-                        )}
-                        <div className="whitespace-nowrap text-left text-xs text-gray-500">
-                          {moment(item?.date).format('Do MMM YYYY, hh:mm A')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                <SingleTranscation transaction={item} key={key} />
               ))}
             </ul>
           </div>
