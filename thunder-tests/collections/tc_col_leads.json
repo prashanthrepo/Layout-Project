@@ -110,8 +110,13 @@
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-19T05:43:59.525Z",
-            "modified": "2023-12-19T05:43:59.525Z",
-            "headers": [],
+            "modified": "2024-04-15T08:10:15.421Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         },
@@ -120,12 +125,17 @@
             "colId": "e2f2c469-1c34-4a70-acb9-727de0d53644",
             "containerId": "",
             "name": "get site leads - [Duplicate]",
-            "url": "{{BASE_URL}}/sites/657d19ab95ee05f9d7f3655b/leads",
+            "url": "{{BASE_URL}}/sites/65cf00fef901e992d94c892e/leads",
             "method": "GET",
             "sortNum": 60000,
             "created": "2023-12-19T05:44:10.834Z",
-            "modified": "2023-12-19T05:44:10.834Z",
-            "headers": [],
+            "modified": "2024-04-15T08:10:52.627Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
             "params": [],
             "tests": []
         }

@@ -26,3 +26,5 @@ const leadSchema = new Schema<LeadDocument>(
 )
 
 export default mongoose.model("Lead", leadSchema)
+
+

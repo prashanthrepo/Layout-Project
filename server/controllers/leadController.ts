@@ -41,6 +41,41 @@ const createLead = async (req: Request, res: Response) => {
 }
 
 
+
+const addContactAsLead = async (req: Request, res: Response) => {
+
+    try {
+
+        const parsedData = leadSchema.safeParse(req.body)
+        if (!parsedData.success) {
+            res.sendError(BAD_REQUEST, { details: parsedData.error.issues })
+        }
+        else {
+            const { layoutId, siteId, ...leadData } = parsedData.data
+            const lead = await Lead.create(leadData)
+            await lead.save()
+
+            if (siteId) {
+                const site = await Site.findOne({ _id: siteId })
+                site?.leads.push(lead._id)
+                await site?.save()
+            }
+            if (layoutId) {
+                const layout = await LayoutModel.findOne({ _id: layoutId })
+                layout?.leads.push(lead._id)
+                await layout?.save()
+            }
+            res.sendSuccess(lead, 201)
+        }
+    }
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG, { error })
+    }
+
+
+}
+
+
 const getAllLeads = async (req: Request, res: Response) => {
 
 

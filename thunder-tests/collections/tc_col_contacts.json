@@ -1,0 +1,138 @@
+{
+    "_id": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+    "colName": "Contacts",
+    "created": "2024-04-15T03:00:57.941Z",
+    "sortNum": 70000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "21a0a81b-8234-4ea3-9682-f183d97e6907",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "get user contacts",
+            "url": "{{BASE_URL}}/contacts",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-04-15T03:00:57.946Z",
+            "modified": "2024-04-15T03:07:00.903Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7c5807ae-84da-4902-a636-c10ad2805490",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "create contact",
+            "url": "{{BASE_URL}}/contacts",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-04-15T03:00:57.947Z",
+            "modified": "2024-04-19T04:36:01.033Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"prasshanth\",\n  \"phone\": \"1234\",\n  \"email\": \"--OPTIONAL--\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c855ec54-bded-4f3f-a5ec-b5c347352105",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "Edit contact",
+            "url": "{{BASE_URL}}/contacts/6621f4b04ce9ee2b23e55a24",
+            "method": "PATCH",
+            "sortNum": 12500,
+            "created": "2024-04-15T03:00:57.948Z",
+            "modified": "2024-04-19T04:36:21.892Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"prasshanth-123-updated11\",\n  \"phone\": \"1234\",\n  \"email\": \"--OPTIONAL--00\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "62b9c696-a159-42dc-ad07-892875427c3a",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "Delete contact",
+            "url": "{{BASE_URL}}/contacts/661c9e0a1316f012f6138434",
+            "method": "DELETE",
+            "sortNum": 17500,
+            "created": "2024-04-15T03:00:57.950Z",
+            "modified": "2024-04-19T04:35:33.496Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            }
+        },
+        {
+            "_id": "e4fe0b09-3bc2-4758-b810-21b0a7fc4406",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "Add Contact as Lead",
+            "url": "{{BASE_URL}}/contacts/add-lead",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-04-15T07:59:22.700Z",
+            "modified": "2024-04-19T06:17:44.248Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"siteId\": \"65cf00fef901e992d94c892e\",\n  \"contactId\": \"6621f4b04ce9ee2b23e55a24\",\n  \"buyerOffer\": 4000,\n  \"sellerOffer\": 3800,\n  \"notes\": \"Will pay token on 25th\",\n  \"status\": \"hot\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "34216038-e922-4599-83fd-8fa6888c94b8",
+            "colId": "16343e3d-89b3-4515-abbe-4cb83fdf6b7d",
+            "containerId": "",
+            "name": "Remove Lead Contact from Site",
+            "url": "{{BASE_URL}}/contacts/remove-lead",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-04-19T05:08:05.695Z",
+            "modified": "2024-04-19T05:22:01.443Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{TOKEN}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"siteId\": \"65cf00fef901e992d94c892e\",\n  \"contactId\": \"6621f4b04ce9ee2b23e55a24\"\n}",
+                "form": []
+            }
+        }
+    ]
+}
