@@ -99,7 +99,7 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-04-15T07:59:22.700Z",
-            "modified": "2024-04-19T05:21:35.556Z",
+            "modified": "2024-04-19T06:17:44.248Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -108,7 +108,7 @@
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"siteId\": \"65cf00fef901e992d94c892e\",\n  \"contactId\": \"6621f4b04ce9ee2b23e55a24\"\n}",
+                "raw": "{\n  \"siteId\": \"65cf00fef901e992d94c892e\",\n  \"contactId\": \"6621f4b04ce9ee2b23e55a24\",\n  \"buyerOffer\": 4000,\n  \"sellerOffer\": 3800,\n  \"notes\": \"Will pay token on 25th\",\n  \"status\": \"hot\"\n}",
                 "form": []
             }
         },
