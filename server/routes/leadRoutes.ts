@@ -2,7 +2,6 @@ import { Router } from "express"
 import {
     createLead,
     deleteLead,
-    getAllLeads,
     updateLead,
 } from "../controllers/leadController"
 import { checkAuth, validateId } from "../middlewares"

@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
-import { OBJECT_ALREADY_EXISTS, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config";
+import {
+  OBJECT_ALREADY_EXISTS,
+  OBJECT_NOT_FOUND,
+  SOMETHING_WENT_WRONG,
+} from "../config";
 import ContactModel from "../models/contactModel";
 import siteModel from "../models/siteModel";
+import leadModel from "../models/leadModel";
 
 const createContact = async (req: Request, res: Response) => {
   const reqBody = { ...req.body, user: req.userId };
@@ -37,48 +42,37 @@ const deleteContact = async (req: Request, res: Response) => {
   }
 };
 
-
-
 const addContactAsSiteLead = async (req: Request, res: Response) => {
-  const { contactId,siteId } = req.body;
-  
+  const { contactId, siteId } = req.body;
+
   try {
-    const site = await siteModel.findById(siteId)
-    if(!site)
-      {
-        return res.sendError(OBJECT_NOT_FOUND,{message:"Site not found"})
-      }
-    const contact = await ContactModel.findById(contactId)
-    if(!contact)
-      {
-        return res.sendError(OBJECT_NOT_FOUND,{message:"Contact not found"})
-      }
-
-    const exists = site.leads.includes(contactId)
-    
-    if (!exists )
-      {
-        
-        site.leads.push(contactId)
-        site?.save()
-        res.sendSuccess(site)
-
-      }
-    else {
-
-      
-      res.sendError(OBJECT_ALREADY_EXISTS)
+    const site = await siteModel.findById(siteId);
+    if (!site) {
+      return res.sendError(OBJECT_NOT_FOUND, { message: "Site not found" });
+    }
+    const contact = await ContactModel.findById(contactId);
+    if (!contact) {
+      return res.sendError(OBJECT_NOT_FOUND, { message: "Contact not found" });
     }
 
-    console.log(site.leads)
-    
+    const exists = site.leads.includes(contactId);
+
+    if (!exists) {
+      const lead = await leadModel.create(req.body);
+      await lead?.save();
+
+      site.leads.push(lead._id);
+      site?.save();
+      res.sendSuccess(site);
+    } else {
+      res.sendError(OBJECT_ALREADY_EXISTS);
+    }
+
     
   } catch (error) {
     res.sendError(SOMETHING_WENT_WRONG, { error });
   }
 };
-
-
 
 const removeContactAsSiteLead = async (req: Request, res: Response) => {
   const { contactId, siteId } = req.body;
@@ -92,21 +86,31 @@ const removeContactAsSiteLead = async (req: Request, res: Response) => {
       return res.sendError(OBJECT_NOT_FOUND, { message: "Contact not found" });
     }
 
-    const index = site.leads.indexOf(contactId);
-    if (index !== -1) {
-      // If the contact is found in the leads array
-      site.leads.splice(index, 1); // Remove the contact from the leads array
-      await site.save(); // Save the updated site
-      res.sendSuccess(site); // Respond with success
-    } else {
-      res.sendError(OBJECT_NOT_FOUND, { message: "Lead not found in the site" });
+    const lead = await leadModel.findOne({ contactId, siteId });
+
+    if (lead) {
+      const index = site.leads.indexOf(lead._id);
+      if (index !== -1) {
+        // If the contact is found in the leads array
+        site.leads.splice(index, 1); // Remove the contact from the leads array
+        await site.save(); // Save the updated site
+        res.sendSuccess(site); // Respond with success
+      } else {
+        res.sendError(OBJECT_NOT_FOUND, {
+          message: "Lead not found in the site",
+        });
+      }
     }
   } catch (error) {
     res.sendError(SOMETHING_WENT_WRONG, { error });
   }
 };
 
-
-
-
-export { removeContactAsSiteLead,getUserContacts, createContact, updateContact, deleteContact,addContactAsSiteLead };
+export {
+  removeContactAsSiteLead,
+  getUserContacts,
+  createContact,
+  updateContact,
+  deleteContact,
+  addContactAsSiteLead,
+};

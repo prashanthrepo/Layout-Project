@@ -76,25 +76,21 @@ const addContactAsLead = async (req: Request, res: Response) => {
 }
 
 
-const getAllLeads = async (req: Request, res: Response) => {
+// const getAllLeads = async (req: Request, res: Response) => {
 
 
-    const layoutIds = await layoutModel.find({ user: req.userId }).distinct('_id');
-    const sites = await siteModel.find({ layout: { $in: layoutIds } })
+//     const layoutIds = await layoutModel.find({ user: req.userId }).distinct('_id');
+//     const sites = await siteModel.find({ layout: { $in: layoutIds } })
 
-    const allLeads:LeadDocument[] = sites.reduce((acc:LeadDocument[] , site) => {
-        acc.push(...site.leads);
-        return acc;
-    }, []);
+//     const allLeads:LeadDocument[] = sites.reduce((acc:LeadDocument[] , site) => {
+//         acc.push(...site.leads);
+//         return acc;
+//     }, []);
 
-    res.sendSuccess(allLeads)
-
-
+//     res.sendSuccess(allLeads)
 
 
-
-
-}
+// }
 
 const deleteLead = async (req: Request, res: Response) => {
     const { id } = req.params
@@ -128,4 +124,4 @@ const updateLead = async (req: Request, res: Response) => {
 
 }
 
-export { createLead, deleteLead, updateLead,getAllLeads }
+export { createLead, deleteLead, updateLead }

@@ -1,9 +1,10 @@
+import { Types } from "mongoose"
 import mongoose, { Document, Schema } from "mongoose"
 
+
 export interface LeadDocument extends Document {
-    name: string
-    phone: string
-    email?: string
+    contactId : Types.ObjectId
+    siteId : Types.ObjectId
     buyerOffer?: number
     sellerOffer?: number
     finalPrice?: number
@@ -13,9 +14,8 @@ export interface LeadDocument extends Document {
 
 const leadSchema = new Schema<LeadDocument>(
     {
-        name: { type: String, required: true },
-        phone: { type: String, required: true },
-        email: { type: String, required: false },
+        contactId: { type: Schema.Types.ObjectId, ref: 'Contact', required: true },
+        siteId: { type: Schema.Types.ObjectId, ref: 'Site', required: true },
         buyerOffer: { type: Number, required: false },
         sellerOffer: { type: Number, required: false },
         finalPrice: { type: Number, required: false },
@@ -24,6 +24,10 @@ const leadSchema = new Schema<LeadDocument>(
     },
     { timestamps: true }
 )
+
+leadSchema.pre('find', function () {
+    this.populate('contactId');
+  });
 
 export default mongoose.model("Lead", leadSchema)
 
