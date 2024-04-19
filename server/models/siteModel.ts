@@ -76,7 +76,7 @@ export const siteSchema = new Schema<Site>({
             type: siteInfoSchema,
         },
     ],
-    leads: [{ type: Schema.Types.ObjectId, ref: "Contact" }],
+    leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
     transactions: [{ type: Schema.Types.Mixed, ref: "Transaction" }],
 })
 
