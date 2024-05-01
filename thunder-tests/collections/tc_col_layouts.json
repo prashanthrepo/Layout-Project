@@ -53,20 +53,17 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Get layout",
-            "url": "{{BASE_URL}}/layouts/65cf00fef901e992d94c892b",
+            "url": "{{BASE_URL}}/layouts/65ce0660199638a09dac0b0a",
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-04T14:17:35.027Z",
-            "modified": "2024-03-10T08:10:56.945Z",
+            "modified": "2024-04-30T13:25:41.802Z",
             "headers": [
                 {
                     "name": "Authorization",
                     "value": "Bearer {{TOKEN}}"
                 }
-            ],
-            "params": [],
-            "reqType": "get",
-            "tests": []
+            ]
         },
         {
             "_id": "de4ad48e-373b-4fec-9c3f-04faef9be6c1",
@@ -92,24 +89,22 @@
             "colId": "4313e091-0195-4818-b4a5-dcaa21ad6f88",
             "containerId": "",
             "name": "Update layout",
-            "url": "{{BASE_URL}}/layouts/659be1d424e8193c5fbab8fb",
+            "url": "{{BASE_URL}}/layouts/65ce0660199638a09dac0b0a",
             "method": "PATCH",
-            "sortNum": 55000,
+            "sortNum": 51250,
             "created": "2023-12-04T14:19:58.874Z",
-            "modified": "2024-04-11T03:13:37.977Z",
+            "modified": "2024-05-01T03:25:11.156Z",
             "headers": [
                 {
                     "name": "Authorization",
                     "value": "Bearer {{TOKEN}}"
                 }
             ],
-            "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"description\":\"new description 123\",\n  \"name\":\"123123123-updated\",\n  \"approvals\":[\n    \n    {\"approvalId\":\"\",\"value\":\"\"},\n    {\"approvalId\":\"\",\"value\":\"\"}\n    \n    \n    ]\n}",
+                "raw": "{\n  \"description\":\"new description 123\",\n  \"name\":\"123123123-updated\",\n  \"approvals\":[\n    \n    {\"approvalId\":\"660d0878eeb3641892696434\",\"value\":\"999-new\"},\n    {\"approvalId\":\"660e474c03ac3ef6d37723c2\",\"value\":\"111-new\"}\n    \n    \n    ]\n}",
                 "form": []
-            },
-            "tests": []
+            }
         },
         {
             "_id": "ccca926a-c5f4-4bbe-9d27-ed2266b31c61",
