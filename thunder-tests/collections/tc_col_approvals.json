@@ -49,30 +49,6 @@
             "tests": []
         },
         {
-            "_id": "5c954702-3d71-422e-a00c-1495811aef08",
-            "colId": "0cec8486-0b8d-419b-af28-c3dcebad9878",
-            "containerId": "",
-            "name": "Update approval values [ By Seller ]",
-            "url": "{{BASE_URL}}/approvals/6619f1f7b352481cf663beb4",
-            "method": "PATCH",
-            "sortNum": 20000,
-            "created": "2024-04-03T07:43:32.706Z",
-            "modified": "2024-04-13T02:46:57.195Z",
-            "headers": [
-                {
-                    "name": "Authorization",
-                    "value": "Bearer {{TOKEN}}"
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"layoutId\": \"65ce0660199638a09dac0b0a\",\n  \"approvalList\": [\n    {\n      \"approval\": \"660d0878eeb3641892696434\",\n      \"value\": \"Yes\"\n    }\n  ]\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
             "_id": "d998f1c2-b75f-4c2f-9e53-13086f096c7c",
             "colId": "0cec8486-0b8d-419b-af28-c3dcebad9878",
             "containerId": "",
