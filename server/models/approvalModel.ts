@@ -32,6 +32,7 @@ interface LayoutApproval extends Document {
     layout: Layout["_id"];
     approval: Approval["_id"];
     value?: string;
+    displayInUI?: boolean;
 }
 
 const layoutApprovalSchema = new Schema<LayoutApproval>(
@@ -39,6 +40,7 @@ const layoutApprovalSchema = new Schema<LayoutApproval>(
         layout: { type: Schema.Types.ObjectId, ref: "Layout", required: true },
         approval: { type: Schema.Types.ObjectId, ref: "Approval", required: true },
         value: { type: String, required: false },
+        displayInUI: { type: Boolean, required: true,default:false },
     },
     { timestamps: true }
 );
