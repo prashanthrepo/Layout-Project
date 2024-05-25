@@ -109,6 +109,7 @@ const updateLayout = async (req: Request, res: Response) => {
           {
 
             objj.value = item.value
+            objj.displayInUI = item.displayInUI
             objj.save()
 
             approvals.push(objj)
@@ -126,6 +127,8 @@ const updateLayout = async (req: Request, res: Response) => {
           layout: id,
           approval: item.approvalId,
           value: item.value,
+          displayInUI: item.displayInUI,
+          
         });
         await obj.save();
 
