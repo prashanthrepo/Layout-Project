@@ -58,16 +58,32 @@ const getSingleLayout = async (req: Request, res: Response) => {
     const layoutApprovals = await LayoutApprovalModel.find({
       layout: layout?._id,
     }).populate("approval");
+    
+    
     const approvals = [];
     for (const obj of layoutApprovals) {
-      approvals.push({
-        approvalId: obj.approval._id,
-        name: obj.approval.name,
-        value: obj.value,
-        isApproved:obj.isApproved,
-        displayInUI:obj.displayInUI,
-      });
+
+      if ( obj.isApproved || obj.displayInUI  ){
+
+          approvals.push({
+            approvalId: obj.approval._id,
+            name: obj.approval.name,
+            value: obj.value,
+            isApproved:obj.isApproved,
+            displayInUI:obj.displayInUI,
+          });
+
+        }
+
+
+
+    
+    
+    
+    
     }
+
+    
     const layoutObj = {
       name: layout?.name,
       description: layout?.description,
@@ -112,8 +128,9 @@ const updateLayout = async (req: Request, res: Response) => {
 
             objj.value = item.value
             objj.displayInUI = item.displayInUI
+            objj.isApproved = item.isApproved
+            
             objj.save()
-
             approvals.push(objj)
 
 
@@ -130,6 +147,7 @@ const updateLayout = async (req: Request, res: Response) => {
           approval: item.approvalId,
           value: item.value,
           displayInUI: item.displayInUI,
+          isApproved:item.isApproved
           
         });
         await obj.save();
