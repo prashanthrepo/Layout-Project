@@ -17,6 +17,8 @@ import OptionsDropdown from './options-dropdown';
 import StatusChange from './site-details/status-change/index';
 import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
 import TokenDetails from './site-details/details/token-details';
+import { useQuery } from 'react-query';
+import { getAllContacts } from '@/apicalls/contacts';
 
 export default function Site({
   selectedSite,
@@ -24,6 +26,12 @@ export default function Site({
   setOpenModal,
   onSiteStatusChange,
 }) {
+  const {
+    data: contacts,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery('allContacts', getAllContacts);
   const [siteDetails, setSiteDetails] = useState(null);
   const [tempSiteDetails, setTempSiteDetails] = useState(null);
   const [uiStatus, setUiStatus] = useState('sitedetails');
@@ -132,6 +140,7 @@ export default function Site({
       case 'addlead':
         return (
           <NewLead
+            contacts={contacts?.data}
             setUiStatus={setUiStatus}
             siteDetails={siteDetails}
             fetchLeads={getLeads}

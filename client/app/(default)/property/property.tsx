@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { siteTypeColor } from '@/common/utils';
-import getLayoutByID from '@/apicalls/get-layout-by-id';
+import { getLayoutByID } from '@/apicalls/layouts';
 import LayoutSettingsButton from './property-settings';
 import Site from './site/site';
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -156,11 +156,14 @@ export default function Property() {
           </div>
         </SkeletonLoader>
       </div>
-      <PropertySettings
-        open={settingsModal}
-        setOpen={setSettingsModal}
-        property={data}
-      />
+      {settingsModal && (
+        <PropertySettings
+          open={settingsModal}
+          setOpen={setSettingsModal}
+          property={data}
+          layoutId={slug}
+        />
+      )}
 
       <Site
         selectedSite={seletedSite}

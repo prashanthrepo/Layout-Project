@@ -28,7 +28,7 @@ export default function LeadsTab({ leads, loading }) {
               <div className="grid grid-cols-12 items-center gap-x-2">
                 <div className="col-span-6 order-1 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
                   <div className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate text-left">
-                    {lead?.name}
+                    {lead?.contactId?.name}
                   </div>
                 </div>
                 <div className="col-span-8 order-2 sm:order-none sm:col-span-3 flex items-center space-x-2 lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-3">
@@ -50,8 +50,8 @@ export default function LeadsTab({ leads, loading }) {
                     </svg>
                   </button>
                   <div>
-                    <div className="text-xs ">+91 {lead?.phone}</div>
-                    <div className="text-xs">{lead?.email}</div>
+                    <div className="text-xs ">+91 {lead?.contactId?.phone}</div>
+                    <div className="text-xs">{lead?.contactId?.email}</div>
                   </div>
                 </div>
                 <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">

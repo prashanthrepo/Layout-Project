@@ -75,7 +75,7 @@ export default function ToBlocked({
             </label>
             <AutocompleteDropdown
               className="pp-input"
-              leads={leads}
+              options={leads}
               onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}
             />
