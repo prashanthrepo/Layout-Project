@@ -64,6 +64,8 @@ const getSingleLayout = async (req: Request, res: Response) => {
         approvalId: obj.approval._id,
         name: obj.approval.name,
         value: obj.value,
+        isApproved:obj.isApproved,
+        displayInUI:obj.displayInUI,
       });
     }
     const layoutObj = {
