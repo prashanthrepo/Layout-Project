@@ -5,7 +5,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 export default function AutocompleteDropdown({
-  leads,
+  options,
   onChange,
   className,
   defaultValue,
@@ -13,10 +13,10 @@ export default function AutocompleteDropdown({
   const [selected, setSelected] = useState(defaultValue);
   const [query, setQuery] = useState('');
 
-  const filteredLeads =
+  const filteredoptions =
     query === ''
-      ? leads
-      : leads.filter((lead) =>
+      ? options
+      : options.filter((lead) =>
           lead?.name
             .toLowerCase()
             .replace(/\s+/g, '')
@@ -42,7 +42,7 @@ export default function AutocompleteDropdown({
           <div className="">
             <Combobox.Input
               className={className}
-              displayValue={(leads) => leads?.name}
+              displayValue={(options) => options?.name}
               onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -59,12 +59,12 @@ export default function AutocompleteDropdown({
             leaveTo="opacity-0"
             afterLeave={() => setQuery('')}>
             <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-0.5 text-sm shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-10">
-              {filteredLeads.length === 0 && query !== '' ? (
+              {filteredoptions.length === 0 && query !== '' ? (
                 <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                   Nothing found.
                 </div>
               ) : (
-                filteredLeads.map((lead) => (
+                filteredoptions.map((lead) => (
                   <Combobox.Option
                     key={lead?._id}
                     className={({ active }) =>

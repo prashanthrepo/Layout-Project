@@ -2,14 +2,17 @@ import React, { useState, ChangeEvent } from 'react';
 import createLead from '@/apicalls/create-lead';
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
+import AutocompleteDropdown from '@/components/AutocompleteDropdown';
 
 interface NewLeadProps {
+  contacts: any;
   siteDetails: any;
   setUiStatus: (status: string) => void;
   fetchLeads: () => void;
   onClose: () => void;
 }
 export default function NewLead({
+  contacts,
   siteDetails,
   setUiStatus,
   fetchLeads,
@@ -31,9 +34,7 @@ export default function NewLead({
 
   const [newLead, setNewLead] = useState({
     siteId: siteDetails?._id,
-    name: '',
-    phone: '',
-    email: '',
+    contactId: '',
     buyerOffer: '',
     sellerOffer: '',
     notes: '',
@@ -43,38 +44,25 @@ export default function NewLead({
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validate = () => {
+    const { contactId, buyerOffer, sellerOffer, notes } = newLead;
     let validationErrors: { [key: string]: string } = {};
-    if (!newLead.name.trim()) validationErrors.name = 'Name is required';
-    if (!newLead.phone.trim())
-      validationErrors.phone = 'Phone number is required';
-    else if (!/^\d{10}$/.test(newLead.phone.trim()))
-      validationErrors.phone = 'Invalid phone number, must be 10 digits';
-    if (!newLead.email.trim()) validationErrors.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(newLead.email.trim()))
-      validationErrors.email = 'Email is invalid';
-    if (!newLead.buyerOffer)
-      validationErrors.buyerOffer = 'Buyer offer is required';
-    else if (
-      isNaN(Number(newLead.buyerOffer)) ||
-      Number(newLead.buyerOffer) <= 0
-    )
+    if (!contactId) validationErrors.contactId = 'Contact is required';
+    if (!buyerOffer) validationErrors.buyerOffer = 'Buyer offer is required';
+    else if (isNaN(Number(buyerOffer)) || Number(buyerOffer) <= 0)
       validationErrors.buyerOffer =
         'Invalid buyer offer, must be a positive number';
-    if (!newLead.sellerOffer)
-      validationErrors.sellerOffer = 'Seller offer is required';
-    else if (
-      isNaN(Number(newLead.sellerOffer)) ||
-      Number(newLead.sellerOffer) <= 0
-    )
+    if (!sellerOffer) validationErrors.sellerOffer = 'Seller offer is required';
+    else if (isNaN(Number(sellerOffer)) || Number(sellerOffer) <= 0)
       validationErrors.sellerOffer =
         'Invalid seller offer, must be a positive number';
-    if (!newLead.notes.trim()) validationErrors.notes = 'Notes are required';
+    if (!notes.trim()) validationErrors.notes = 'Notes are required';
 
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
 
   const handleSave = () => {
+    console.log('newLead :>> ', newLead);
     if (validate()) {
       mutate(newLead);
     }
@@ -91,7 +79,7 @@ export default function NewLead({
       </h2>
       <div className="space-y-3">
         <div className="flex space-x-4">
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <label htmlFor="lead-name" className="pp-label">
               Name <span className="text-rose-500">*</span>
             </label>
@@ -108,20 +96,39 @@ export default function NewLead({
             {errors.name && (
               <p className="text-sm text-rose-500">{errors.name}</p>
             )}
+          </div> */}
+          <div className="flex-1">
+            <label className="pp-label" htmlFor="token-lead">
+              Contact Name <span className="text-rose-500">*</span>
+            </label>
+            <AutocompleteDropdown
+              options={contacts}
+              className="pp-input"
+              onChange={(val) => {
+                console.log('val :>> ', val);
+                setNewLead((prev) => ({
+                  ...prev,
+                  contactId: val._id,
+                }));
+              }}
+              defaultValue={[{}]}
+            />
+            {errors.lead && (
+              <p className="text-sm text-rose-500">{errors.lead}</p>
+            )}
           </div>
           <div className="flex-1">
             <label htmlFor="lead-phone" className="pp-label">
-              Phone number <span className="text-rose-500">*</span>
+              Phone number / Email
             </label>
             <input
               id="lead-phone"
               type="text"
-              className="pp-input"
+              className="pp-input pointer-events-none disabled:text-gray-500"
               placeholder="9876543210"
-              value={newLead.phone}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                handleInputChange('phone', e.target.value)
-              }
+              value={contacts?.find((c) => c._id === newLead.contactId)?.phone}
+              disabled
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {}}
             />
             {errors.phone && (
               <p className="text-sm text-rose-500">{errors.phone}</p>
@@ -129,7 +136,7 @@ export default function NewLead({
           </div>
         </div>
         <div className="flex space-x-4">
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <label htmlFor="lead-email" className="pp-label">
               Email
             </label>
@@ -146,7 +153,7 @@ export default function NewLead({
             {errors.email && (
               <p className="text-sm text-rose-500">{errors.email}</p>
             )}
-          </div>
+          </div> */}
           <div className="flex-1">
             <label htmlFor="lead-buyer-offer" className="pp-label">
               Buyer Offer
@@ -165,8 +172,6 @@ export default function NewLead({
               <p className="text-sm text-rose-500">{errors.buyerOffer}</p>
             )}
           </div>
-        </div>
-        <div className="flex space-x-4">
           <div className="flex-1">
             <label htmlFor="lead-seller-offer" className="pp-label">
               Seller Offer

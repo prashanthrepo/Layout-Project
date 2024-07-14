@@ -13,4 +13,10 @@ const getLayoutByID = async (id) => {
   const response = await axios?.get('/layouts/' + id);
   return response?.data;
 };
-export default getLayoutByID;
+const updateLayoutByID = async (id, data) => {
+  console.log('id, data :>> ', id, data);
+  const response = await axios?.patch('/layouts/' + id, data);
+  return response?.data;
+};
+
+export { getLayoutByID, updateLayoutByID };

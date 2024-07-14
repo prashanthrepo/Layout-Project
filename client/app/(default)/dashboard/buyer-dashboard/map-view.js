@@ -1,5 +1,4 @@
 'use client';
-import getAllLayouts from '@/apicalls/get-all-layouts';
 import {
   GoogleMap,
   InfoWindow,

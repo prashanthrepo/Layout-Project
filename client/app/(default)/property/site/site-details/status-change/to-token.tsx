@@ -93,7 +93,7 @@ export default function ToToken({
               Token to <span className="text-rose-500">*</span>
             </label>
             <AutocompleteDropdown
-              leads={leads}
+              options={leads}
               className="pp-input"
               onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}

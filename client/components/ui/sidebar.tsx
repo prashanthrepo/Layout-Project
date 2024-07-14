@@ -218,9 +218,9 @@ export default function Sidebar() {
               </li>
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  segments.includes('leads') && 'bg-slate-900'
+                  segments.includes('contacts') && 'bg-slate-900'
                 }`}>
-                <SidebarLink href="/leads">
+                <SidebarLink href="/contacts">
                   <div className="flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +229,7 @@ export default function Sidebar() {
                       className="shrink-0 h-6 w-6">
                       <path
                         className={`fill-current ${
-                          segments.includes('leads')
+                          segments.includes('contacts')
                             ? 'text-indigo-300'
                             : 'text-slate-400'
                         }`}
@@ -240,7 +240,7 @@ export default function Sidebar() {
                     </svg>
 
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      leads
+                      Contacts
                     </span>
                   </div>
                 </SidebarLink>

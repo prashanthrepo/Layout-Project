@@ -57,7 +57,7 @@ export default function MobileNav() {
             </span>
           </Link>
           <Link
-            href="/leads"
+            href="/contacts"
             type="button"
             className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
             <svg
@@ -65,7 +65,7 @@ export default function MobileNav() {
               viewBox="0 0 24 24"
               fill="currentColor"
               className={`w-5 h-5 mb-1 ${
-                segments.includes('leads')
+                segments.includes('contacts')
                   ? 'text-indigo-500 dark:text-indigo-500'
                   : 'text-slate-600 dark:text-slate-600'
               }`}>
@@ -78,11 +78,11 @@ export default function MobileNav() {
 
             <span
               className={`text-sm ${
-                segments.includes('leads')
+                segments.includes('contacts')
                   ? 'text-indigo-500 dark:text-indigo-500'
                   : 'text-slate-600 dark:text-slate-600'
               }`}>
-              Leads
+              Contacts
             </span>
           </Link>
           <Link

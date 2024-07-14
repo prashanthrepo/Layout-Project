@@ -1,22 +1,42 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu, Switch, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useRef, useState, ChangeEvent } from 'react';
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import {
+  ChevronDownIcon,
+  EllipsisVerticalIcon,
+  XMarkIcon,
+} from '@heroicons/react/20/solid';
 import ModalAction from '@/components/modal-action';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import MultiSelectDropdown from '@/components/MultiSelectDropdown';
 import { useMutation } from 'react-query';
 import { getAllApprovals } from '@/apicalls/approvals';
+import { updateLayoutByID } from '@/apicalls/layouts';
 
-export default function PropertySettings({ open, setOpen, property }) {
+export default function PropertySettings({
+  layoutId,
+  open,
+  setOpen,
+  property,
+}) {
   const {
     mutate: allApprovalsMutate,
     data,
     error,
     isLoading,
-  } = useMutation(getAllApprovals);
+  } = useMutation(getAllApprovals, {
+    onSuccess: () => {
+      setPropertyDetails({
+        name: property?.name || '',
+        location: property?.location || { lat: '', long: '' },
+        approvals: property?.approvals || [],
+      });
+    },
+  });
+
   const [propertyDetails, setPropertyDetails] = useState({
     name: '',
     location: { lat: '', long: '' },
+    approvals: [],
   });
   const [selectedApprovals, setSelectedApprovals] = useState([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -32,6 +52,25 @@ export default function PropertySettings({ open, setOpen, property }) {
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
+
+  const handleSubmit = () => {
+    if (!validate()) return;
+    const updatedPayload = {
+      id: property?._id,
+      approvals: selectedApprovals,
+    };
+    if (propertyDetails?.name !== property?.name) {
+      updatedPayload['name'] = propertyDetails?.name;
+    }
+    if (
+      propertyDetails?.location?.lat !== property?.location?.lat ||
+      propertyDetails?.location?.long !== property?.location?.long
+    ) {
+      updatedPayload['location'] = propertyDetails?.location;
+    }
+
+    updateLayoutByID(updatedPayload);
+  };
   const handleInputChange = (
     field: string,
     value: string | number | object
@@ -39,12 +78,12 @@ export default function PropertySettings({ open, setOpen, property }) {
     setPropertyDetails((prev) => ({ ...prev, [field]: value }));
   };
   useEffect(() => {
-    setPropertyDetails({
-      name: property?.name || '',
-      location: property?.location || { lat: '', long: '' },
-    });
     allApprovalsMutate();
   }, [property]);
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+  }
+
   return (
     <div className="m-1.5">
       <ModalAction isOpen={open} setIsOpen={setOpen}>
@@ -71,10 +110,6 @@ export default function PropertySettings({ open, setOpen, property }) {
                   onClick={() => setOpen(false)}>
                   <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-                {/* {renderButtons(uiStatus)} */}
-                {/* {Capacitor.isNativePlatform() && (
-                    <ShareButton onClick={() => onShare()} />
-                  )} */}
               </div>
             </div>
             <hr className=" border-b-0 mb-3 border-gray-200" />
@@ -89,7 +124,7 @@ export default function PropertySettings({ open, setOpen, property }) {
                     type="text"
                     className="pp-input"
                     placeholder="Property name"
-                    value={propertyDetails.name}
+                    value={propertyDetails?.name}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       handleInputChange('name', e.target.value)
                     }
@@ -123,17 +158,116 @@ export default function PropertySettings({ open, setOpen, property }) {
                 </div>
               </div>
               <div className="flex space-x-4">
-                <div className="flex-1">
-                  <label htmlFor="property-location" className="pp-label">
-                    Approvals
-                  </label>
-                  <MultiSelectDropdown
-                    className="pp-input"
-                    options={data?.data}
-                    onSelect={(selected) => {
-                      setSelectedApprovals(selected);
-                    }}
-                  />
+                <div className="flex-1  bg-gray-50 px-4 rounded-md border border-indigo-100">
+                  <div className="flex items-center justify-between gap-x-6 py-1 ">
+                    <label
+                      htmlFor="property-location"
+                      className="pp-label min-w-0 font-bold">
+                      Approvals
+                    </label>
+                    <div className="ml-3 flex h-6 items-center space-x-4">
+                      <label className="pp-label flex flex-none items-center gap-x-4 font-bold">
+                        Is approved?
+                      </label>
+                      <label className="pp-label flex flex-none items-center gap-x-4 font-bold">
+                        Show?
+                      </label>
+                    </div>
+                  </div>
+                  <div className="">
+                    {data?.data?.map((approval, index) => (
+                      <div
+                        key={index}
+                        className="relative flex items-start py-2">
+                        <div className="min-w-0 flex-1 text-sm leading-6">
+                          <label
+                            htmlFor={`aprovalitem-${approval.id}`}
+                            className="select-none font-medium text-gray-900">
+                            {approval.name}
+                          </label>
+                        </div>
+                        <div className="ml-3 flex h-6 items-center space-x-20">
+                          <input
+                            id={`isapproved-${approval.id}`}
+                            name={`isapproved-${approval.id}`}
+                            type="checkbox"
+                            defaultChecked={
+                              propertyDetails.approvals.find(
+                                (a) => a.approvalId === approval._id
+                              )?.isApproved
+                            }
+                            className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            onChange={
+                              (e) => {
+                                const temp = {
+                                  approvalId: approval._id,
+                                  isApproved: e.target.checked,
+                                };
+                                updateLayoutByID(layoutId, {
+                                  approvals: [temp],
+                                });
+                              }
+                              // setPropertyDetails((prev) => {
+                              //   const approvalIndex = prev.approvals.findIndex(
+                              //     (a) => a.approvalId === approval._id
+                              //   );
+                              //   const updatedApprovals = [...prev.approvals];
+                              //   if (approvalIndex !== -1) {
+                              //     updatedApprovals[approvalIndex].value =
+                              //       e.target.checked;
+                              //   } else {
+                              //     updatedApprovals.push({
+                              //       approvalId: approval._id,
+                              //       value: e.target.checked,
+                              //     });
+                              //   }
+                              //    return { ...prev, approvals: updatedApprovals };
+                              //   updateLayout(property?._id, {
+                              //     approvals: updatedApprovals,
+                              //   });
+                              // })
+                            }
+                          />
+                          <input
+                            id={`isshow-${approval.id}`}
+                            name={`isshow-${approval.id}`}
+                            type="checkbox"
+                            defaultChecked={
+                              propertyDetails.approvals.find(
+                                (a) => a.approvalId === approval._id
+                              )?.displayInUI
+                            }
+                            className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            onChange={(e) => {
+                              const temp = {
+                                approvalId: approval._id,
+                                displayInUI: e.target.checked,
+                              };
+                              updateLayoutByID(layoutId, {
+                                approvals: [temp],
+                              });
+                              // setPropertyDetails((prev) => {
+                              //   const approvalIndex = prev.approvals.findIndex(
+                              //     (a) => a.approvalId === approval._id
+                              //   );
+                              //   const updatedApprovals = [...prev.approvals];
+                              //   if (approvalIndex !== -1) {
+                              //     updatedApprovals[approvalIndex].displayInUI =
+                              //       e.target.checked;
+                              //   } else {
+                              //     updatedApprovals.push({
+                              //       approvalId: approval._id,
+                              //       displayInUI: e.target.checked,
+                              //     });
+                              //   }
+                              //   return { ...prev, approvals: updatedApprovals };
+                              // });
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="flex space-x-4 bg-indigo-50 p-4 rounded-md border border-indigo-100">
