@@ -60,16 +60,16 @@ export default function PropertySettings({
       approvals: selectedApprovals,
     };
     if (propertyDetails?.name !== property?.name) {
-      updatedPayload.name = propertyDetails?.name;
+      updatedPayload['name'] = propertyDetails?.name;
     }
     if (
       propertyDetails?.location?.lat !== property?.location?.lat ||
       propertyDetails?.location?.long !== property?.location?.long
     ) {
-      updatedPayload.location = propertyDetails?.location;
+      updatedPayload['location'] = propertyDetails?.location;
     }
 
-    updateLayout(updatedPayload);
+    updateLayoutByID(updatedPayload);
   };
   const handleInputChange = (
     field: string,

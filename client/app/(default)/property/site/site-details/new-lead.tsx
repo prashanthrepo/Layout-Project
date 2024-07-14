@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import AutocompleteDropdown from '@/components/AutocompleteDropdown';
 
 interface NewLeadProps {
+  contacts: any;
   siteDetails: any;
   setUiStatus: (status: string) => void;
   fetchLeads: () => void;

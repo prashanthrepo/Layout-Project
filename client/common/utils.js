@@ -75,7 +75,19 @@ const findDifferencesBwObjects = (obj1, obj2) => {
 
   return differences;
 };
+const ContactInitials = ({ name }) => {
+  const initials = name
+    .split(' ')
+    .map((n) => n[0].toUpperCase())
+    .join('')
+    .slice(0, 2);
 
+  return (
+    <div className="w-9 h-9 shrink-0 mt-1 flex items-center justify-center rounded-md bg-indigo-500">
+      <span className="text-xl text-white font-normal">{initials}</span>
+    </div>
+  );
+};
 //use data-fns to calculate days between 2024-01-27T05:49:35.149Z and today
 const daysBetween = (date) => {
   const today = new Date();
@@ -97,4 +109,5 @@ export {
   leadsBgColor,
   daysBetween,
   convertDate,
+  ContactInitials,
 };
