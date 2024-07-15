@@ -118,7 +118,7 @@ const updateLayout = async (req: Request, res: Response) => {
           if (item.displayInUI) {
             objj.displayInUI = item.displayInUI;
           }
-          if (item.displayInUI) {
+          if (item.isApproved) {
             objj.isApproved = item.isApproved;
           }
 
