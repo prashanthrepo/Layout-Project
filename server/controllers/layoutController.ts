@@ -58,32 +58,20 @@ const getSingleLayout = async (req: Request, res: Response) => {
     const layoutApprovals = await LayoutApprovalModel.find({
       layout: layout?._id,
     }).populate("approval");
-    
-    
+
     const approvals = [];
     for (const obj of layoutApprovals) {
-
-      if ( obj.isApproved || obj.displayInUI  ){
-
-          approvals.push({
-            approvalId: obj.approval._id,
-            name: obj.approval.name,
-            value: obj.value,
-            isApproved:obj.isApproved,
-            displayInUI:obj.displayInUI,
-          });
-
-        }
-
-
-
-    
-    
-    
-    
+      if (obj.isApproved || obj.displayInUI) {
+        approvals.push({
+          approvalId: obj.approval._id,
+          name: obj.approval.name,
+          value: obj.value,
+          isApproved: obj.isApproved,
+          displayInUI: obj.displayInUI,
+        });
+      }
     }
 
-    
     const layoutObj = {
       name: layout?.name,
       description: layout?.description,
@@ -113,59 +101,45 @@ const deleteLayout = async (req: Request, res: Response) => {
 };
 
 const updateLayout = async (req: Request, res: Response) => {
-  
   const { id } = req.params;
-  
+
   try {
-    const approvals:any[] = []
+    const approvals: any[] = [];
     if (req.body.hasOwnProperty("approvals")) {
       for (const item of req.body.approvals) {
-        
-        
-        const objj = await LayoutApprovalModel.findOne({layout:id,approval:item.approvalId})
-        if (objj)
-          {
-
-            objj.value = item.value
-            objj.displayInUI = item.displayInUI
-            objj.isApproved = item.isApproved
-            
-            objj.save()
-            approvals.push(objj)
-
-
-          }
-
-          else {
-
-          
-        
-        
-        
-        const obj = await LayoutApprovalModel.create({
+        const objj = await LayoutApprovalModel.findOne({
           layout: id,
           approval: item.approvalId,
-          value: item.value,
-          displayInUI: item.displayInUI,
-          isApproved:item.isApproved
-          
         });
-        await obj.save();
+        if (objj) {
+          if (item.value) {
+            objj.value = item.value;
+          }
+          if (item.displayInUI) {
+            objj.displayInUI = item.displayInUI;
+          }
+          if (item.displayInUI) {
+            objj.isApproved = item.isApproved;
+          }
 
-        approvals.push(obj)
+          objj.save();
+          approvals.push(objj);
+        } else {
+          const obj = await LayoutApprovalModel.create({
+            layout: id,
+            approval: item.approvalId,
+            value: item.value,
+            displayInUI: item.displayInUI,
+            isApproved: item.isApproved,
+          });
+          await obj.save();
 
-      }
-      
-      
-      
-      
-      
+          approvals.push(obj);
+        }
       }
 
       delete req.body.approvals;
     }
-
-    
 
     const layout = await Layout.findOneAndUpdate(
       { _id: id },
@@ -173,10 +147,7 @@ const updateLayout = async (req: Request, res: Response) => {
       { new: true }
     );
 
-    
     await layout?.save();
-
-    
 
     const layoutObj = {
       name: layout?.name,
@@ -188,9 +159,6 @@ const updateLayout = async (req: Request, res: Response) => {
       sites: layout?.sites,
       user: layout?.user,
     };
-
-
-
 
     !layout && res.sendError(OBJECT_NOT_FOUND);
     layout && res.sendSuccess(layoutObj);
