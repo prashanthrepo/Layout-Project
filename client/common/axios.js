@@ -21,9 +21,13 @@ axios.interceptors.response.use(
     const status = error.response ? error.response.status : null;
     if (status === 401) {
       console.log('Unauthorized access');
+      window.location.href = '/signin';
       return Promise.reject(error);
     } else if (status === 403) {
       console.log('Unauthorized access');
+      //using js navigate to login
+      window.location.href = '/signin';
+      return Promise.reject(error);
     } else if (status === 404) {
       console.log('Post not found');
     } else {

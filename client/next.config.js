@@ -4,6 +4,7 @@
 const nextConfig = {
   output: 'export',
   images: { unoptimized: true },
+  swcMinify: true,
   reactStrictMode: false,
   // Optional: Add a trailing slash to all paths `/about` -> `/about/`
   // trailingSlash: true,

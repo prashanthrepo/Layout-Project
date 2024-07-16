@@ -106,7 +106,7 @@ export default function MobileNav() {
                   ? 'text-indigo-500 dark:text-indigo-500'
                   : 'text-slate-600 dark:text-slate-600'
               }`}>
-              Profile1
+              Profile
             </span>
           </Link>
         </div>
