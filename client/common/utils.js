@@ -83,7 +83,7 @@ const ContactInitials = ({ name }) => {
     .slice(0, 2);
 
   return (
-    <div className="w-9 h-9 shrink-0 mt-1 flex items-center justify-center rounded-md bg-indigo-500">
+    <div className="shrink-0 mt-1 flex items-center justify-center rounded-md bg-indigo-500 w-9 h-9 ">
       <span className="text-xl text-white font-normal">{initials}</span>
     </div>
   );
