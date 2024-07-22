@@ -12,6 +12,7 @@ export interface Layout extends Document {
     description: string
     image?: string
     location: Location
+    coordinates: [Location]
     sites: Types.ObjectId[]
     leads: Types.ObjectId[]
     approvals: Approval[]
@@ -23,12 +24,19 @@ const locationSchema = new Schema<Location>({
     long: { type: Number, required: true },
     lat: { type: Number, required: true },
 })
+const coordinateSchema = new Schema<Location>({
+    long: { type: Number, required: true },
+    lat: { type: Number, required: true },
+})
+
+
 
 const layoutSchema = new Schema<Layout>(
     {
         name: { type: String, required: true, unique: true },
         description: { type: String, required: true },
         location: { type: locationSchema, required: true },
+        coordinates: [{ type: coordinateSchema, required: true }],        
         image: { type: String, required: true },
         sites: [{ type: Schema.Types.ObjectId, ref: "Site" }],
         leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
