@@ -5,6 +5,11 @@ const locationSchema = z.object({
     lat: z.number(),
 })
 
+const coordinateSchema = z.array(z.object({
+    long: z.number(),
+    lat: z.number(),
+}))
+
 const infoSchema = z.object({
     text: z.string(),
     transform: z.string(),
@@ -54,6 +59,7 @@ const layoutSchema = z.object({
     description: z.string(),
     image: z.string(),
     location: locationSchema,
+    coordinates: coordinateSchema ,
     approvals: z.array(z.string()).optional(),
     layoutJSON: z.array(siteSchema),
     user: z.string()
