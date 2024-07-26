@@ -1,5 +1,5 @@
 import React from 'react';
-import { statusColors } from '@/common/utils';
+import { statusColors, statusNames } from '@/common/utils';
 export default function StatusChip({ status, size = 'md' }) {
   return (
     <span
@@ -9,7 +9,7 @@ export default function StatusChip({ status, size = 'md' }) {
         ' ' +
         (size === 'sm' ? 'px-2 py-1 text-xs' : 'px-4 py-2 text-sm')
       }>
-      {status}
+      {statusNames(status)}
     </span>
   );
 }

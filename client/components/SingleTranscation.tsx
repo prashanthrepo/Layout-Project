@@ -81,14 +81,14 @@ export default function SingleTranscation({ transaction }) {
     <li className={'mb-5'}>
       <div className="relative">
         <div className="relative flex space-x-2">
-          <div className="w-20 pl-2">
-            <span className="h-5 w-8 mt-1 rounded-full flex items-center justify-center ring-8 ring-white">
+          <div className="w-3/12 sm:w-2/12 pl-2 text-right">
+            <span className=" mt-1 rounded-full flex items-center justify-end ring-8 ring-white">
               <div aria-hidden="true">
                 <StatusChip status={transaction?.type} size="sm" />
               </div>
             </span>
           </div>
-          <div className="w-full">
+          <div className="grow">
             {transactionType()}
             <div className="whitespace-nowrap text-left text-xs text-gray-500">
               {moment(transaction?.date).format('Do MMM YYYY, hh:mm A')}

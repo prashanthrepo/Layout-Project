@@ -1,3 +1,4 @@
+import { Browser } from '@capacitor/browser';
 import { format } from 'date-fns';
 const statusColors = (status) => {
   const statusLowerCase = status?.toLowerCase();
@@ -21,6 +22,29 @@ const statusColors = (status) => {
       return 'bg-gray-400 text-white';
     default:
       return 'bg-gray-500 text-white';
+  }
+};
+
+const statusNames = (status) => {
+  const statusLowerCase = status?.toLowerCase();
+  switch (statusLowerCase) {
+    case 'available':
+      return 'Available';
+    case 'sold':
+      return 'Sold';
+    case 'token':
+      return 'Token';
+    case 'token cancelled':
+      return 'Cancelled';
+    case 'blocked':
+      return 'Blocked';
+    case 'hot':
+      return 'Hot';
+    case 'cold':
+      return 'Cold';
+    case 'dead':
+      return 'Dead';
+    default:
   }
 };
 
@@ -102,6 +126,21 @@ const convertDate = (date) => {
   const formattedDate = format(date2, 'EEEE, MMMM d, yyyy');
   return formattedDate;
 };
+
+const openCallNumber = async (type, val) => {
+  if (type == 'ios') {
+    await Browser.open({ url: `telprompt:${val}` });
+  } else {
+    await Browser.open({ url: `tel:${val}` });
+  }
+};
+const openWhatsapp = async (type, val) => {
+  await Browser.open({ url: `https://wa.me/${val}` });
+};
+const openEmail = async (type, val) => {
+  await Browser.open({ url: `mailto:${val}` });
+};
+
 export {
   statusColors,
   siteTypeColor,
@@ -110,4 +149,8 @@ export {
   daysBetween,
   convertDate,
   ContactInitials,
+  statusNames,
+  openCallNumber,
+  openWhatsapp,
+  openEmail,
 };

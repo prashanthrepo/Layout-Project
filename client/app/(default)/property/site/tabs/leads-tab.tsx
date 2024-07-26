@@ -2,27 +2,17 @@ import React from 'react';
 import { Browser } from '@capacitor/browser';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import Link from 'next/link';
-import { ContactInitials } from '@/common/utils';
+import {
+  ContactInitials,
+  openCallNumber,
+  openEmail,
+  openWhatsapp,
+} from '@/common/utils';
 import { Capacitor } from '@capacitor/core';
 
 export default function LeadsTab({ leads, loading }) {
-  console.log('Capacitor.getPlatform() :>> ', Capacitor.getPlatform());
-  const openCallNumber = async (val) => {
-    if (Capacitor.getPlatform() == 'ios') {
-      await Browser.open({ url: `telprompt:${val}` });
-    } else {
-      await Browser.open({ url: `tel:${val}` });
-    }
-    await Browser.open({ url: 'http://capacitorjs.com/' });
-  };
+  const platformType = Capacitor.getPlatform();
 
-  const openWhatsapp = async (val) => {
-    await Browser.open({ url: `https://wa.me/${val}` });
-  };
-
-  const openEmail = async (val) => {
-    await Browser.open({ url: `mailto:${val}` });
-  };
   return (
     <div className="mb-4 space-y-1 overflow-scroll h-80 bg-slate-100 p-1 border border-slate-200 rounded-md ">
       <SkeletonLoader
@@ -59,7 +49,9 @@ export default function LeadsTab({ leads, loading }) {
               <div className="flex items-center space-x-4 ">
                 <button
                   className={`text-slate-300 hover:text-slate-400`}
-                  onClick={() => openCallNumber(lead?.contactId?.phone)}>
+                  onClick={() =>
+                    openCallNumber(platformType, lead?.contactId?.phone)
+                  }>
                   <span className="sr-only">Call</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +70,9 @@ export default function LeadsTab({ leads, loading }) {
 
                 <button
                   className={`text-slate-300 hover:text-slate-400`}
-                  onClick={() => openWhatsapp(lead?.contactId?.phone)}>
+                  onClick={() =>
+                    openWhatsapp(platformType, lead?.contactId?.phone)
+                  }>
                   <span className="sr-only">Message</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +91,9 @@ export default function LeadsTab({ leads, loading }) {
 
                 <button
                   className={`text-slate-300 hover:text-slate-400`}
-                  onClick={() => openEmail(lead?.contactId?.email)}>
+                  onClick={() =>
+                    openEmail(platformType, lead?.contactId?.email)
+                  }>
                   <span className="sr-only">Email</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

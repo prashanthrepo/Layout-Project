@@ -1,14 +1,17 @@
 'use client';
 import getAllLayouts from '@/apicalls/get-all-layouts';
+import AddLayout from '@/components/AddLayout';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import { useUser } from '@/hooks/useUserHook';
 import mapImage from '@/public/images/google-maps.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-export default function SellerLayouts() {
+export default function Layouts() {
   const { data, isLoading, error } = useQuery('allLayouts', getAllLayouts);
+  const { user } = useUser();
   useEffect(() => {
     if (error) {
       console.log('Error fetching all layouts:', error);
@@ -25,6 +28,33 @@ export default function SellerLayouts() {
                   <h1 className="text-1xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold">
                     All Property's
                   </h1>
+                </div>
+
+                <div className="w-full sm:w-8/12  flex justify-end gap-2">
+                  {/* <form className="relative w-full sm:w-7/12">
+                    <label htmlFor="action-search" className="sr-only">
+                      Search
+                    </label>
+                    <input
+                      id="action-search"
+                      className="form-input w-full pl-2 pr-8 bg-white dark:bg-slate-800"
+                      type="search"
+                      placeholder={'search property...'}
+                    />
+                    <button
+                      className="absolute inset-0 left-auto group mx-2"
+                      type="submit"
+                      aria-label="Search">
+                      <svg
+                        className="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2"
+                        viewBox="0 0 16 16"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
+                        <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
+                      </svg>
+                    </button>
+                  </form> */}
+                  {user?.role == 'Admin' && <AddLayout />}
                 </div>
               </div>
               <SkeletonLoader

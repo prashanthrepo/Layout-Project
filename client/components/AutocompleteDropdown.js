@@ -10,6 +10,7 @@ export default function AutocompleteDropdown({
   className,
   defaultValue,
 }) {
+  console.log('options :>> ', options);
   const [selected, setSelected] = useState(defaultValue);
   const [query, setQuery] = useState('');
 
@@ -64,7 +65,7 @@ export default function AutocompleteDropdown({
                   Nothing found.
                 </div>
               ) : (
-                filteredoptions.map((lead) => (
+                filteredoptions?.map((lead) => (
                   <Combobox.Option
                     key={lead?._id}
                     className={({ active }) =>

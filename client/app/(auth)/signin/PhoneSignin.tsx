@@ -46,7 +46,7 @@ export default function PhoneSignin({ onVerify }) {
           />
           <div className="my-10 text-center">
             <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
-              Enter Your Mobile Number
+              Enter Your Mobile Numbers
             </h1>
             <h4 className="text-sm font-medium">
               We will send you a Confirmation Code

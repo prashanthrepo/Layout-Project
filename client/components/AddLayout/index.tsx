@@ -4,10 +4,8 @@ export default function AddLayout() {
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
-    <div className="xs:w-6/12 sm:w-4/12">
-      <button
-        className="btn bg-indigo-500 hover:bg-indigo-600 text-white  "
-        onClick={() => setOpenModal(true)}>
+    <div className="grow text-right">
+      <button className="btnprimary" onClick={() => setOpenModal(true)}>
         <svg
           className="w-4 h-4 fill-current opacity-50 shrink-0"
           viewBox="0 0 16 16">

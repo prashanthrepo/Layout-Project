@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
-export default function MapView({ layouts }) {
+export default function MapView2({ layouts }) {
   const router = useRouter();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
