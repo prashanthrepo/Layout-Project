@@ -62,7 +62,6 @@ export default function NewLead({
   };
 
   const handleSave = () => {
-    console.log('newLead :>> ', newLead);
     if (validate()) {
       mutate(newLead);
     }
@@ -105,7 +104,6 @@ export default function NewLead({
               options={contacts}
               className="pp-input"
               onChange={(val) => {
-                console.log('val :>> ', val);
                 setNewLead((prev) => ({
                   ...prev,
                   contactId: val._id,

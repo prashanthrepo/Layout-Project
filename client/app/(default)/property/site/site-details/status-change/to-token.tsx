@@ -9,10 +9,10 @@ import DatepickerComponent from '@/components/DatepickerComponent';
 import { format } from 'date-fns';
 
 export default function ToToken({
-  leads,
   siteDetails,
   onRefetchDataFn,
   onClose,
+  contacts,
 }) {
   const { mutate, isLoading, data, error } = useMutation(updateSiteByID, {
     onSuccess: () => {
@@ -26,7 +26,7 @@ export default function ToToken({
   });
 
   interface ToTokenState {
-    lead: string | null;
+    contactId: string;
     tokenAmount: string;
     validity: string;
     registrationDate: string;
@@ -34,7 +34,7 @@ export default function ToToken({
   }
 
   const [toToken, setToToken] = useState<ToTokenState>({
-    lead: leads[0],
+    contactId: '',
     tokenAmount: '',
     validity: '',
     registrationDate: '',
@@ -42,7 +42,7 @@ export default function ToToken({
   });
 
   interface ValidationErrors {
-    lead?: string;
+    contactId?: string;
     tokenAmount?: string;
     validity?: string;
     registrationDate?: string;
@@ -53,7 +53,7 @@ export default function ToToken({
 
   const validate = () => {
     let validationErrors: ValidationErrors = {};
-    if (!toToken.lead) validationErrors.lead = 'Lead is required';
+    if (!toToken.contactId) validationErrors.contactId = 'Contact is required';
     if (!toToken.tokenAmount.trim())
       validationErrors.tokenAmount = 'Amount is required';
     if (!toToken.validity.trim())
@@ -92,14 +92,25 @@ export default function ToToken({
             <label className="pp-label" htmlFor="token-lead">
               Token to <span className="text-rose-500">*</span>
             </label>
-            <AutocompleteDropdown
+            {/* <AutocompleteDropdown
               options={leads}
               className="pp-input"
               onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}
+            /> */}
+            <AutocompleteDropdown
+              options={contacts}
+              className="pp-input"
+              onChange={(val) => {
+                setToToken((prev) => ({
+                  ...prev,
+                  contactId: val?._id,
+                }));
+              }}
+              defaultValue={[{}]}
             />
-            {errors.lead && (
-              <p className="text-sm text-rose-500">{errors.lead}</p>
+            {errors.contactId && (
+              <p className="text-sm text-rose-500">{errors.contactId}</p>
             )}
           </div>
           <div className="flex-1">

@@ -2,12 +2,10 @@ import { useQuery } from 'react-query';
 import getDashboardApi from '@/apicalls/get-dashboard';
 import Activity from './Activity';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import Link from 'next/link';
 
 export default function SellerDashboard() {
   const { data, error, isLoading } = useQuery('posts', getDashboardApi);
-  if (error) {
-    console.log('Error fetching dashboard data:', error);
-  }
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
       <div className="sm:flex sm:justify-between sm:items-center mb-5">
@@ -26,7 +24,9 @@ export default function SellerDashboard() {
         <div className="flex-row md:flex gap-6">
           <div className="w-full xl:w-1/2 dark:bg-slate-800  mt-5 mb-10">
             <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-6 relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+              <Link
+                href="/properties"
+                className="col-span-6 relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
                 <div>
                   <div className="absolute rounded-md bg-indigo-500 p-3">
                     <svg
@@ -51,7 +51,7 @@ export default function SellerDashboard() {
                     {data?.totalLayouts}
                   </p>
                 </div>
-              </div>
+              </Link>
               <div className="col-span-6 relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
                 <div>
                   <div className="absolute rounded-md bg-indigo-500 p-3">

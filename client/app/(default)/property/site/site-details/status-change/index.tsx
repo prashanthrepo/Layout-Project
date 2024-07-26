@@ -4,9 +4,17 @@ import StatusChip from '@/components/StatusChip';
 import ToToken from './to-token';
 import ToSold from './to-sold';
 import ToBlocked from './to-blocked';
+import { useQuery } from 'react-query';
+import { getAllContacts } from '@/apicalls/contacts';
 
 const StatusSelector = (props) => {
   const [currentStatus, setCurrentStatus] = useState('Token');
+  const {
+    data: contacts,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery('allContacts', getAllContacts);
   return (
     <div className="mb-4">
       <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
@@ -35,9 +43,15 @@ const StatusSelector = (props) => {
           </div>
         ))}
       </div>
-      {currentStatus == 'Token' && <ToToken {...props} />}
-      {currentStatus == 'Sold' && <ToSold {...props} />}
-      {currentStatus == 'Blocked' && <ToBlocked {...props} />}
+      {currentStatus == 'Token' && (
+        <ToToken {...props} contacts={contacts?.data} />
+      )}
+      {currentStatus == 'Sold' && (
+        <ToSold {...props} contacts={contacts?.data} />
+      )}
+      {currentStatus == 'Blocked' && (
+        <ToBlocked {...props} contacts={contacts?.data} />
+      )}
     </div>
   );
 };

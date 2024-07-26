@@ -30,7 +30,7 @@ export default function AllLayouts() {
               <div className="sm:flex sm:justify-between sm:items-center mb-5">
                 <div className="mb-4 sm:mb-0 w-4/12">
                   <h1 className="text-1xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold">
-                    All Property's
+                    All Property'ss
                   </h1>
                 </div>
                 <div className="w-full sm:w-8/12  flex justify-end gap-2">

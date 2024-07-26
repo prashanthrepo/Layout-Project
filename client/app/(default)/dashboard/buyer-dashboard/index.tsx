@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView from './map-view';
+import MapView from './map';
 import { useQuery } from 'react-query';
 import getAllLayouts from '@/apicalls/get-all-layouts';
 
