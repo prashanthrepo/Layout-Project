@@ -14,7 +14,7 @@ const AddNewLayout = ({ modal, setModal }: AddNewLayoutProps) => {
           <div className="max-w-sm mx-auto lg:max-w-none">
             <div className="space-y-6">
               <div>
-                <div className="text-slate-800 dark:text-slate-100 font-semibold mb-4">
+                <div className="text-slate-800 font-semibold mb-4">
                   Payment Details
                 </div>
                 <div className="space-y-4">
@@ -80,7 +80,7 @@ const AddNewLayout = ({ modal, setModal }: AddNewLayoutProps) => {
 
               {/* Additional Details */}
               <div>
-                <div className="text-slate-800 dark:text-slate-100 font-semibold mb-4">
+                <div className="text-slate-800 font-semibold mb-4">
                   Additional Details
                 </div>
                 <div className="space-y-4">

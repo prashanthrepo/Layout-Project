@@ -65,7 +65,7 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
           <Image src={otpImage} className=" w-64 mx-auto" alt="OTP screen" />
           <div className="h-72 my-10 grid gap-4 content-between">
             <div className="text-center">
-              <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
+              <h1 className="text-2xl text-slate-800 font-bold">
                 Enter Verification Code
               </h1>
               <h4 className="text-sm font-medium">

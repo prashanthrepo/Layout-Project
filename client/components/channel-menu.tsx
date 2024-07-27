@@ -1,33 +1,32 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import Image from 'next/image'
-import ChannelImage01 from '@/public/images/channel-01.png'
-import ChannelImage02 from '@/public/images/channel-02.png'
-import ChannelImage03 from '@/public/images/channel-03.png'
+import { useState } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import Image from 'next/image';
+import ChannelImage01 from '@/public/images/channel-01.png';
+import ChannelImage02 from '@/public/images/channel-02.png';
+import ChannelImage03 from '@/public/images/channel-03.png';
 
 export default function ChannelMenu() {
-
   const options = [
     {
       id: 0,
       channel: 'Marketing',
-      image: ChannelImage01
+      image: ChannelImage01,
     },
     {
       id: 1,
       channel: 'Developing',
-      image: ChannelImage02
+      image: ChannelImage02,
     },
     {
       id: 2,
       channel: 'ProductSupport',
-      image: ChannelImage03
-    }
-  ]
+      image: ChannelImage03,
+    },
+  ];
 
-  const [selected, setSelected] = useState<number>(0)
+  const [selected, setSelected] = useState<number>(0);
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function ChannelMenu() {
             alt="Group 01"
           />
           <div className="truncate">
-            <span className="font-semibold text-slate-800 dark:text-slate-100">
+            <span className="font-semibold text-slate-800">
               #{options[selected].channel}
             </span>
           </div>
@@ -52,7 +51,7 @@ export default function ChannelMenu() {
           </svg>
         </Menu.Button>
         <Transition
-          className="origin-top-right z-10 absolute top-full left-0 min-w-[15rem] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
+          className="origin-top-right z-10 absolute top-full left-0 min-w-[15rem] bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1"
           enter="transition ease-out duration-200 transform"
           enterFrom="opacity-0 -translate-y-2"
           enterTo="opacity-100 translate-y-0"
@@ -65,9 +64,7 @@ export default function ChannelMenu() {
                 {({ active }) => (
                   <button
                     className={`w-full font-medium text-sm block py-1.5 px-3 ${
-                      active
-                        ? 'text-slate-800 dark:text-slate-200'
-                        : 'text-slate-600 dark:text-slate-300'
+                      active ? 'text-slate-800' : 'text-slate-600'
                     }`}
                     onClick={() => {
                       setSelected(option.id);

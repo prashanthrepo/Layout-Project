@@ -34,15 +34,15 @@ export default function ModalBasic({
           leave="transition ease-in-out duration-200"
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-4">
-          <Dialog.Panel className="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
+          <Dialog.Panel className="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
             {/* Modal header */}
-            <div className="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+            <div className="px-5 py-3 border-b border-slate-200">
               <div className="flex justify-between items-center">
-                <Dialog.Title className="font-semibold text-slate-800 dark:text-slate-100">
+                <Dialog.Title className="font-semibold text-slate-800">
                   {title}
                 </Dialog.Title>
                 <button
-                  className="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                  className="text-slate-400 hover:text-slate-500"
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsOpen(false);

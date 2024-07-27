@@ -24,7 +24,7 @@ export default function SignIn() {
     setToken(data);
   };
   return (
-    <main className="bg-white dark:bg-slate-900">
+    <main className="bg-white ">
       <div className="relative md:flex">
         {screenType == 'send' ? (
           <PhoneSignin onVerify={(val) => onVerifyClick(val)} />

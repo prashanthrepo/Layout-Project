@@ -6,16 +6,14 @@ export default function MobileNav() {
   const segments = useSelectedLayoutSegments();
   return (
     <div>
-      <div className="fixed bottom-0 left-0 z-50 w-full h-20 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+      <div className="fixed bottom-0 left-0 z-50 w-full h-20 bg-white border-t border-gray-200">
         <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium pb-2">
           <Link
             href="/"
-            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group">
             <svg
               className={`w-5 h-5 mb-1 ${
-                segments.length === 0
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                segments.length === 0 ? 'text-indigo-500' : 'text-slate-600'
               }`}
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -25,24 +23,22 @@ export default function MobileNav() {
             </svg>
             <span
               className={`text-sm ${
-                segments.length === 0
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                segments.length === 0 ? 'text-indigo-500' : 'text-slate-600'
               }`}>
               Home
             </span>
           </Link>
           <Link
             href="/properties"
-            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
               className={`w-5 h-5 mb-1 ${
                 segments.includes('property')
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                  ? 'text-indigo-500'
+                  : 'text-slate-600'
               }`}>
               <path d="M15 3.75H9v16.5h6V3.75ZM16.5 20.25h3.375c1.035 0 1.875-.84 1.875-1.875V5.625c0-1.036-.84-1.875-1.875-1.875H16.5v16.5ZM4.125 3.75H7.5v16.5H4.125a1.875 1.875 0 0 1-1.875-1.875V5.625c0-1.036.84-1.875 1.875-1.875Z" />
             </svg>
@@ -50,8 +46,8 @@ export default function MobileNav() {
             <span
               className={`text-sm ${
                 segments.includes('property')
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                  ? 'text-indigo-500'
+                  : 'text-slate-600'
               }`}>
               Layouts
             </span>
@@ -59,7 +55,7 @@ export default function MobileNav() {
           <Link
             href="/contacts"
             type="button"
-            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -68,8 +64,8 @@ export default function MobileNav() {
               <path
                 className={`fill-current ${
                   segments.includes('contacts')
-                    ? 'text-indigo-500 dark:text-indigo-500'
-                    : 'text-slate-600 dark:text-slate-600'
+                    ? 'text-indigo-500'
+                    : 'text-slate-600'
                 }`}
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -79,20 +75,20 @@ export default function MobileNav() {
             <span
               className={`text-sm ${
                 segments.includes('contacts')
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                  ? 'text-indigo-500'
+                  : 'text-slate-600'
               }`}>
               Contacts
             </span>
           </Link>
           <Link
             href="/profile"
-            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            className="inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50 group">
             <svg
               className={`w-5 h-5 mb-1 ${
                 segments.includes('profile')
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                  ? 'text-indigo-500'
+                  : 'text-slate-600'
               }`}
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -103,8 +99,8 @@ export default function MobileNav() {
             <span
               className={`text-sm ${
                 segments.includes('profile')
-                  ? 'text-indigo-500 dark:text-indigo-500'
-                  : 'text-slate-600 dark:text-slate-600'
+                  ? 'text-indigo-500'
+                  : 'text-slate-600'
               }`}>
               Profile
             </span>

@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-inter antialiased bg-slate-100 dark:bg-slate-900 dark:text-slate-400`}
+        className={`${inter.variable} font-inter antialiased bg-slate-100`}
         style={{
           marginTop: 'env(safe-area-inset-top)',
         }}>

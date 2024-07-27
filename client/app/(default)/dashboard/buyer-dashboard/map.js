@@ -95,7 +95,7 @@ export default function MapView({ layouts }) {
             maxWidth={300}
             position={infoWindowData?.coordinates[0]}
             onCloseClick={() => setInfowindowOpen(false)}>
-            <div className="flex justify-center text-center font-semibold text-slate-800 dark:text-slate-100 w-40">
+            <div className="flex justify-center text-center font-semibold text-slate-800 w-40">
               {infoWindowData?.name}
             </div>
             <div className="flex justify-center mt-2 ">

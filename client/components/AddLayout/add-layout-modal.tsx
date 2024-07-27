@@ -31,7 +31,7 @@ export default function AddLayoutModal({ openModal, setOpenModal }) {
                     />
                   </div>
                   <div>
-                    <span className="inline-flex font-semibold text-slate-800 dark:text-slate-100">
+                    <span className="inline-flex font-semibold text-slate-800">
                       Site No : {selectedSite?.number}
                     </span>
                     <div className="text-sm">{selectedSite?.status}</div>

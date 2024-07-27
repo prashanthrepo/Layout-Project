@@ -89,7 +89,7 @@ export default function MapView2({ layouts }) {
                               setIsOpen(false);
                             }}>
                             <>
-                              <div className="flex font-semibold text-slate-800 dark:text-slate-100">
+                              <div className="flex font-semibold text-slate-800">
                                 {infoWindowData.address}
                               </div>
                               <div className="flex justify-center mt-2 ">

@@ -40,8 +40,8 @@ export default function PhoneSuccess({ phone, token }) {
                 alt="OTP screen"
               />
               <div className="text-center">
-                <div className="btn w-full dark:bg-slate-800  text-slate-600 dark:text-slate-300">
-                  <span className="text-2xl text-green-500 dark:text-slate-100 font-bold">
+                <div className="btn w-full  text-slate-600">
+                  <span className="text-2xl text-green-500 font-bold">
                     Verified
                   </span>
                   <div
