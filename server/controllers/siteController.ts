@@ -41,9 +41,9 @@ const updateSite = async (req: Request, res: Response) => {
     if (req.body.status === "Token") {
       if ("token" in req.body) {
         let lead;
-        if ("lead" in req.body) {
+        if ("contactId" in req.body.token) {
           lead = await createLead({
-            ...req.body.lead,
+            ...req.body.token,
             siteId: site?._id,
           });
         }
@@ -94,7 +94,8 @@ const getSiteLeads = async (req: Request, res: Response) => {
     });
 
     if (site) {
-      const leads = site?.leads;
+      // const leads = site?.leads;
+      const leads = await leadModel.find({ siteId: site._id });
       res.sendSuccess(leads);
     }
 
