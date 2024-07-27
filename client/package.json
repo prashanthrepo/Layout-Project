@@ -40,6 +40,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-query": "^3.39.3",
     "sharp": "^0.33.0",
+    "swiper": "^8.4.7",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
