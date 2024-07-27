@@ -10,7 +10,7 @@ export default function SellerDashboard() {
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
       <div className="sm:flex sm:justify-between sm:items-center mb-5">
         <div className="mb-4 sm:mb-0">
-          <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">
+          <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">
             Seller Dashboard
           </h1>
         </div>
@@ -22,7 +22,7 @@ export default function SellerDashboard() {
         isData={Object.keys(data || {}).length > 0 ? true : false}
         noDataText="Something went wrong. Please try after sometime.">
         <div className="flex-row md:flex gap-6">
-          <div className="w-full xl:w-1/2 dark:bg-slate-800  mt-5 mb-10">
+          <div className="w-full xl:w-1/2 mt-5 mb-10">
             <div className="grid grid-cols-12 gap-6">
               <Link
                 href="/properties"

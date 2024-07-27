@@ -19,10 +19,10 @@ export default function ThemeToggle() {
         }}
       />
       <label
-        className="flex items-center justify-center cursor-pointer w-8 h-8 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full"
+        className="flex items-center justify-center cursor-pointer w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full"
         htmlFor="light-switch">
         <svg
-          className="w-4 h-4 dark:hidden"
+          className="w-4 h-4"
           width="16"
           height="16"
           xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@ export default function ThemeToggle() {
           />
         </svg>
         <svg
-          className="w-4 h-4 hidden dark:block"
+          className="w-4 h-4 hidden"
           width="16"
           height="16"
           xmlns="http://www.w3.org/2000/svg">

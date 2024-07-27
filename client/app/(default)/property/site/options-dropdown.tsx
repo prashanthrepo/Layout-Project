@@ -5,7 +5,7 @@ import { Popover, Transition } from '@headlessui/react';
 export default function OptionsDropdown({ align, onOptionClick }) {
   return (
     <Popover className="relative inline-flex">
-      <Popover.Button className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300">
+      <Popover.Button className="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600">
         <span className="sr-only">Filter</span>
         <wbr />
         <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
@@ -13,7 +13,7 @@ export default function OptionsDropdown({ align, onOptionClick }) {
         </svg>
       </Popover.Button>
       <Transition
-        className={`origin-top-right z-10 absolute top-full min-w-[10rem] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700  rounded shadow-lg overflow-hidden mt-2 py-1.5  ${
+        className={`origin-top-right z-10 absolute top-full min-w-[10rem] bg-white border border-slate-200  rounded shadow-lg overflow-hidden mt-2 py-1.5  ${
           align === 'right' ? 'left-auto right-0' : 'right-0 left-auto'
         }`}
         enter="transition ease-out duration-200 transform"

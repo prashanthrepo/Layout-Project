@@ -45,7 +45,7 @@ export default function PhoneSignin({ onVerify }) {
             alt="Login Page Illustration"
           />
           <div className="my-10 text-center">
-            <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
+            <h1 className="text-2xl text-slate-800 font-bold">
               Enter Your Mobile Numbers
             </h1>
             <h4 className="text-sm font-medium">
@@ -90,13 +90,13 @@ export default function PhoneSignin({ onVerify }) {
             <div className="text-sm text-center font-medium">
               By continuing you agree to our <br />
               <Link
-                className="font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="font-medium text-indigo-500 hover:text-indigo-600"
                 href="/terms">
                 Terms of Service {` `}
               </Link>
               and {` `}
               <Link
-                className="font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="font-medium text-indigo-500 hover:text-indigo-600"
                 href="/privacy">
                 Privacy Policy
               </Link>

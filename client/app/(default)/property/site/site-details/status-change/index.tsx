@@ -17,7 +17,7 @@ const StatusSelector = (props) => {
   } = useQuery('allContacts', getAllContacts);
   return (
     <div className="mb-4">
-      <div className="font-medium text-slate-800 dark:text-slate-100 mb-3">
+      <div className="font-medium text-slate-800 mb-3">
         Change site status to -
       </div>
       <div className={'flex flex-wrap items-center '}>

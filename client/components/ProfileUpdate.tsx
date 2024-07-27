@@ -25,7 +25,7 @@ export default function ProfileUpdate({ phone }) {
   return (
     <div>
       <div className="space-y-6 ">
-        <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-5">
+        <h3 className="text-2xl font-semibold text-slate-800 mb-5">
           Update your profile details
         </h3>
         <div className="flex space-x-5">
@@ -95,7 +95,7 @@ export default function ProfileUpdate({ phone }) {
             </label>
             <input
               id="phone-number"
-              className="form-input w-full  disabled:bg-slate-100 disabled:text-slate-600 dark:disabled:bg-slate-800 dark:disabled:text-slate-300"
+              className="form-input w-full  disabled:bg-slate-100 disabled:text-slate-600"
               type="number"
               inputMode="numeric"
               defaultValue={phone}

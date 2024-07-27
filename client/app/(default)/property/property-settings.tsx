@@ -98,7 +98,7 @@ export default function PropertySettings({
               <div className="flex items-start space-x-3 ">
                 <div className={'bg-indigo-500 rounded-md w-10 h-10'}></div>
                 <div className="">
-                  <span className="flex font-semibold text-slate-800 dark:text-slate-100 leading-5">
+                  <span className="flex font-semibold text-slate-800 leading-5">
                     <h3 className="text-md font-semibold">Property Details</h3>
                   </span>
                   <span className={'text-xm'}>{property?.name}</span>
@@ -106,7 +106,7 @@ export default function PropertySettings({
               </div>
               <div className="flex space-x-2">
                 <button
-                  className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                  className="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
                   onClick={() => setOpen(false)}>
                   <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>

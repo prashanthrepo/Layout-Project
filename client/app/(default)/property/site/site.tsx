@@ -169,12 +169,12 @@ export default function Site({
               onOptionClick={(val) => setUiStatus(val)}
             /> */}
             <button
-              className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              className="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
               onClick={() => setUiStatus('editdetails')}>
               <PencilSquareIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <button
-              className="btn bg-white dark:bg-slate-800 border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              className="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
               onClick={() => setOpenModal(false)}>
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -183,7 +183,7 @@ export default function Site({
       case 'editdetails':
         return (
           <button
-            className="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 pr-1"
+            className="text-slate-400 hover:text-slate-500 pr-1"
             onClick={() => setUiStatus('sitedetails')}>
             <div className="sr-only">Close</div>
             <svg className="w-4 h-4 fill-current">
@@ -230,7 +230,7 @@ export default function Site({
                     </svg>
                   </div>
                   <div className="">
-                    <span className="flex font-semibold text-slate-800 dark:text-slate-100 leading-5">
+                    <span className="flex font-semibold text-slate-800 leading-5">
                       {siteDetails?.number}
                     </span>
                     <span className={'text-xm'}>{siteDetails?.status}</span>

@@ -8,13 +8,13 @@ export default function AdminDashboard() {
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
       <div className="sm:flex sm:justify-between sm:items-center mb-5">
         <div className="mb-4 sm:mb-0">
-          <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">
+          <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">
             Admin Dashboard
           </h1>
         </div>
       </div>
       <div className="flex-row md:flex gap-6">
-        <div className="w-full xl:w-1/2 dark:bg-slate-800  mt-5 mb-10">
+        <div className="w-full xl:w-1/2 mt-5 mb-10">
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-6 relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
               <div>

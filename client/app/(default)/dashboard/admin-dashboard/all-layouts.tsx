@@ -29,7 +29,7 @@ export default function AllLayouts() {
             <div className="w-full">
               <div className="sm:flex sm:justify-between sm:items-center mb-5">
                 <div className="mb-4 sm:mb-0 w-4/12">
-                  <h1 className="text-1xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold">
+                  <h1 className="text-1xl md:text-2xl text-slate-800 font-bold">
                     All Property'ss
                   </h1>
                 </div>
@@ -40,7 +40,7 @@ export default function AllLayouts() {
                     </label>
                     <input
                       id="action-search"
-                      className="form-input w-full pl-2 pr-8 bg-white dark:bg-slate-800"
+                      className="form-input w-full pl-2 pr-8 bg-white"
                       type="search"
                       placeholder={'search property...'}
                     />
@@ -49,7 +49,7 @@ export default function AllLayouts() {
                       type="submit"
                       aria-label="Search">
                       <svg
-                        className="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2"
+                        className="w-4 h-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 ml-3 mr-2"
                         viewBox="0 0 16 16"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -63,7 +63,7 @@ export default function AllLayouts() {
               <div className="space-y-2">
                 {layouts?.data?.map((layout, key) => (
                   <Link href={`/property?id=${layout?._id}`} key={key}>
-                    <div className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                    <div className="shadow-lg rounded-sm border px-5 py-4 bg-white border-slate-200">
                       <div className="md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2">
                         <div className="flex items-start space-x-3 md:space-x-4">
                           <div className="w-20 h-20 shrink-0 mt-1">
@@ -76,11 +76,11 @@ export default function AllLayouts() {
                             />
                           </div>
                           <div>
-                            <span className="inline-flex font-semibold text-slate-800 dark:text-slate-100">
+                            <span className="inline-flex font-semibold text-slate-800">
                               {layout?.name}
                             </span>
                             <div className="text-sm">{layout?.description}</div>
-                            <div className="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 my-1 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">
+                            <div className="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 my-1 bg-emerald-100 text-emerald-600">
                               Available
                             </div>
                           </div>

@@ -3,7 +3,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
     case 'PropertyList':
       return new Array(times).fill(0).map((i, key) => (
         <div
-          className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+          className="shadow-lg rounded-sm border px-5 py-4 bg-white border-slate-200"
           key={key}>
           <div className="animate-pulse flex space-x-4">
             <div className="rounded-lg bg-slate-200 h-20 w-20"></div>
@@ -24,7 +24,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
     case 'LeadsList':
       return new Array(times).fill(0).map((i, key) => (
         <div
-          className="shadow-lg rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+          className="shadow-lg rounded-sm border px-5 py-4 bg-white border-slate-200"
           key={key}>
           <div className="animate-pulse flex space-x-4">
             <div className="flex-1 space-y-3 py-1">
@@ -43,7 +43,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
       ));
     case 'SiteDetails':
       return (
-        <div className="bg-white dark:bg-slate-800 ">
+        <div className="bg-white ">
           <div className="animate-pulse flex space-x-2">
             <div className="rounded-lg bg-slate-200 h-12 w-12"></div>
             <div className="flex-1 space-y-3 py-1">
@@ -89,7 +89,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
           <div className="mb-4 space-y-1  p-1 border border-slate-200 rounded-md ">
             {new Array(3).fill(0).map((i, key) => (
               <div
-                className="rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+                className="rounded-sm border px-5 py-4 bg-white border-slate-200"
                 key={key}>
                 <div className="animate-pulse flex space-x-4">
                   <div className="flex-1 space-y-3 py-1">
@@ -111,7 +111,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
       );
     case 'LayoutData':
       return (
-        <div className="bg-white dark:bg-slate-800 ">
+        <div className="bg-white ">
           <div className="animate-pulse flex space-x-2">
             <div className="rounded-lg bg-slate-200 h-12 w-12"></div>
             <div className="flex-1 space-y-3 py-1">
@@ -157,7 +157,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
           <div className="mb-4 space-y-1  p-1 border border-slate-200 rounded-md ">
             {new Array(3).fill(0).map((i, key) => (
               <div
-                className="rounded-sm border px-5 py-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+                className="rounded-sm border px-5 py-4 bg-white border-slate-200"
                 key={key}>
                 <div className="animate-pulse flex space-x-4">
                   <div className="flex-1 space-y-3 py-1">
@@ -180,7 +180,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
     case 'SellerDashboard':
       return (
         <div className="flex space-x-5">
-          <div className="bg-white dark:bg-slate-800 w-full p-5">
+          <div className="bg-white w-full p-5">
             <div className="animate-pulse flex">
               <div className="flex-1 space-y-8 py-1">
                 <div className="flex space-x-8">
@@ -194,7 +194,7 @@ const SkeletonLoaderHtml = (type, times = 0) => {
               </div>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-800 w-full p-5">
+          <div className="bg-white w-full p-5">
             <div className="animate-pulse flex">
               <div className="flex-1 space-y-10 pb-5">
                 <div className="flex space-x-10">

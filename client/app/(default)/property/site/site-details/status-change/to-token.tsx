@@ -83,9 +83,7 @@ export default function ToToken({
 
   return (
     <div className="grow mt-4">
-      <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold ">
-        Add Token
-      </h2>
+      <h2 className="text-lg text-slate-800 font-bold ">Add Token</h2>
       <div className="space-y-3">
         <div className="flex space-x-4">
           <div className="flex-1">

@@ -24,7 +24,7 @@ export default function DropdownProfile({
         />
         <div className="flex items-center truncate">
           {user && (
-            <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
+            <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">
               {user?.first_name && user?.last_name
                 ? `${user?.first_name} ${user?.last_name}`
                 : user?.phone_number}
@@ -39,7 +39,7 @@ export default function DropdownProfile({
         </div>
       </Menu.Button>
       <Transition
-        className={`origin-top-right z-10 absolute top-full min-w-[11rem] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${
+        className={`origin-top-right z-10 absolute top-full min-w-[11rem] bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${
           align === 'right' ? 'right-0' : 'left-0'
         }`}
         enter="transition ease-out duration-200 transform"
@@ -48,11 +48,11 @@ export default function DropdownProfile({
         leave="transition ease-out duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0">
-        <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
-          <div className="font-medium text-slate-800 dark:text-slate-100">
+        <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
+          <div className="font-medium text-slate-800">
             {user?.name ?? user?.phone_number}
           </div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 italic">
+          <div className="text-xs text-slate-500 italic">
             {user?.role?.toUpperCase()}
           </div>
         </div>
@@ -61,9 +61,7 @@ export default function DropdownProfile({
             {({ active }) => (
               <Link
                 className={`font-medium text-sm flex items-center py-1 px-3 ${
-                  active
-                    ? 'text-indigo-600 dark:text-indigo-400'
-                    : 'text-indigo-500'
+                  active ? 'text-indigo-600' : 'text-indigo-500'
                 }`}
                 href="#0">
                 Settings
@@ -74,9 +72,7 @@ export default function DropdownProfile({
             {({ active }) => (
               <button
                 className={`font-medium text-sm flex items-center py-1 px-3 ${
-                  active
-                    ? 'text-indigo-600 dark:text-indigo-400'
-                    : 'text-indigo-500'
+                  active ? 'text-indigo-600' : 'text-indigo-500'
                 }`}
                 onClick={() => logout(null)}>
                 Sign Out

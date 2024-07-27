@@ -85,9 +85,7 @@ export default function AccountPanel() {
   return (
     <div className="grow">
       <div className="p-6 space-y-6">
-        <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-5">
-          Profile
-        </h2>
+        <h2 className="text-2xl text-slate-800 font-bold mb-5">Profile</h2>
         <section>
           <div>
             <div className="space-y-4">
@@ -154,11 +152,11 @@ export default function AccountPanel() {
         </section>
       </div>
       <footer>
-        <div className="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col px-6 py-5 border-t border-slate-200">
           <div className="flex self-center">
             <Link
               href="/dashboard"
-              className="mr-2 btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">
+              className="mr-2 btn border-slate-200 hover:border-slate-300  text-slate-600">
               Close
             </Link>
             <ButtonLoader

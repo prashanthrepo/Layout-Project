@@ -121,16 +121,16 @@ export default function LeadsTab({ leads, loading }) {
           //     className="peer sr-only"
           //     defaultChecked
           //   />
-          //   <div className="px-4 py-2.5 rounded dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
+          //   <div className="px-4 py-2.5 rounded border border-slate-100 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
           //     <div className="grid grid-cols-12 items-center gap-x-2">
           //       <div className="col-span-6 order-1 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-          //         <div className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate text-left">
+          //         <div className="text-sm font-medium text-slate-800 truncate text-left">
           //           {lead?.name}
           //         </div>
           //       </div>
           //       <div className="col-span-8 order-2 sm:order-none sm:col-span-3 flex items-center space-x-2 lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-3">
           //         <button
-          //           className={`w-8 h-8 flex items-center justify-center bg-indigo-500 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-md`}>
+          //           className={`w-8 h-8 flex items-center justify-center bg-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-600/80 rounded-md`}>
           //           <span className="sr-only">Search</span>
           //           <svg
           //             xmlns="http://www.w3.org/2000/svg"

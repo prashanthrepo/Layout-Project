@@ -18,7 +18,7 @@ export default function Hero() {
         <Image
           src={Illustration}
           alt="Hero illustration"
-          className="w-auto h-auto"
+          className="w-auto h-auto "
           objectFit="cover"
         />
       </div>
