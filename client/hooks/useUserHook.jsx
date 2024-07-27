@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('authToken');
     setUser(null);
-    router.push('/signin');
+    router.push('/');
   };
 
   return (

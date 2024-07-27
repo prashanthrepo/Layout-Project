@@ -10,7 +10,7 @@ import BuyerDashboard from './buyer-dashboard';
 export default function Dashboard() {
   const { user } = useUser();
   if (!user) {
-    redirect('/signin');
+    // redirect('/signin');
   }
   return (
     <>
