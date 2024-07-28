@@ -1,10 +1,14 @@
 import Link from 'next/link';
-import Illustration from '@/public/images/bg-home2.jpg';
+import Illustration from '../public/images/layout.jpg';
 import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden  bg-cover"
+      style={{
+        backgroundImage: `url(https://images.pexels.com/photos/25637107/pexels-photo-25637107/free-photo-of-sea-landscape-beach-vacation.jpeg)`,
+      }}>
       {/* Bg */}
       <div
         className="absolute inset-0 bg-black pointer-events-none -z-10"
@@ -12,7 +16,7 @@ export default function Hero() {
       />
 
       {/* Illustration */}
-      <div
+      {/* <div
         className="absolute pointer-events-none -z-10  opacity-60"
         aria-hidden="true">
         <Image
@@ -21,7 +25,7 @@ export default function Hero() {
           className="w-auto h-auto "
           objectFit="cover"
         />
-      </div>
+      </div> */}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-28 pb-16 md:pt-40 md:pb-20">

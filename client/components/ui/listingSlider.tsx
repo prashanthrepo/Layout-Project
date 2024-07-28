@@ -32,7 +32,7 @@ export default function ListingSlider({ data }) {
   }, []);
 
   return (
-    <section className="relative">
+    <section className="relative text-black">
       {/* Bg */}
       <div className="absolute inset-0 -z-10" aria-hidden="true" />
 
@@ -79,8 +79,10 @@ export default function ListingSlider({ data }) {
           <div className="pb-12 md:pb-16">
             <div className="carousel swiper-container max-w-sm mx-auto sm:max-w-none">
               <div className="swiper-wrapper  flex space-x-2">
-                {data?.map((item) => (
-                  <div className="swiper-slide rounded-xl max-w-[446px] h-auto  bg-white shadow-lg">
+                {data?.map((item, key) => (
+                  <div
+                    className="swiper-slide rounded-xl max-w-[446px] h-auto  bg-white shadow-lg"
+                    key={key}>
                     <Image
                       className="w-full aspect-[4/2] object-cover h-full"
                       src={item?.image}
