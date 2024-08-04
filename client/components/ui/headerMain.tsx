@@ -1,8 +1,26 @@
+'use client';
 import Link from 'next/link';
+import ModalBasic from '../modal-basic';
+import PhoneSignin from '@/app/(auth)/signin/PhoneSignin';
+import React, { useState } from 'react';
+import SignIn from '@/app/(auth)/signin/page';
+import ModalSignin from '../modal-signin';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function HeaderMain() {
+  const { user, logout } = useUser();
+  const [addNewContactModal, setAddNewContactModal] = useState(false);
+  const onSignInClickFn = () => {
+    setAddNewContactModal(true);
+  };
   return (
     <header className="absolute w-full z-30">
+      <ModalSignin
+        isOpen={addNewContactModal}
+        setIsOpen={setAddNewContactModal}
+        title="">
+        <SignIn />
+      </ModalSignin>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
@@ -30,14 +48,43 @@ export default function HeaderMain() {
           <nav className="flex grow">
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
-              <li>
+              {user?.isVerified ? (
+                <React.Fragment>
+                  <li className="ml-2">
+                    <Link
+                      className="btn-sm bg-white font-bold"
+                      href="/dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className="ml-2">
+                    <Link
+                      className="btn-sm inline-flex items-center text-white bg-gray-900 hover:bg-gray-800 group"
+                      onClick={() => logout()}
+                      href="/">
+                      Sign out
+                    </Link>
+                  </li>
+                </React.Fragment>
+              ) : (
+                <li className="ml-2">
+                  <Link
+                    className="btn-sm bg-white font-bold"
+                    onClick={() => onSignInClickFn()}
+                    href="/">
+                    Sign in
+                  </Link>
+                </li>
+              )}
+              {/* <li>
                 <Link
                   className="font-cabinet-grotesk text-sm font-bold text-white underline hover:no-underline flex items-center"
-                  href="/signin">
+                  onClick={() => onSignInClickFn()}
+                  href="/">
                   Sign in
                 </Link>
-              </li>
-              <li className="ml-6">
+              </li> */}
+              {/* <li className="ml-2">
                 <Link
                   className="btn-sm inline-flex items-center text-white bg-gray-900 hover:bg-gray-800 group"
                   href="/schedule-call">
@@ -52,7 +99,7 @@ export default function HeaderMain() {
                     </svg>
                   </span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>

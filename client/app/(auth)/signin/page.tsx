@@ -10,8 +10,12 @@ import Image from 'next/image';
 import PhoneSignin from './PhoneSignin';
 import PhoneOtpVerify from './PhoneOtpVerify';
 import PhoneSuccess from './PhoneSuccess';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/hooks/useUserHook';
 
 export default function SignIn() {
+  const router = useRouter();
+  const { getUser } = useUser();
   const [screenType, setScreenType] = useState('send');
   const [phone, setPhone] = useState('');
   const [token, setToken] = useState(null);
@@ -20,12 +24,16 @@ export default function SignIn() {
     setPhone(val);
   };
   const onOTPSuccess = (data) => {
-    setScreenType('success');
+    // setScreenType('success');
+    if (data?.accountVerified) {
+      getUser();
+      router.push('/dashboard');
+    }
     setToken(data);
   };
   return (
     <main className="bg-white ">
-      <div className="relative md:flex">
+      <div className="relative">
         {screenType == 'send' ? (
           <PhoneSignin onVerify={(val) => onVerifyClick(val)} />
         ) : screenType == 'verify' ? (
@@ -36,8 +44,6 @@ export default function SignIn() {
         ) : (
           <PhoneSuccess phone={phone} token={token} />
         )}
-
-        <AuthImage />
       </div>
     </main>
   );

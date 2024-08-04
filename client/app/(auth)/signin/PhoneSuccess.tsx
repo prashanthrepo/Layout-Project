@@ -27,13 +27,13 @@ export default function PhoneSuccess({ phone, token }) {
     }
   }, [token?.accountVerified]);
   return (
-    <div className="md:w-1/2">
-      <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
+    <div className="">
+      <div className="h-full flex flex-col after:flex-1">
         <AuthHeader />
 
         <div className=" max-w-lg mx-auto w-full px-4 py-8">
           {token?.accountVerified ? (
-            <div className=" h-70v my-10 grid gap-4 content-around">
+            <div className="my-10 grid gap-4 content-around">
               <Image
                 src={verified}
                 className="w-40  mx-auto"
@@ -68,7 +68,7 @@ export default function PhoneSuccess({ phone, token }) {
               </div>
             </div>
           ) : (
-            <div className=" h-70v my-10 grid gap-4 content-around">
+            <div className=" my-10 grid gap-4 content-around">
               <ProfileUpdate phone={phone} />
             </div>
           )}

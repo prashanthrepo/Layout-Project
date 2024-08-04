@@ -38,11 +38,10 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    console.log('logout');
     localStorage.removeItem('user');
     localStorage.removeItem('authToken');
     setUser(null);
-    router.push('/');
+    // router.push('/');
   };
 
   return (

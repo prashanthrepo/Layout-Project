@@ -4,10 +4,11 @@ import AuthHeader from '../auth-header';
 import AuthImage from '../auth-image';
 import otpImage from '@/public/images/otp-input.svg';
 import { useState } from 'react';
-import OTPInput from './OTPInput';
+// import OTPInput from './OTPInput';
 import Image from 'next/image';
 import ButtonLoader from '@/components/ButtonLoader';
 import { useUser } from '@/hooks/useUserHook';
+import OtpInput from 'react-otp-input';
 
 export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
   const { validateOtp, requestOTP } = useUser();
@@ -57,13 +58,13 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
   }, [timer]);
 
   return (
-    <div className="md:w-1/2">
-      <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
-        <AuthHeader />
+    <div className="">
+      <div className="flex flex-col after:flex-1">
+        {/* <AuthHeader /> */}
 
         <div className=" max-w-sm mx-auto w-full px-4 py-8">
           <Image src={otpImage} className=" w-64 mx-auto" alt="OTP screen" />
-          <div className="h-72 my-10 grid gap-4 content-between">
+          <div className=" my-10 grid gap-4 content-between">
             <div className="text-center">
               <h1 className="text-2xl text-slate-800 font-bold">
                 Enter Verification Code
@@ -75,13 +76,22 @@ export default function PhoneOtpVerify({ phoneNumber, onSuccess }) {
             <form>
               <div className="">
                 <div>
-                  <OTPInput
+                  {/* <OTPInput
                     autoFocus
                     isNumberInput
                     length={4}
                     className="flex flex-row items-center justify-between mx-auto w-full max-w-xs"
                     inputClassName="otpInput"
                     onChangeOTP={(otp) => setOtp(otp)}
+                  /> */}
+                  <OtpInput
+                    containerStyle="flex flex-row items-center justify-between mx-auto w-full px-10"
+                    value={otp}
+                    onChange={(otp) => setOtp(otp)}
+                    numInputs={4}
+                    inputStyle="border border-indigo-200 bg-indigo-50 rounded-lg px-4 py-2 outline-none focus:border-slate-600 h-14 w-14 text-center text-xl"
+                    // renderSeparator={<span>-</span>}
+                    renderInput={(props) => <input {...props} style={{}} />}
                   />
                 </div>
               </div>

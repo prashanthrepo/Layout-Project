@@ -19,28 +19,32 @@ const homepagelistings = [
   {
     title: 'Adithya homes, Lavender hills, Bangalore',
     priceRange: '3,500 sqft - 5,500 sqft',
-    image: Carousel01,
+    image:
+      'https://photos.zillowstatic.com/fp/5b71ec386771bd6d6da31ce5669980e6-p_d.jpg',
     location: 'Adithya homes, lavender hills, Bangalore',
     status: 'Available',
   },
   {
     title: 'Pristan homes, Lakeside, Bangalore',
     priceRange: '6,500 sqft - 8,500 sqft',
-    image: Carousel02,
+    image:
+      'https://photos.zillowstatic.com/fp/6d5b6fca3dcc4ba0aece6a62ca2ad827-p_d.jpg',
     location: 'Pristan homes, Lakeside, Bangalore',
     status: 'Available',
   },
   {
     title: 'Brigade Villas, Bangalore',
     priceRange: '8,500 sqft - 12,500 sqft',
-    image: Carousel03,
+    image:
+      'https://photos.zillowstatic.com/fp/3a0b5cb2f53e19acbf9ed2ffe368090d-p_d.jpg',
     location: 'Brigade Villas, Bangalore',
     status: 'Available',
   },
   {
     title: 'Pristan homes, Lakeside, Bangalore',
     priceRange: '6,500 sqft - 8,500 sqft',
-    image: Carousel04,
+    image:
+      'https://photos.zillowstatic.com/fp/78b18b0f619c7de85cee3a23272ccdf4-p_d.jpg',
     location: 'Pristan homes, Lakeside, Bangalore',
     status: 'Available',
   },
