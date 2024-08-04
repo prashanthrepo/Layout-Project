@@ -81,22 +81,21 @@ export default function ListingSlider({ data }) {
               <div className="swiper-wrapper  flex space-x-2">
                 {data?.map((item, key) => (
                   <div
-                    className="swiper-slide rounded-xl max-w-[446px] h-auto  bg-white shadow-lg"
+                    className="swiper-slide rounded-2xl max-w-[346px] h-auto  bg-white shadow-lg"
                     key={key}>
                     <Image
                       className="w-full aspect-[4/2] object-cover h-full"
                       src={item?.image}
                       height="235"
+                      width="200"
                       alt="Carousel 01"
                     />
                     <div className="p-5">
-                      <h4 className="text-xl font-cabinet-grotesk font-bold">
-                        {item?.title}
-                      </h4>
-                      <p className="mt-1">
+                      <h4 className="text-lg truncate">{item?.title}</h4>
+                      <p className="mt-1 text-sm font-bold">
                         {item?.priceRange} | {item?.status}
                       </p>
-                      <p className="mt-1">{item?.location}</p>
+                      <p className="mt-1 text-sm">{item?.location}</p>
                     </div>
                   </div>
                 ))}

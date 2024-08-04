@@ -9,8 +9,9 @@ import BuyerDashboard from './buyer-dashboard';
 
 export default function Dashboard() {
   const { user } = useUser();
+  console.log('user :>> ', user);
   if (!user) {
-    // redirect('/signin');
+    redirect('/signin');
   }
   return (
     <>

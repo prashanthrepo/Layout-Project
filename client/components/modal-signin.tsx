@@ -7,7 +7,7 @@ interface ModalBasicProps {
   setIsOpen: (value: boolean) => void;
 }
 
-export default function ModalBasic({
+export default function ModalSignin({
   children,
   title,
   isOpen,
@@ -34,7 +34,7 @@ export default function ModalBasic({
           leave="transition ease-in-out duration-200"
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-4">
-          <Dialog.Panel className="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
+          <Dialog.Panel className="bg-white rounded-3xl shadow-lg overflow-auto max-w-lg w-full max-h-full">
             {/* Modal header */}
             <div className="px-5 py-3 border-slate-200">
               <div className="flex justify-between items-center">

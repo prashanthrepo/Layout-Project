@@ -34,26 +34,26 @@ export default function PhoneSignin({ onVerify }) {
   }, []);
 
   return (
-    <div className="md:w-1/2">
-      <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
+    <div className="">
+      <div className="flex flex-col after:flex-1">
         <AuthHeader />
 
         <div className=" max-w-sm mx-auto w-full px-4 py-8">
-          <Image
+          {/* <Image
             src={loginPageSvg}
             className=" w-auto max-w-56 mx-auto"
             alt="Login Page Illustration"
-          />
+          /> */}
           <div className="my-10 text-center">
             <h1 className="text-2xl text-slate-800 font-bold">
-              Enter Your Mobile Numbers
+              Enter Your Mobile Number
             </h1>
             <h4 className="text-sm font-medium">
               We will send you a Confirmation Code
             </h4>
           </div>
-          <form>
-            <div className="my-12">
+          <form className="px-6">
+            <div className="my-6">
               <PhoneInput
                 inputProps={{
                   name: 'phone',
@@ -66,10 +66,10 @@ export default function PhoneSignin({ onVerify }) {
                 onChange={(phone) => setPhone(phone)}
                 placeholder="Enter your mobile number"
                 containerClass="w-full "
-                inputClass="w-full border-1 border-indigo-500 rounded-lg py-3 px-4 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
+                inputClass="w-full text-xl border-1 border-indigo-500 rounded-lg py-5 px-4 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
               />
             </div>
-            <div className="flex items-center justify-between my-10">
+            <div className="flex items-center justify-between my-4">
               {/* <button
                 className="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg py-3 font-semibold shadow-2xl disabled:bg-slate-400 disabled:cursor-not-allowed"
                 onClick={() => onSendOtpFn()}
