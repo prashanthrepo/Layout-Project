@@ -16,7 +16,7 @@ export const router = express.Router();
 
 router.post('/', checkAuth, isAdmin, createLayout);
 router.get('/', checkAuth, getLayouts);
-router.get('/layouts', getLayoutsWithoutAuth);
+router.get('/alllayouts', getLayoutsWithoutAuth);
 router.get('/:id', checkAuth, validateId, getSingleLayout);
 router.delete('/:id', checkAuth, isAdmin, validateId, deleteLayout); // TODO: add m/w to check if layoutOwner/admin
 router.patch('/:id', checkAuth, validateId, updateLayout);
