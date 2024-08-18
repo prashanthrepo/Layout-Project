@@ -1,15 +1,15 @@
-import { Request, Response } from "express";
-import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from "../config";
-import layoutModel, { default as Layout } from "../models/layoutModel";
+import { Request, Response } from 'express';
+import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG } from '../config';
+import layoutModel, { default as Layout } from '../models/layoutModel';
 import siteModel, {
   Site,
   createCustomTransaction,
   siteSchema,
-} from "../models/siteModel";
-import transaction, { TransactionDocument } from "../models/transaction";
-import { layoutSchema, transactionSchema } from "../zod/schemas";
-import UserModel from "../models/userModel";
-import { LayoutApprovalModel } from "../models/approvalModel";
+} from '../models/siteModel';
+import transaction, { TransactionDocument } from '../models/transaction';
+import { layoutSchema, transactionSchema } from '../zod/schemas';
+import UserModel from '../models/userModel';
+import { LayoutApprovalModel } from '../models/approvalModel';
 
 const createLayout = async (req: Request, res: Response) => {
   try {
@@ -19,7 +19,7 @@ const createLayout = async (req: Request, res: Response) => {
       res.sendError(BAD_REQUEST, { details: parsedData.error.issues });
     } else {
       const layout = await Layout.create({ ...parsedData.data });
-      const createdSites = await Promise.all<Site["_id"]>(
+      const createdSites = await Promise.all<Site['_id']>(
         parsedData.data.layoutJSON.map(async (siteData) => {
           const site = new siteModel({ ...siteData, layout: layout._id });
           await site.save();
@@ -40,10 +40,22 @@ const getLayouts = async (req: Request, res: Response) => {
     const userRole = await UserModel.getUserRoleById(req.userId as string);
 
     let filter: any = { user: req.userId as string };
-    if (userRole === "Admin" || userRole === "Buyer") filter = {};
+    if (userRole === 'Admin' || userRole === 'Buyer') filter = {};
 
     const layouts = await Layout.find(filter)
-      .select("-sites -location._id")
+      .select('-sites -location._id')
+      .sort({ createdAt: -1 });
+    res.sendSuccess(layouts);
+  } catch (error) {
+    res.sendError(SOMETHING_WENT_WRONG, { error });
+  }
+};
+
+const getLayoutsWithoutAuth = async (req: Request, res: Response) => {
+  try {
+    let filter = {};
+    const layouts = await Layout.find(filter)
+      .select('-sites -location._id')
       .sort({ createdAt: -1 });
     res.sendSuccess(layouts);
   } catch (error) {
@@ -54,10 +66,10 @@ const getLayouts = async (req: Request, res: Response) => {
 const getSingleLayout = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const layout = await Layout.findOne({ _id: id }).populate("sites");
+    const layout = await Layout.findOne({ _id: id }).populate('sites');
     const layoutApprovals = await LayoutApprovalModel.find({
       layout: layout?._id,
-    }).populate("approval");
+    }).populate('approval');
 
     const approvals = [];
     for (const obj of layoutApprovals) {
@@ -106,7 +118,7 @@ const updateLayout = async (req: Request, res: Response) => {
 
   try {
     const approvals: any[] = [];
-    if (req.body.hasOwnProperty("approvals")) {
+    if (req.body.hasOwnProperty('approvals')) {
       for (const item of req.body.approvals) {
         const objj = await LayoutApprovalModel.findOne({
           layout: id,
@@ -173,7 +185,7 @@ const getLayoutLeads = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const layout = await Layout.findById(id).populate({
-      path: "leads",
+      path: 'leads',
       options: { sort: { createdAt: -1 } },
     });
     if (layout) {
@@ -192,20 +204,20 @@ const getLayoutTransactions = async (req: Request, res: Response) => {
     const { id, date } = req.params;
     // TODO: Add option to filter by date
 
-    const layout = await layoutModel.findById(id).populate("sites");
+    const layout = await layoutModel.findById(id).populate('sites');
 
     if (layout) {
       const sitePromises = layout.sites.map(async (site) => {
         const customTxns = [];
 
         const siteObj = await siteModel.findById(site).populate({
-          path: "transactions",
+          path: 'transactions',
           populate: [
-            { path: "metadata.lead", model: "Lead" },
+            { path: 'metadata.lead', model: 'Lead' },
             {
-              path: "metadata.token",
-              model: "Token",
-              populate: { path: "lead", model: "Lead" }, // Recursively populate lead within token
+              path: 'metadata.token',
+              model: 'Token',
+              populate: { path: 'lead', model: 'Lead' }, // Recursively populate lead within token
             },
           ],
         });
@@ -230,7 +242,7 @@ const getLayoutTransactions = async (req: Request, res: Response) => {
       res.sendSuccess(allCustomTxns);
     }
   } catch (error) {
-    console.error("Error in getLayoutTransactions:", error);
+    console.error('Error in getLayoutTransactions:', error);
     res.sendError(SOMETHING_WENT_WRONG);
   }
 };
@@ -241,6 +253,7 @@ export {
   getLayoutLeads,
   getLayoutTransactions,
   getLayouts,
+  getLayoutsWithoutAuth,
   getSingleLayout,
   updateLayout,
 };
