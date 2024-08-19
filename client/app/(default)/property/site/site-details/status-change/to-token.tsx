@@ -70,8 +70,15 @@ export default function ToToken({
     if (validate()) {
       const payload = {
         status: 'Token',
-        token: toToken,
-        statusMetadata: { notes: toToken?.notes },
+        token: {
+          contactId: toToken?.contactId,
+          amount: toToken?.tokenAmount,
+          validity: toToken?.validity,
+        },
+        statusMetadata: {
+          notes: toToken?.notes,
+          registrationDate: toToken?.registrationDate,
+        },
       };
       mutate({ id: siteDetails?._id, payload });
     }

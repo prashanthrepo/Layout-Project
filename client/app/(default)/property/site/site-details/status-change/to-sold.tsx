@@ -10,6 +10,7 @@ export default function ToSold({
   siteDetails,
   onRefetchDataFn,
   onClose,
+  contacts,
 }) {
   const { mutate, isLoading } = useMutation(updateSiteByID, {
     onSuccess: (data) => {
@@ -29,7 +30,7 @@ export default function ToSold({
   }
 
   const [toSold, setToSold] = useState<ToSoldState>({
-    lead: leads[0],
+    lead: null,
     amount: '',
     notes: '',
   });
@@ -75,11 +76,22 @@ export default function ToSold({
             <label className="pp-label" htmlFor="sold-lead">
               Sold to <span className="text-rose-500">*</span>
             </label>
-            <AutocompleteDropdown
+            {/* <AutocompleteDropdown
               className="pp-input"
               options={leads}
               onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}
+            /> */}
+            <AutocompleteDropdown
+              options={contacts}
+              className="pp-input"
+              onChange={(val) => {
+                setToSold((prev) => ({
+                  ...prev,
+                  lead: val?._id,
+                }));
+              }}
+              defaultValue={[{}]}
             />
             {errors.lead && (
               <p className="text-sm text-rose-500">{errors.lead}</p>
