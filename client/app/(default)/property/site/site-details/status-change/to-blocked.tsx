@@ -10,6 +10,7 @@ export default function ToBlocked({
   siteDetails,
   onRefetchDataFn,
   onClose,
+  contacts,
 }) {
   const { mutate, isLoading } = useMutation(updateSiteByID, {
     onSuccess: () => {
@@ -71,11 +72,22 @@ export default function ToBlocked({
             <label className="pp-label" htmlFor="blocked-lead">
               Blocked to <span className="text-rose-500">*</span>
             </label>
-            <AutocompleteDropdown
+            {/* <AutocompleteDropdown
               className="pp-input"
               options={leads}
               onChange={(val) => handleInputChange('lead', val?._id)}
               defaultValue={leads[0]}
+            /> */}
+            <AutocompleteDropdown
+              options={contacts}
+              className="pp-input"
+              onChange={(val) => {
+                setToBlocked((prev) => ({
+                  ...prev,
+                  lead: val?._id,
+                }));
+              }}
+              defaultValue={[{}]}
             />
             {errors.lead && (
               <p className="text-sm text-rose-500">{errors.lead}</p>
