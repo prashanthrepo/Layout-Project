@@ -109,9 +109,9 @@ export default function Property() {
                 </svg>
               </button>
             </div>
-            <button className="btnsecondary" onClick={takeScreenshot}>
+            {/* <button className="btnsecondary" onClick={takeScreenshot}>
               Take Screenshot
-            </button>
+            </button> */}
           </div>
           <div className="flex" id="propertyPhoto">
             <div className="w-full">

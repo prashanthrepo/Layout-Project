@@ -2,8 +2,6 @@
   "ios": {
     "contentInset": "always"
   },
-  "server": {
-    "url": "http://192.168.0.113:3000",
-    "cleartext": true
-  }
+  "webDir": "out",
+  "bundledWebRuntime": false
 }

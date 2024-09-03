@@ -1,0 +1,46 @@
+PODS:
+  - Capacitor (5.7.3):
+    - CapacitorCordova
+  - CapacitorBrowser (6.0.1):
+    - Capacitor
+  - CapacitorCordova (5.7.3)
+  - CapacitorKeyboard (5.0.8):
+    - Capacitor
+  - CapacitorShare (5.0.6):
+    - Capacitor
+  - CapacitorTextZoom (5.0.7):
+    - Capacitor
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
+  - "CapacitorTextZoom (from `../../node_modules/@capacitor/text-zoom`)"
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorBrowser:
+    :path: "../../node_modules/@capacitor/browser"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorKeyboard:
+    :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorShare:
+    :path: "../../node_modules/@capacitor/share"
+  CapacitorTextZoom:
+    :path: "../../node_modules/@capacitor/text-zoom"
+
+SPEC CHECKSUMS:
+  Capacitor: 7b5eb47c6125e9b58a3e3cd02fe366fc58adc89c
+  CapacitorBrowser: 473c7fd70ddbe541608ff09ec1be14da0078279e
+  CapacitorCordova: a377c52a28dbb3b895c0f71187f7b1777fee69db
+  CapacitorKeyboard: aec619a578235c6ce279075009a2689c2cf5c42c
+  CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
+  CapacitorTextZoom: 69814a62b1d0f23a899cca06ea9838c38de187ff
+
+PODFILE CHECKSUM: 9abf5b3a3c48891316cda626892a7a8d1711e8e4
+
+COCOAPODS: 1.14.3
