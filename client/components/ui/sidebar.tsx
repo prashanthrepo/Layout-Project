@@ -281,7 +281,7 @@ export default function Sidebar() {
                   segments.includes('logout') && 'bg-slate-900'
                 }`}
                 onClick={() => logout(null)}>
-                <button>
+                <SidebarLink href="/">
                   <div className="flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -303,7 +303,7 @@ export default function Sidebar() {
                       Logout
                     </span>
                   </div>
-                </button>
+                </SidebarLink>
               </li>
             </ul>
           </div>

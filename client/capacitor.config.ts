@@ -9,10 +9,10 @@ const config: CapacitorConfig = {
       launchAutoHide: false,
     },
   },
-  // server: {
-  //   url: 'http://192.168.0.113:3000',
-  //   cleartext: true,
-  // },
+  server: {
+    url: 'http://192.168.0.148:3000',
+    cleartext: true,
+  },
   ios: {
     contentInset: 'always',
   },

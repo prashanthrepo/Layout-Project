@@ -72,7 +72,7 @@ export default function ToToken({
         status: 'Token',
         token: {
           contactId: toToken?.contactId,
-          amount: toToken?.tokenAmount,
+          tokenAmount: toToken?.tokenAmount,
           validity: toToken?.validity,
         },
         statusMetadata: {

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Paypersqft</string>
+    <string name="title_activity_main">Paypersqft</string>
+    <string name="package_name">com.paypersqft.app</string>
+    <string name="custom_url_scheme">com.paypersqft.app</string>
+</resources>

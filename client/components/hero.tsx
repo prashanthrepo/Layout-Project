@@ -43,7 +43,7 @@ export default function Hero() {
               Find your place with an immersive photo experience and the most
               listings, including things you won’t find anywhere else.
             </p>
-            <div data-aos="fade-up" data-aos-delay="200">
+            {/* <div data-aos="fade-up" data-aos-delay="200">
               <Link
                 className="btn inline-flex items-center text-white bg-gray-900 hover:bg-gray-800 group"
                 href="/schedule-call">
@@ -58,7 +58,7 @@ export default function Hero() {
                   </svg>
                 </span>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
