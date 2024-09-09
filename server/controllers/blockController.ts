@@ -32,6 +32,71 @@ const createBlock = async (req: Request, res: Response) => {
   res.sendSuccess({}, 201);
 };
 
-// jcp /blocks/ '{ "apartmentId": "39ab234cf12", "blockName": "Block A", "noOfFloors": 2, "floorsInfo": [ { "floorName": "First Floor", "flats": [ { "flatName": "A101", "status": "Available", "points": "21.67,146.36 112.8,146.36 112.8,72.79 52.16,72.79 52.16,60.53 21.67,60.53 21.67,103.44 15.37,103.44 15.37,116.2 21.5,116.04 ", "info": [ { "text": "A101", "transform": "matrix(1 0 0 1 56.481 96.6799)", "type": "flatno" }, { "text": "WEST", "transform": "matrix(1 0 0 1 56.3 124.99)", "type": "facing" }, { "text": "1495", "transform": "matrix(1 0 0 1 56.25 106.82)", "type": "area" }, { "text": "3", "transform": "matrix(1 0 0 1 63.55 116.27)", "type": "bhk" } ] } ] }, { "floorName": "Second Floor", "flats": [ { "flatName": "A201", "status": "Sold", "points": "21.67,146.36 112.8,146.36 112.8,72.79 52.16,72.79 52.16,60.53 21.67,60.53 21.67,103.44 15.37,103.44 15.37,116.2 21.5,116.04 ", "info": [ { "text": "A201", "transform": "matrix(1 0 0 1 56.481 96.6799)", "type": "flatno" }, { "text": "WEST", "transform": "matrix(1 0 0 1 56.3 124.99)", "type": "facing" }, { "text": "1495", "transform": "matrix(1 0 0 1 56.25 106.82)", "type": "area" }, { "text": "3", "transform": "matrix(1 0 0 1 63.55 116.27)", "type": "bhk" } ] }, { "flatName": "A202", "status": "Sold", "points": "21.67,146.36 112.8,146.36 112.8,72.79 52.16,72.79 52.16,60.53 21.67,60.53 21.67,103.44 15.37,103.44 15.37,116.2 21.5,116.04 ", "info": [ { "text": "A202", "transform": "matrix(1 0 0 1 56.481 96.6799)", "type": "flatno" }, { "text": "WEST", "transform": "matrix(1 0 0 1 56.3 124.99)", "type": "facing" }, { "text": "1495", "transform": "matrix(1 0 0 1 56.25 106.82)", "type": "area" }, { "text": "3", "transform": "matrix(1 0 0 1 63.55 116.27)", "type": "bhk" } ] } ] } ] }'
+const getApartmentBlocks = async (req: Request, res: Response) => {
+  const { apartmentId } = req.params;
+  console.log(apartmentId);
 
-export { createBlock };
+  const blocks = await blockModel.find({ apartment: apartmentId });
+
+  res.sendSuccess(blocks);
+};
+
+const getFullBlockData = async (req: Request, res: Response) => {
+  try {
+    const { blockId, apartmentId } = req.params;
+
+    // Fetch the block details with the associated apartment and floors
+    const blockData = await blockModel
+      .findById(blockId)
+      .populate({
+        path: "apartment",
+        match: { _id: apartmentId },
+      })
+      .exec();
+
+    if (!blockData) {
+      return res.status(404).json({ message: "Block not found" });
+    }
+
+    // Fetch all floors in the block
+    const floors = await floorModel.find({ block: blockId }).exec();
+
+    const floorsInfo = await Promise.all(
+      floors.map(async (floor) => {
+        // Fetch flats in each floor
+
+        const flats = await flatModel.find({ floor: floor._id });
+
+        const flatInfo = flats.map((flat) => ({
+          flatName: flat.flatName,
+          status: flat.status,
+          points: flat.points,
+          info: flat.info.map((infoItem) => ({
+            text: infoItem.text,
+            transform: infoItem.transform,
+            type: infoItem.type,
+          })),
+        }));
+
+        return {
+          floorName: floor.floorName,
+          flats: flatInfo,
+        };
+      })
+    );
+
+    const response = {
+      apartmentId,
+      blockName: blockData.blockName,
+      noOfFloors: floors.length,
+      floorsInfo,
+    };
+
+    res.sendSuccess(response);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export { createBlock, getApartmentBlocks, getFullBlockData };
