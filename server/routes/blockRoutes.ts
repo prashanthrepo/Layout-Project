@@ -1,8 +1,12 @@
 import { Router } from "express";
 
 import { checkAuth, isAdmin, validateId } from "../middlewares";
-import { createBlock } from "../controllers/blockController";
-
+import {
+  createBlock,
+  getApartmentBlocks,
+//   getFullBlockData,
+  getFullBlockData,
+} from "../controllers/blockController";
 
 export const router = Router();
 
@@ -14,9 +18,8 @@ export const router = Router();
 // router.patch("/:id", checkAuth, isAdmin, editApproval);
 // router.delete("/:id", checkAuth, isAdmin, deleteApproval);
 
-
-
-// router.get("/", checkAuth,  getApprovalList);
+router.get("/:apartmentId", getApartmentBlocks);
+router.get("/:apartmentId/:blockId", getFullBlockData);
 router.post("/", createBlock);
 // router.patch("/:id", checkAuth, isAdmin, editApproval);
 // router.delete("/:id", checkAuth, isAdmin, deleteApproval);

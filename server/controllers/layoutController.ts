@@ -50,10 +50,19 @@ const getLayouts = async (req: Request, res: Response) => {
     const apartments = await apartmentModel.find(filter)
       .select('-sites -location._id')
       .sort({ createdAt: -1 });
+
+
+      const layoutResults = layouts.map(layout => ({
+        ...layout.toObject(),
+        type: 'layout'
+      }));
+  
+      const apartmentResults = apartments.map(apartment => ({
+        ...apartment.toObject(),
+        type: 'apartment'
+      }));
     
-    
-    
-      res.sendSuccess([...layouts,...apartments]);
+      res.sendSuccess([...layoutResults, ...apartmentResults]);
 
 
 

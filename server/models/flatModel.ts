@@ -13,7 +13,7 @@ export interface Flat extends Document {
 const flatSchema = new Schema<Flat>({
   flatName: { type: String, required: true },
   points: { type: String, required: true },
-  floor: { type: String, ref: "Floor" },
+  floor: { type:  Schema.Types.ObjectId, ref: "Floor" },
   status: {
     type: String,
     required: true,
