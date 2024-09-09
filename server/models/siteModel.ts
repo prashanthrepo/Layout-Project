@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from "mongoose"
 import { Layout } from "./layoutModel"
 import transactionModel, { TransactionDocument } from "../models/transaction"
 
-interface SiteInfo extends Document {
+ export interface SiteInfo extends Document {
     text: string
     transform: string
     type: string
@@ -32,7 +32,7 @@ export interface Site extends Document {
     area: string
 }
 
-const siteInfoSchema = new Schema<SiteInfo>({
+export const siteInfoSchema = new Schema<SiteInfo>({
     text: { type: String },
     transform: { type: String },
     type: { type: String },

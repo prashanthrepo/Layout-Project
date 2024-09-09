@@ -65,6 +65,19 @@ const layoutSchema = z.object({
     user: z.string()
 })
 
+
+const apartmentSchema = z.object({
+    user: z.string(),
+    name: z.string(),
+    description: z.string(),
+    image: z.string(),
+    location: locationSchema,
+    coordinates: coordinateSchema ,
+    approvals: z.array(z.string()).optional(),
+    
+})
+
+
 const tokenSchema = z.object({
     site: z.string(),
     lead: z.string(),
@@ -85,4 +98,5 @@ export {
     siteSchema,
     tokenSchema,
     transactionSchema,
+    apartmentSchema
 }
