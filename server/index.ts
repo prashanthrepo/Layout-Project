@@ -11,7 +11,9 @@ import {
     leadRoutes,
     siteRoutes,
     tokenRoutes,
-    contactRoutes
+    contactRoutes,
+    apartmentRoutes,
+    blockRoutes
 } from "./routes"
 
 dotenv.config()
@@ -31,6 +33,8 @@ app.use("/sites", siteRoutes)
 app.use("/leads", leadRoutes)
 app.use("/token", tokenRoutes)
 app.use("/approvals", approvalRoutes)
+app.use("/apartments", apartmentRoutes)
+app.use("/blocks", blockRoutes)
 app.use("/contacts", contactRoutes)
 app.use("/", baseRoutes)
 

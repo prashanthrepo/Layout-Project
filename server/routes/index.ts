@@ -1,4 +1,6 @@
 import { router as authRoutes } from "./authRoutes";
+import { router as apartmentRoutes } from "./apartmentRoutes";
+import { router as blockRoutes } from "./blockRoutes";
 import { router as baseRoutes } from "./baseRoutes";
 import { router as layoutRoutes } from "./layoutRoutes";
 import { router as leadRoutes } from "./leadRoutes";
@@ -16,4 +18,6 @@ export {
   tokenRoutes,
   approvalRoutes,
   contactRoutes,
+  apartmentRoutes,
+  blockRoutes,
 };

@@ -10,6 +10,7 @@ import transaction, { TransactionDocument } from '../models/transaction';
 import { layoutSchema, transactionSchema } from '../zod/schemas';
 import UserModel from '../models/userModel';
 import { LayoutApprovalModel } from '../models/approvalModel';
+import apartmentModel from '../models/apartmentModel';
 
 const createLayout = async (req: Request, res: Response) => {
   try {
@@ -45,7 +46,17 @@ const getLayouts = async (req: Request, res: Response) => {
     const layouts = await Layout.find(filter)
       .select('-sites -location._id')
       .sort({ createdAt: -1 });
-    res.sendSuccess(layouts);
+    
+    const apartments = await apartmentModel.find(filter)
+      .select('-sites -location._id')
+      .sort({ createdAt: -1 });
+    
+    
+    
+      res.sendSuccess([...layouts,...apartments]);
+
+
+
   } catch (error) {
     res.sendError(SOMETHING_WENT_WRONG, { error });
   }
