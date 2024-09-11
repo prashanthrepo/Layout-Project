@@ -68,6 +68,7 @@ const getFullBlockData = async (req: Request, res: Response) => {
         const flats = await flatModel.find({ floor: floor._id });
 
         const flatInfo = flats.map((flat) => ({
+          flatId: flat._id,
           flatName: flat.flatName,
           status: flat.status,
           points: flat.points,
@@ -80,6 +81,7 @@ const getFullBlockData = async (req: Request, res: Response) => {
 
         return {
           floorName: floor.floorName,
+          floorId: floor._id,
           flats: flatInfo,
         };
       })
@@ -87,6 +89,7 @@ const getFullBlockData = async (req: Request, res: Response) => {
 
     const response = {
       apartmentId,
+      blockId: blockData._id,
       blockName: blockData.blockName,
       noOfFloors: floors.length,
       floorsInfo,

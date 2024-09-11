@@ -8,6 +8,7 @@ import { router as siteRoutes } from "./siteRoutes";
 import { router as tokenRoutes } from "./tokenRoutes";
 import { router as approvalRoutes } from "./approvalRoutes";
 import { router as contactRoutes } from "./contactRoutes";
+import { router as flatRoutes } from "./flatRoutes";
 
 export {
   authRoutes,
@@ -20,4 +21,5 @@ export {
   contactRoutes,
   apartmentRoutes,
   blockRoutes,
+  flatRoutes,
 };

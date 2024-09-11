@@ -8,7 +8,7 @@ import transactionModel, { TransactionDocument } from "../models/transaction"
     type: string
 }
 
-interface Lead extends Document {
+export interface Lead extends Document {
     name: string
     phone: string
     email?: string
