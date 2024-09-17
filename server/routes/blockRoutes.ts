@@ -4,7 +4,7 @@ import { checkAuth, isAdmin, validateId } from "../middlewares";
 import {
   createBlock,
   getApartmentBlocks,
-//   getFullBlockData,
+  //   getFullBlockData,
   getFullBlockData,
 } from "../controllers/blockController";
 
