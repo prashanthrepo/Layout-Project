@@ -165,13 +165,13 @@ function isTransaction(obj: any): obj is TransactionDocument {
   return obj && obj.metadata !== undefined;
 }
 
-async function createLead(leadData: any) {
+export async function createLead(leadData: any) {
   const lead = await leadModel.create({ ...leadData });
   await lead.save();
   return lead._id;
 }
 
-async function createToken(tokenData1: any) {
+export async function createToken(tokenData1: any) {
   const { validity, ...tokenData } = tokenData1;
 
   const currentDate = new Date();
