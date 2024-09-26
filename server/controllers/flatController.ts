@@ -5,9 +5,10 @@ import leadModel from "../models/leadModel";
 
 import token from "../models/token";
 import { TransactionDocument } from "../models/transaction";
-import { logTransaction } from "./transactionController";
+import { logTransactionForFlat } from "./transactionController";
 import flatModel, { createCustomTransactionForFlat } from "../models/flatModel";
 import { createLead, createToken } from "./siteController";
+import { populate } from "dotenv";
 
 const getSingleSite = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -69,21 +70,40 @@ const updateSite = async (req: Request, res: Response) => {
     }
   }
 
-  const updatedSite = await flatModel.findByIdAndUpdate(site?._id, req.body, {
-    new: true,
-  });
+  const updatedFlat = await flatModel
+    .findByIdAndUpdate(site?._id, req.body, {
+      new: true,
+    })
+    .populate({
+      path: "floor",
+      populate: { path: "block", populate: { path: "apartment" } },
+    });
+
+  // console.log(
+  //   updatedFlat?._id,
+  //   updatedFlat?.floor._id,
+  //   updatedFlat?.floor.block._id,
+  //   updatedFlat?.floor.block.apartment._id
+  // );
 
   if ("status" in req.body) {
-    await logTransaction(updatedSite?._id as Types.ObjectId, "STATUS_CHANGE", {
-      prevStatus,
-      currentStatus: updatedSite?.status,
-      token: updatedSite?.statusMetadata?.token,
-      lead: updatedSite?.statusMetadata?.lead,
-      soldDate: updatedSite?.statusMetadata?.soldDate,
-    });
+    await logTransactionForFlat(
+      updatedFlat?._id as Types.ObjectId,
+      updatedFlat?.floor._id as Types.ObjectId,
+      updatedFlat?.floor.block._id as Types.ObjectId,
+      updatedFlat?.floor.block.apartment._id as Types.ObjectId,
+      "STATUS_CHANGE",
+      {
+        prevStatus,
+        currentStatus: updatedFlat?.status,
+        token: updatedFlat?.statusMetadata?.token,
+        lead: updatedFlat?.statusMetadata?.lead,
+        soldDate: updatedFlat?.statusMetadata?.soldDate,
+      }
+    );
   }
 
-  res.sendSuccess(updatedSite);
+  res.sendSuccess(updatedFlat);
 };
 
 const getSiteLeads = async (req: Request, res: Response) => {
@@ -107,51 +127,67 @@ const getSiteLeads = async (req: Request, res: Response) => {
   }
 };
 
-// const getSiteTransactions = async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const customTxns = [];
-//   const siteObj = await flatModel.findById(id).populate({
-//     path: "transactions",
-//     populate: [
-//       { path: "metadata.lead", model: "Lead" },
-//       {
-//         path: "metadata.token",
-//         model: "Token",
-//         populate: { path: "lead", model: "Lead" }, // Recursively populate lead within token
-//       },
-//     ],
-//   });
-//   if (siteObj) {
-//     const siteTxns = siteObj?.transactions;
+const getFlatTransactions = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const customTxns = [];
+  const flatObj = await flatModel.findById(id)
+  // .populate({
+  //   path: "transactions",
+  // })
+  
+  
+  .populate({
+    path: "transactions",
+    populate: [
+      {path:"floor",},
+      {path:"block",},
+      {path:"apartment",},
+      { path: "metadata.lead", model: "Lead" },
+      {
+        path: "metadata.token",
+        model: "Token",
+        populate: { path: "lead", model: "Lead" }, // Recursively populate lead within token
+      },
+    ],
+  })
 
-//     if (siteTxns) {
-//       for (let txn of siteTxns) {
-//         const customTxn = createCustomTransactionForFlat(siteObj, txn as any);
-//         customTxns.push(customTxn);
-//       }
-//     }
+  // console.log(flatObj);
 
-//     customTxns.sort((a: any, b: any) => {
-//       const dateA = new Date(a.date);
-//       const dateB = new Date(b.date);
+  if (flatObj) {
+    const siteTxns = flatObj?.transactions;
 
-//       if (isNaN(dateA.getTime())) {
-//         console.error("Invalid date for object:", a);
-//         return 0;
-//       }
-//       if (isNaN(dateB.getTime())) {
-//         console.error("Invalid date for object:", b);
-//         return 0;
-//       }
+    if (siteTxns) {
+      for (let txn of siteTxns) {
 
-//       return dateB.getTime() - dateA.getTime();
-//     });
+        // console.log({txn})
+        const customTxn = createCustomTransactionForFlat(flatObj, txn as any);
+        customTxns.push(customTxn);
+      }
+    }
 
-//     res.sendSuccess(customTxns);
-//   }
+    customTxns.sort((a: any, b: any) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
 
-//   !siteObj && res.sendError(OBJECT_NOT_FOUND);
-// };
+      if (isNaN(dateA.getTime())) {
+        console.error("Invalid date for object:", a);
+        return 0;
+      }
+      if (isNaN(dateB.getTime())) {
+        console.error("Invalid date for object:", b);
+        return 0;
+      }
+
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    res.sendSuccess(customTxns);
+
+    // res.sendSuccess({});
+  }
+
+  !flatObj && res.sendError(OBJECT_NOT_FOUND);
+};
 
 // const fetchTokenDetails = async (tokenId: string) => {
 //   const tokenObj = await token.findById(tokenId).populate("lead");
@@ -187,9 +223,4 @@ const getSiteLeads = async (req: Request, res: Response) => {
 //   }
 // }
 
-export {
-  getSingleSite,
-  getSiteLeads,
-  //   getSiteTransactions,
-  updateSite,
-};
+export { getSingleSite, getSiteLeads, getFlatTransactions, updateSite };
