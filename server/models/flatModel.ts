@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 import floorModel, { Floor } from "./floorModel";
 import { Lead, SiteInfo, siteInfoSchema } from "./siteModel";
 import { TransactionDocument } from "./transaction";
+import { FlatTransactionDocument } from "./flatTransaction";
 
 export interface Flat extends Document {
   flatName: string;
@@ -22,7 +23,7 @@ export interface Flat extends Document {
   customPrice: string;
   defaultPrice: string;
   leads: Lead[];
-  transactions: Array<Types.ObjectId | TransactionDocument>;
+  transactions: Array<Types.ObjectId | FlatTransactionDocument>;
   dimensions: string;
   area: string;
 }
@@ -45,7 +46,7 @@ const flatSchema = new Schema<Flat>({
   // ----
   // layout: { type: Schema.Types.ObjectId, ref: "Layout", required: true },
   // number: { type: String, required: true },
-  type: { type: String, required: true },
+  type: { type: String, required: false },
   status: {
     type: String,
     required: true,
@@ -79,16 +80,19 @@ const flatSchema = new Schema<Flat>({
     },
   ],
   leads: [{ type: Schema.Types.ObjectId, ref: "Lead" }],
-  transactions: [{ type: Schema.Types.Mixed, ref: "Transaction" }],
+  transactions: [{ type: Schema.Types.Mixed, ref: "FlatTransaction" }],
 });
 
 export const createCustomTransactionForFlat = function (
-  site: Flat,
-  txn: TransactionDocument,
+  flat: Flat,
+  txn: any,
   layoutName?: string
 ) {
   let customTransaction: any = {
-    siteNumber: site.number,
+    flatName: flat.flatName,
+    floor: txn.floor.floorName,
+    block: txn.block.blockName,
+    apartment: txn.apartment.name,
     layoutName,
   };
 
