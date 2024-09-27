@@ -9,6 +9,7 @@ export const router = express.Router()
 
 
 router.get("/me", checkAuth, getUserDetails)
+// router.get("/dashboard", checkAuth, getDashboardInfo)
 router.get("/dashboard", checkAuth, getDashboardInfo)
 
 
