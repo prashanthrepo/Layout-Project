@@ -86,19 +86,19 @@ const flatSchema = new Schema<Flat>({
 export const createCustomTransactionForFlat = function (
   flat: Flat,
   txn: any,
-  layoutName?: string
+  // layoutName?: string
 ) {
   let customTransaction: any = {
     flatName: flat.flatName,
     floor: txn.floor.floorName,
     block: txn.block.blockName,
     apartment: txn.apartment.name,
-    layoutName,
+    // layoutName,
   };
 
-  if (layoutName) {
-    customTransaction.layoutName = layoutName;
-  }
+  // if (layoutName) {
+  //   customTransaction.layoutName = layoutName;
+  // }
 
   const getStatus = (metadata: any) => {
     if (
