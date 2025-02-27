@@ -1,5 +1,5 @@
 import express from "express"
-import { requestOTP, updateProfile, validateOTP } from "../controllers/authController"
+import { requestOTP, updateProfile, validateOTP, inActivateFn, activateFn } from "../controllers/authController"
 import { checkAuth } from "../middlewares"
 import UserModel from "../models/userModel"
 
@@ -17,16 +17,19 @@ router.get("/all-users", async (req, res) => {
 
     const userIdsWithPhoneNumbers = users.map(user => ({
         userId: user._id,
+        fullName: `${user.first_name || ""} ${user.last_name || ""}`.trim(),
         phoneNumber: user.phone_number,
         role:user.role
       }));
 
       console.log(userIdsWithPhoneNumbers);
-    res.sendSuccess(phone_numbers)
+    res.sendSuccess(userIdsWithPhoneNumbers)
 
 })
 router.post("/request-otp", requestOTP)
 router.post("/validate-otp", validateOTP)
 router.patch("/update-profile", checkAuth, updateProfile)
+exports.router.patch("/inactivate/:userId", inActivateFn);
+exports.router.patch("/activate/:userId", activateFn);
 
 

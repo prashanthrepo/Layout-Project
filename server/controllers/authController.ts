@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED } from "../config"
+import { BAD_REQUEST, OBJECT_NOT_FOUND, SOMETHING_WENT_WRONG, UNAUTHORISED, OBJECT_USER_INACTIVATED, OBJECT_USER_ACTIVATED } from "../config"
 import UserModel from "../models/userModel"
 import JWTService from "../services/jwt"
 import MSG91Service from "../services/msg91"
@@ -91,6 +91,51 @@ const validateOTP = async (req: Request, res: Response) => {
     }
 }
 
+// Inactivate: 1 -> activate and 0 -> Inactivate
 
-export { requestOTP, updateProfile, validateOTP }
+const inActivateFn = async (req: Request, res: Response) => {
+
+    const { userId } = req.params
+    try {
+        const user = await UserModel.findById(userId)
+        if (user) {
+            await UserModel.findByIdAndUpdate(userId,
+                { $set: { status: 0 } }, // Explicitly updating only the `status` field
+                { new: true, projection: { status: 1 } })
+            res.sendSuccess(OBJECT_USER_INACTIVATED,)
+        }
+        else {
+            res.sendError(OBJECT_NOT_FOUND)
+
+        }
+    }
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG)
+    }
+}
+
+
+const activateFn = async (req: Request, res: Response) => {
+
+    const { userId } = req.params
+    try {
+        const user = await UserModel.findById(userId)
+        if (user) {
+            await UserModel.findByIdAndUpdate(userId,
+                { $set: { status: 1 } }, // Explicitly updating only the `status` field
+                { new: true, projection: { status: 1 } })
+            res.sendSuccess(OBJECT_USER_ACTIVATED)
+        }
+        else {
+            res.sendError(OBJECT_NOT_FOUND)
+
+        }
+    }
+    catch (error) {
+        res.sendError(SOMETHING_WENT_WRONG)
+    }
+}
+
+
+export { requestOTP, updateProfile, validateOTP, inActivateFn, activateFn }
 
