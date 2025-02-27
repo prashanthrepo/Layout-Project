@@ -12,6 +12,7 @@ interface User extends Document {
     otp?: string
     role: UserRole
     isVerified: boolean
+    status:Number
 }
 
 interface UserModelStatic extends Model<User> {
@@ -33,7 +34,7 @@ const userSchema = new Schema<User>(
             enum: ["Seller", "Buyer", "Admin"],
             required: false,
         },
-
+        status: { type: Number, required: false, default: 1 },
     },
     { timestamps: true }
 )
