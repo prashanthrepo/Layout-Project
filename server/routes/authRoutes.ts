@@ -22,7 +22,7 @@ router.get("/all-users", async (req, res) => {
         role:user.role
       }));
 
-      console.log(userIdsWithPhoneNumbers);
+      //console.log(userIdsWithPhoneNumbers);
     res.sendSuccess(userIdsWithPhoneNumbers)
 
 })
